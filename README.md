@@ -1,4 +1,4 @@
-# CineMagic
+# PetHope
 Projeto Anual de POAS
 
 ## Equipe do Projeto: 
@@ -8,7 +8,7 @@ Projeto Anual de POAS
 - Priscylla Beatriz Alves de Araújo
 
 ## Descrição do Tema:
-O CineMagic é um sistema de gerenciamento de filmes, focado em oferecer uma experiência moderna, rápida e intuitiva para os usuários. A aplicação permitirá cadastrar, visualizar, editar, alugar e remover filmes de forma simples, além de organizar informações como título, gênero, ano de lançamento e avaliações.
+O PetHope é um sistema focado em ajudar ONGs de proteção de animais e protetores independentes que necessitam de ferramentas eficientes e organizadas para o gerenciamento de suas atividades, oferencendo uma experiência moderna, rápida e intuitiva para os usuários.
 
 ## Tecnologia de Frontend: 
 - **VueJS**
@@ -30,21 +30,23 @@ O CineMagic é um sistema de gerenciamento de filmes, focado em oferecer uma exp
 - Estilização inicial
 
 ### Junho (28/06)
-- Tela de cadastro de filmes
-- Tela de cadastro de clientes
+- Tela de cadastro de animais
+- Tela de gereciamento de adoção
+- Tela de cadastro de instituições
 - Validação de formulários
 - Melhorias de layout e usabilidade
 
 ### Julho (28/07)
-- Implementação do aluguel de filmes 
-- Implementação da devolução
+- Tela de cadastro de usuários
+- Tela de gerenciamento de doações
+- Tela de gerenciamento de resgate
 - Integração entre telas
 - Atualização dinâmica com Vue.js
 
 ### Agosto (28/08)
 - Melhorias visuais
 - Implementação de busca e filtros
-- Refinamento da experiência do usuário
+- Refinamento da experiência dos usuários
 
 ### Setembro (28/09)
 - Integração completa com backend
