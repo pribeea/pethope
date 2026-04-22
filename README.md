@@ -1,5 +1,5 @@
 # PetHope
-Projeto Anual de POAS
+Projeto Anual de POAS e PDSI
 
 ## Equipe do Projeto: 
 - Amanda Alves de Souza
