@@ -30,6 +30,24 @@ class ONG(db.Model):
             "contato": self.contato
         }
 
+# ================= USUÁRIO =================
+class User(db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    senha = db.Column(db.String(100), nullable=False)
+    tipo = db.Column(db.String(30), nullable=False)  
+    # exemplo: voluntario, adotante, administrador
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "email": self.email,
+            "tipo": self.tipo
+        }
 # ==================================
 @app.route('/api/ongs', methods=['POST'])
 def cadastrar_ong():
@@ -54,6 +72,37 @@ def cadastrar_ong():
     return jsonify({
         "mensagem": "ONG cadastrada com sucesso",
         "ong": nova_ong.to_dict()
+    }), 201
+
+# ==================================
+@app.route('/api/users', methods=['POST'])
+def cadastrar_usuario():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"erro": "Dados não enviados"}), 400
+
+    if not data.get('nome') or not data.get('email') or not data.get('senha') or not data.get('tipo'):
+        return jsonify({"erro": "Campos obrigatórios não informados"}), 400
+
+    # Verifica se email já existe
+    email_existente = User.query.filter_by(email=data['email']).first()
+    if email_existente:
+        return jsonify({"erro": "Email já cadastrado"}), 409
+
+    novo_usuario = User(
+        nome=data['nome'],
+        email=data['email'],
+        senha=data['senha'],  # depois pode criptografar
+        tipo=data['tipo']
+    )
+
+    db.session.add(novo_usuario)
+    db.session.commit()
+
+    return jsonify({
+        "mensagem": "Usuário cadastrado com sucesso",
+        "usuario": novo_usuario.to_dict()
     }), 201
 
 # ================= INICIALIZAÇÃO =================
