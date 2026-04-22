@@ -48,6 +48,32 @@ class User(db.Model):
             "email": self.email,
             "tipo": self.tipo
         }
+
+# ================= ANIMAL =================
+class Animal(db.Model):
+    __tablename__ = 'animals'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    especie = db.Column(db.String(50), nullable=False)
+    raca = db.Column(db.String(50))
+    idade = db.Column(db.Integer)
+    condicao = db.Column(db.String(100))
+    historico_medico = db.Column(db.String(200))
+
+    ong_id = db.Column(db.Integer, db.ForeignKey('ongs.id'), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "especie": self.especie,
+            "raca": self.raca,
+            "idade": self.idade,
+            "condicao": self.condicao,
+            "historico_medico": self.historico_medico,
+            "ong_id": self.ong_id
+        }
 # ==================================
 @app.route('/api/ongs', methods=['POST'])
 def cadastrar_ong():
@@ -103,6 +129,41 @@ def cadastrar_usuario():
     return jsonify({
         "mensagem": "Usuário cadastrado com sucesso",
         "usuario": novo_usuario.to_dict()
+    }), 201
+
+# ==================================
+@app.route('/api/animals', methods=['POST'])
+def cadastrar_animal():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"erro": "Dados não enviados"}), 400
+
+    # Campos obrigatórios
+    if not data.get('nome') or not data.get('especie') or not data.get('ong_id'):
+        return jsonify({"erro": "Campos obrigatórios não informados"}), 400
+
+    # Verifica se a ONG existe
+    ong = ONG.query.get(data['ong_id'])
+    if not ong:
+        return jsonify({"erro": "ONG não encontrada"}), 404
+
+    animal = Animal(
+        nome=data['nome'],
+        especie=data['especie'],
+        raca=data.get('raca'),
+        idade=data.get('idade'),
+        condicao=data.get('condicao'),
+        historico_medico=data.get('historico_medico'),
+        ong_id=data['ong_id']
+    )
+
+    db.session.add(animal)
+    db.session.commit()
+
+    return jsonify({
+        "mensagem": "Animal cadastrado com sucesso",
+        "animal": animal.to_dict()
     }), 201
 
 # ================= INICIALIZAÇÃO =================
