@@ -166,6 +166,26 @@ def cadastrar_animal():
         "animal": animal.to_dict()
     }), 201
 
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    if not data or not data.get('email') or not data.get('senha'):
+        return jsonify({"erro": "Email e senha são obrigatórios"}), 400
+
+    user = User.query.filter_by(email=data['email']).first()
+
+    if user and user.senha == data['senha']:
+        return jsonify({
+            "mensagem": "Login realizado com sucesso",
+            "usuario": {
+                "id": user.id,
+                "nome": user.nome,
+                "tipo": user.tipo 
+            }
+        }), 200
+    
+    return jsonify({"erro": "Credenciais inválidas"}), 401
+
 # ================= INICIALIZAÇÃO =================
 @app.route('/')
 def home():
