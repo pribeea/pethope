@@ -13,6 +13,14 @@ O PetHope é um sistema focado em ajudar ONGs de proteção de animais e proteto
 ## Tecnologia de Frontend: 
 - **VueJS**
 
+## Endpoints:
+```markdown
+| Método  | Endpoint            | Descrição           |
+|---------|---------------------|---------------------|
+| POST    | /api/ongs           | Cadastrar ONG       |
+| POST    | /api/users          | Cadastrar usuário   |
+| POST    | /api/animals        | Cadastrar animais   |
+```
 ## Cronograma Inicial do Projeto divido por etapas:
 
 ### Março (28/03)
