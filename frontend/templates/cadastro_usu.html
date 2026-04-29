@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetHope - Cadastro de Usuário</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Criar Conta</h1>
+    <form id="formCadastro">
+        <div class="form-group">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required placeholder="exemplo@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required minlength="6" placeholder="Mínimo 4 caracteres">
+        </div>
+
+        <div class="form-group">
+            <label for="tipo">Tipo de Usuário:</label>
+            <select id="tipo" name="tipo" required>
+                <option value="" disabled selected>Selecione uma opção...</option>
+                <option value="voluntario">Voluntário</option>
+                <option value="adotante">Adotante</option>
+                <option value="administrador">Administrador</option>
+            </select>
+        </div>
+
+        <button type="submit">Cadastrar</button>
+        <div id="mensagem"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('formCadastro').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const mensagemDiv = document.getElementById('mensagem');
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            mensagemDiv.style.display = 'block';
+            if (response.ok) {
+                mensagemDiv.textContent = result.mensagem;
+                mensagemDiv.className = 'sucesso';
+                this.reset();
+            } else {
+                mensagemDiv.textContent = result.erro || 'Erro ao realizar cadastro';
+                mensagemDiv.className = 'erro';
+            }
+        } catch (error) {
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.textContent = 'Erro de conexão com o servidor';
+            mensagemDiv.className = 'erro';
+        }
+    });
+</script>
+
+</body>
+</html>
