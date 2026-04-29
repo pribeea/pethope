@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -101,6 +101,10 @@ def cadastrar_ong():
     }), 201
 
 # ==================================
+@app.route('/cadastro_usu')
+def exibir_cadastro():
+    return render_template('cadastro_usu.html')
+
 @app.route('/api/users', methods=['POST'])
 def cadastrar_usuario():
     data = request.get_json()
@@ -189,7 +193,8 @@ def login():
 # ================= INICIALIZAÇÃO =================
 @app.route('/')
 def home():
-    return {"mensagem": "PetHope rodando 🐾"}
+    return render_template('index.html') 
+    #return {"mensagem": "PetHope rodando 🐾"}#
 
 if __name__ == '__main__':
     with app.app_context():
