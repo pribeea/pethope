@@ -41,37 +41,55 @@
 </div>
 
 <script>
-    document.getElementById('formCadastro').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const mensagemDiv = document.getElementById('mensagem');
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
+document.getElementById('formCadastro').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-        try {
-            const response = await fetch('http://127.0.0.1:5000/api/users', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
+    const mensagemDiv = document.getElementById('mensagem');
 
-            const result = await response.json();
+    const data = {
+        nome: document.getElementById('nome').value,
+        email: document.getElementById('email').value,
+        senha: document.getElementById('senha').value,
+        tipo: document.getElementById('tipo').value
+    };
 
-            mensagemDiv.style.display = 'block';
-            if (response.ok) {
-                mensagemDiv.textContent = result.mensagem;
-                mensagemDiv.className = 'sucesso';
-                this.reset();
-            } else {
-                mensagemDiv.textContent = result.erro || 'Erro ao realizar cadastro';
-                mensagemDiv.className = 'erro';
-            }
-        } catch (error) {
-            mensagemDiv.style.display = 'block';
-            mensagemDiv.textContent = 'Erro de conexão com o servidor';
-            mensagemDiv.className = 'erro';
+    if (!data.tipo) {
+        mensagemDiv.textContent = "Selecione um tipo de usuário";
+        mensagemDiv.style.color = "red";
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        mensagemDiv.style.display = 'block';
+
+        if (response.ok) {
+            mensagemDiv.textContent = "Cadastro realizado! Redirecionando...";
+            mensagemDiv.style.color = "green";
+
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 1000);
+
+        } else {
+            mensagemDiv.textContent = result.erro || "Erro ao cadastrar";
+            mensagemDiv.style.color = "red";
         }
-    });
+
+    } catch (err) {
+        mensagemDiv.textContent = "Erro de conexão com o servidor";
+        mensagemDiv.style.color = "red";
+    }
+});
 </script>
 
 </body>
