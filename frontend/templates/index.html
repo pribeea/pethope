@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PetHope 🐾</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2e7d32;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            padding: 12px;
+            background: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        a:hover {
+            background: #256428;
+        }
+    </style>
 </head>
 <body>
-    <a href="/cadastro_usu">Cadastro de usuários</a>
+
+<div class="box">
+    <h1>PetHope 🐾</h1>
+    <p>Quem é você?</p>
+
+    <a href="/cadastro">Pessoa Física</a>
+    <a href="/cadastro_ong">ONG</a>
+</div>
+
 </body>
 </html>
