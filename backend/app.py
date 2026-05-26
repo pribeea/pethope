@@ -1,202 +1,110 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session, redirect
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from werkzeug.security import generate_password_hash, check_password_hash
 
-# ================= BANCO =================
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__,
+            template_folder='../frontend/templates',
+            static_folder='../frontend/static')
 
+app.config['SECRET_KEY'] = 'pethope-secret'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pethope.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# ================= ONG =================
-class ONG(db.Model):
-    __tablename__ = 'ongs'
+# ================= MODELO =================
 
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    cnpj = db.Column(db.String(20), nullable=True)
-    endereco = db.Column(db.String(150), nullable=False)
-    contato = db.Column(db.String(100), nullable=False)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "nome": self.nome,
-            "cnpj": self.cnpj,
-            "endereco": self.endereco,
-            "contato": self.contato
-        }
-
-# ================= USUÁRIO =================
 class User(db.Model):
-    __tablename__ = 'users'
-
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False, unique=True)
-    senha = db.Column(db.String(100), nullable=False)
-    tipo = db.Column(db.String(30), nullable=False)  
-    # exemplo: voluntario, adotante, administrador
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    senha = db.Column(db.String(200), nullable=False)
+    tipo = db.Column(db.String(30), nullable=False)
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "nome": self.nome,
-            "email": self.email,
-            "tipo": self.tipo
-        }
 
-# ================= ANIMAL =================
-class Animal(db.Model):
-    __tablename__ = 'animals'
+# ================= ROTAS HTML =================
 
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    especie = db.Column(db.String(50), nullable=False)
-    raca = db.Column(db.String(50))
-    idade = db.Column(db.Integer)
-    condicao = db.Column(db.String(100))
-    historico_medico = db.Column(db.String(200))
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-    ong_id = db.Column(db.Integer, db.ForeignKey('ongs.id'), nullable=False)
+@app.route('/cadastro')
+def cadastro():
+    return render_template('cadastro.html')
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "nome": self.nome,
-            "especie": self.especie,
-            "raca": self.raca,
-            "idade": self.idade,
-            "condicao": self.condicao,
-            "historico_medico": self.historico_medico,
-            "ong_id": self.ong_id
-        }
-# ==================================
-@app.route('/api/ongs', methods=['POST'])
-def cadastrar_ong():
-    data = request.get_json()
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
 
-    if not data:
-        return jsonify({"erro": "Dados não enviados"}), 400
 
-    if not data.get('nome') or not data.get('endereco') or not data.get('contato'):
-        return jsonify({"erro": "Campos obrigatórios não informados"}), 400
-
-    nova_ong = ONG(
-        nome=data['nome'],
-        cnpj=data.get('cnpj'),
-        endereco=data['endereco'],
-        contato=data['contato']
-    )
-
-    db.session.add(nova_ong)
-    db.session.commit()
-
-    return jsonify({
-        "mensagem": "ONG cadastrada com sucesso",
-        "ong": nova_ong.to_dict()
-    }), 201
-
-# ==================================
-@app.route('/cadastro_usu')
-def exibir_cadastro():
-    return render_template('cadastro_usu.html')
+# ================= API =================
 
 @app.route('/api/users', methods=['POST'])
 def cadastrar_usuario():
     data = request.get_json()
 
     if not data:
-        return jsonify({"erro": "Dados não enviados"}), 400
+        return jsonify({"erro": "Sem dados"}), 400
 
-    if not data.get('nome') or not data.get('email') or not data.get('senha') or not data.get('tipo'):
-        return jsonify({"erro": "Campos obrigatórios não informados"}), 400
+    if User.query.filter_by(email=data['email']).first():
+        return jsonify({"erro": "Email já existe"}), 409
 
-    # Verifica se email já existe
-    email_existente = User.query.filter_by(email=data['email']).first()
-    if email_existente:
-        return jsonify({"erro": "Email já cadastrado"}), 409
-
-    novo_usuario = User(
+    user = User(
         nome=data['nome'],
         email=data['email'],
-        senha=data['senha'],  # depois pode criptografar
+        senha=generate_password_hash(data['senha']),
         tipo=data['tipo']
     )
 
-    db.session.add(novo_usuario)
+    db.session.add(user)
     db.session.commit()
 
-    return jsonify({
-        "mensagem": "Usuário cadastrado com sucesso",
-        "usuario": novo_usuario.to_dict()
-    }), 201
+    return jsonify({"mensagem": "Usuário criado"}), 201
 
-# ==================================
-@app.route('/api/animals', methods=['POST'])
-def cadastrar_animal():
-    data = request.get_json()
-
-    if not data:
-        return jsonify({"erro": "Dados não enviados"}), 400
-
-    # Campos obrigatórios
-    if not data.get('nome') or not data.get('especie') or not data.get('ong_id'):
-        return jsonify({"erro": "Campos obrigatórios não informados"}), 400
-
-    # Verifica se a ONG existe
-    ong = ONG.query.get(data['ong_id'])
-    if not ong:
-        return jsonify({"erro": "ONG não encontrada"}), 404
-
-    animal = Animal(
-        nome=data['nome'],
-        especie=data['especie'],
-        raca=data.get('raca'),
-        idade=data.get('idade'),
-        condicao=data.get('condicao'),
-        historico_medico=data.get('historico_medico'),
-        ong_id=data['ong_id']
-    )
-
-    db.session.add(animal)
-    db.session.commit()
-
-    return jsonify({
-        "mensagem": "Animal cadastrado com sucesso",
-        "animal": animal.to_dict()
-    }), 201
 
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
-    if not data or not data.get('email') or not data.get('senha'):
-        return jsonify({"erro": "Email e senha são obrigatórios"}), 400
 
     user = User.query.filter_by(email=data['email']).first()
 
-    if user and user.senha == data['senha']:
-        return jsonify({
-            "mensagem": "Login realizado com sucesso",
-            "usuario": {
-                "id": user.id,
-                "nome": user.nome,
-                "tipo": user.tipo 
-            }
-        }), 200
-    
-    return jsonify({"erro": "Credenciais inválidas"}), 401
+    if user and check_password_hash(user.senha, data['senha']):
+        session['user_id'] = user.id
+        session['user_nome'] = user.nome
+        session['user_tipo'] = user.tipo
+        return jsonify({"ok": True}), 200
 
-# ================= INICIALIZAÇÃO =================
-@app.route('/')
-def home():
-    return render_template('index.html') 
-    #return {"mensagem": "PetHope rodando 🐾"}#
+    return jsonify({"erro": "Login inválido"}), 401
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        return redirect('/login')
+
+    tipo = session.get('user_tipo')
+    nome = session.get('user_nome')
+
+    if tipo == 'voluntario':
+        return render_template('dashboard_voluntario.html', nome=nome)
+
+    elif tipo == 'adotante':
+        return render_template('dashboard_adotante.html', nome=nome)
+
+    elif tipo == 'administrador':
+        return render_template('dashboard_admin.html', nome=nome)
+
+    return redirect('/login')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+# ================= START =================
 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+        print("Banco criado com sucesso")
+
     app.run(debug=True)
