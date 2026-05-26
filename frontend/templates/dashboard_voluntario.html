@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Voluntário | PetHope</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f4f6f8;
+}
+
+header {
+    background: #2e7d32;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    padding: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #2e7d32;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>PetHope 🐾</h2>
+    <a href="/logout" style="color:white;">Sair</a>
+</header>
+
+<div class="container">
+
+    <h2>Olá, {{ nome }} 💚</h2>
+
+    <div class="card">
+        <h3>🐶 Animais disponíveis</h3>
+        <p>Veja animais para adoção.</p>
+        <a class="btn" href="#">Ver animais</a>
+    </div>
+
+    <div class="card">
+        <h3>🤝 Ser voluntário</h3>
+        <p>Ajude ONGs e participe de eventos.</p>
+        <a class="btn" href="#">Quero ajudar</a>
+    </div>
+
+</div>
+
+</body>
+</html>
