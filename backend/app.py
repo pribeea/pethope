@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify, render_template, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
+def limpar_cnpj(cnpj):
+    return cnpj.replace('.', '').replace('/', '').replace('-', '').strip()
+
 app = Flask(__name__,
             template_folder='../frontend/templates',
             static_folder='../frontend/static')
@@ -21,6 +24,13 @@ class User(db.Model):
     senha = db.Column(db.String(200), nullable=False)
     tipo = db.Column(db.String(30), nullable=False)
 
+class Ong(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    cnpj = db.Column(db.String(30), unique=True, nullable=False)
+    endereco = db.Column(db.String(150))
+    contato = db.Column(db.String(100))
+    senha = db.Column(db.String(200), nullable=False)
 
 # ================= ROTAS HTML =================
 
@@ -36,7 +46,13 @@ def cadastro():
 def login_page():
     return render_template('login.html')
 
+@app.route('/cadastro_ong')
+def cadastro_ong():
+    return render_template('cadastro_ong.html')
 
+@app.route('/login_ong')
+def login_ong_page():
+    return render_template('login_ong.html')
 # ================= API =================
 
 @app.route('/api/users', methods=['POST'])
@@ -99,6 +115,52 @@ def dashboard():
 def logout():
     session.clear()
     return redirect('/')
+
+# ================= ONGs =================
+
+@app.route('/api/cadastro_ong', methods=['POST'])
+def cadastrar_ong():
+    data = request.get_json()
+    cnpj = limpar_cnpj(data['cnpj'])
+
+    if Ong.query.filter_by(cnpj=cnpj).first():
+        return jsonify({'erro': 'CNPJ já cadastrado'}), 409
+
+    nova_ong = Ong(
+        nome=data['nome'],
+        cnpj=cnpj,
+        endereco=data.get('endereco'),
+        contato=data.get('contato'),
+        senha=generate_password_hash(data['senha'])
+    )
+
+    db.session.add(nova_ong)
+    db.session.commit()
+
+    return jsonify({'mensagem': 'ONG cadastrada com sucesso'}), 201
+    
+@app.route('/api/login_ong', methods=['POST'])
+def login_ong():
+    data = request.get_json()
+    cnpj = limpar_cnpj(data['cnpj'])
+    ong = Ong.query.filter_by(cnpj=cnpj).first()
+
+    if ong and check_password_hash(ong.senha, data['senha']):
+        session['ong_id'] = ong.id
+        session['ong_nome'] = ong.nome
+        return jsonify({'ok': True}), 200
+
+    return jsonify({'erro': 'CNPJ ou senha inválidos'}), 401
+
+@app.route('/dashboard_ong')
+def dashboard_ong():
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+
+    return render_template(
+        'dashboard_ong.html',
+        nome=session.get('ong_nome')
+    )
 
 # ================= START =================
 
