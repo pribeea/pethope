@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>PetHope | Dashboard ONG</title>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f4f4;
+}
+
+header {
+    background: #ff914d;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    padding: 30px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    background: #ffe1cc;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Dashboard da ONG</h1>
+    <p>Bem-vinda, {{ session['ong_nome'] }}</p>
+    <a href="/logout">Sair</a>
+</header>
+
+<main>
+    <section>
+        <h2>Gerenciamento</h2>
+
+        <div class="cards">
+            <a href="#" class="card">
+                🐾 Cadastrar Animal
+            </a>
+
+            <a href="#" class="card">
+                📋 Meus Animais
+            </a>
+
+            <a href="#" class="card">
+                📝 Solicitações de Adoção
+            </a>
+
+            <a href="#" class="card">
+                🤝 Voluntários
+            </a>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
