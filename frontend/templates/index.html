@@ -3,44 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>PetHope 🐾</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .box {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            width: 350px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #2e7d32;
-        }
-
-        a {
-            display: block;
-            margin-top: 20px;
-            padding: 12px;
-            background: #2e7d32;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        a:hover {
-            background: #256428;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
 
