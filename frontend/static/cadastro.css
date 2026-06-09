@@ -25,7 +25,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Removido o padding lateral para a imagem encostar na borda */
     padding: 40px 0 0 0; 
 }
 
@@ -33,20 +32,17 @@ body {
     color: #ffffff;
     font-weight: bold;
     font-size: 24px;
-    /* Padding adicionado aqui para o texto não encostar na borda */
     padding-left: 32px; 
     text-align: left;
 }
 
 .dog-image-container {
     display: flex;
-    /* Alinha o container no fundo e à direita */
     justify-content: flex-end; 
     align-items: flex-end;
 }
 
 .pet-img {
-    /* Ajuste para que a imagem respeite a largura sem sobras */
     max-width: 100%;
     display: block;
     border-radius: 0;
