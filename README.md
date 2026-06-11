@@ -27,6 +27,14 @@ https://docs.google.com/document/d/1RB4fP2UmctnbEGBAA-88CDeRxlwhdnB0u1H9pY4OUws/
 
 ## Cronograma do Projeto dividido por Requisitos Funcionais:
 
+### Cadastrar Usuário 
+- Backend (21/04/26 - 26/05/26)
+- Frontend (05/06/26 - 09/06/26)
+- 
+### Cadastrar ONG
+- Backend (28/05/26 - 28/05/26)
+- Frontend (09/06/26 - 09/06/26)
+
 ### Cadastrar Animais 
 - Backend (14/06/26 - 27/06/26)
 - Frontend (21/06/26 - 27/06/26)
