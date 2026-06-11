@@ -25,47 +25,37 @@ O PetHope é um sistema focado em ajudar ONGs de proteção de animais e proteto
 ## Documento V1:
 https://docs.google.com/document/d/1RB4fP2UmctnbEGBAA-88CDeRxlwhdnB0u1H9pY4OUws/edit?usp=sharing
 
-## Cronograma Inicial do Projeto divido por etapas:
+## Cronograma do Projeto dividido por Requisitos Funcionais:
 
-### Março (28/03)
-- Definição das regras do sistema 
-- Escolha de cores, layout e identidade visual
+### Cadastrar Animais 
+- Backend (14/06/26 - 27/06/26)
+- Frontend (21/06/26 - 27/06/26)
 
-### Abril (28/04)
-- Configuração do projeto em Vue.js
-- Criação da estrutura de pastas e componentes
-- Configuração de rotas principais
+### Gerenciar Adoções
+- Backend (28/06/26 - 11/07/26)
+- Frontend (05/07/26 - 11/07/26)
 
-### Maio (28/05)
-- Desenvolvimento das telas principais
-- Criação de componentes reutilizáveis
-- Estilização inicial
+### Gerenciar Doações
+- Backend (12/07/26 - 25/07/26)
+- Frontend (19/07/26 - 25/07/26)
 
-### Junho (28/06)
-- Tela de cadastro de animais
-- Tela de gereciamento de adoção
-- Tela de cadastro de instituições
-- Validação de formulários
-- Melhorias de layout e usabilidade
+### Implementar busca e filtros
+- Backend (26/07/26 - 08/08/26)
+- Frontend (02/08/26 - 08/08/26)
 
-### Julho (28/07)
-- Tela de cadastro de usuários
-- Tela de gerenciamento de doações
-- Tela de gerenciamento de resgate
-- Integração entre telas
-- Atualização dinâmica com Vue.js
+### Validação de Formulários
+- Backend (09/08/26 - 22/08/26)
+- Frontend (16/08/26 - 22/08/26)
 
-### Agosto (28/08)
-- Melhorias visuais
-- Implementação de busca e filtros
-- Refinamento da experiência dos usuários
+### Integração entre telas
+- Backend (23/08/26 - 05/09/26)
+- Frontend (30/08/26 - 05/09/26)
 
-### Setembro (28/09)
-- Integração completa com backend
-- Testes de todas as funcionalidades
-- Correção de bugs
-- Ajustes finais no front-end
+### Integração completa com backend
+- Backend (06/09/26 - 19/09/26)
+- Frontend (13/09/26 - 19/09/26)
 
-### Outubro (28/10)
-- Revisão geral do sistema
-- Ajustes finais de design
+### Testes funcionais e correção de bugs
+- Backend (20/09/26 - 03/10/26)
+- Frontend (27/09/26 - 03/10/26)
+
