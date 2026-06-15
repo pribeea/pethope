@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Animais Cadastrados</title>
+</head>
+<body>
+
+<h2>🐾 Animais da ONG</h2>
+
+{% if animais %}
+    <ul>
+        {% for animal in animais %}
+            <li>
+                <strong>{{ animal.nome }}</strong> <br>
+                Espécie: {{ animal.especie }} <br>
+                Idade: {{ animal.idade }} <br>
+                {{ animal.descricao }}
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum animal cadastrado ainda 🥲</p>
+{% endif %}
+
+<a href="/dashboard_ong">Voltar</a>
+
+</body>
+</html>
