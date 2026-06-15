@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Animal | PetHope</title>
+</head>
+<body>
+
+<h2>Cadastrar Animal 🐾</h2>
+
+<form id="formAnimal">
+    <input type="text" placeholder="Nome" id="nome" required>
+    <input type="text" placeholder="Espécie (cachorro, gato...)" id="especie" required>
+    <input type="text" placeholder="Raça" id="raca">
+    <input type="number" placeholder="Idade" id="idade">
+    <input type="text" placeholder="Sexo" id="sexo">
+    <textarea placeholder="Descrição" id="descricao"></textarea>
+
+    <button type="submit">Cadastrar</button>
+    <p id="msg"></p>
+</form>
+
+<script>
+document.getElementById('formAnimal').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const response = await fetch('/api/cadastro_animal', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            nome: nome.value,
+            especie: especie.value,
+            raca: raca.value,
+            idade: idade.value,
+            sexo: sexo.value,
+            descricao: descricao.value
+        })
+    });
+
+    const result = await response.json();
+
+        if (response.ok) {
+        window.location.href = '/animais';
+    }   else {
+        document.getElementById('msg').innerText = result.erro || 'Erro ao cadastrar';
+    }
+
+
+    document.getElementById('msg').innerText =
+        response.ok ? result.mensagem : result.erro;
+});
+</script>
+
+</body>
+</html>
