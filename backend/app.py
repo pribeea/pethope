@@ -32,6 +32,18 @@ class Ong(db.Model):
     contato = db.Column(db.String(100))
     senha = db.Column(db.String(200), nullable=False)
 
+class Animal(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    especie = db.Column(db.String(50), nullable=False)  # cachorro, gato…
+    raca = db.Column(db.String(100))
+    idade = db.Column(db.Integer)
+    sexo = db.Column(db.String(20))
+    descricao = db.Column(db.Text)
+    disponivel = db.Column(db.Boolean, default=True)
+
+    ong_id = db.Column(db.Integer, db.ForeignKey('ong.id'), nullable=False)
+
 # ================= ROTAS HTML =================
 
 @app.route('/')
@@ -53,6 +65,13 @@ def cadastro_ong():
 @app.route('/login_ong')
 def login_ong_page():
     return render_template('login_ong.html')
+
+@app.route('/cadastro_animal')
+def cadastro_animal_page():
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+    return render_template('cadastro_animal.html')
+
 # ================= API =================
 
 @app.route('/api/users', methods=['POST'])
@@ -162,6 +181,39 @@ def dashboard_ong():
         nome=session.get('ong_nome')
     )
 
+# ================= Animais =================
+
+@app.route('/api/cadastro_animal', methods=['POST'])
+def cadastrar_animal():
+    if 'ong_id' not in session:
+        return jsonify({'erro': 'ONG não autenticada'}), 401
+
+    data = request.get_json()
+
+    animal = Animal(
+        nome=data['nome'],
+        especie=data['especie'],
+        raca=data.get('raca'),
+        idade=data.get('idade'),
+        sexo=data.get('sexo'),
+        descricao=data.get('descricao'),
+        ong_id=session['ong_id']
+    )
+
+    db.session.add(animal)
+    db.session.commit()
+
+    return jsonify({'mensagem': 'Animal cadastrado com sucesso'}), 201
+
+@app.route('/animais')
+def listar_animais():
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+
+    animais = Animal.query.filter_by(ong_id=session['ong_id']).all()
+
+    return render_template('lista_animais.html', animais=animais)
+    
 # ================= START =================
 
 if __name__ == '__main__':
