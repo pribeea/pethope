@@ -2,112 +2,112 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login | PetHope</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .login-box {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            width: 320px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .login-box h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #4CAF50;
-        }
-
-        .login-box label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        .login-box button {
-            width: 100%;
-            margin-top: 20px;
-            padding: 10px;
-            background: #4CAF50;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .login-box button:hover {
-            background: #45a049;
-        }
-
-        .mensagem {
-            margin-top: 15px;
-            text-align: center;
-            color: red;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetHope - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro.css') }}">
 </head>
 <body>
 
-<div class="login-box">
-    <h2>PetHope 🐾</h2>
+<div class="main-wrapper">
+    <div class="sidebar">
+        <div class="logo-container">
+            🐾 PETHOPE
+        </div>
 
-    <form id="loginForm">
-        <label for="email">Email</label>
-        <input type="email" id="email" required>
+        <div class="dog-image-container">
+            <img src="{{ url_for('static', filename='imagens/img_login.png') }}"
+                 alt="Pets"
+                 class="pet-img">
+        </div>
+    </div>
 
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" required>
+    <div class="container">
+        <h1>Entrar</h1>
+        <p class="subtitle">
+            Bem-vindo de volta ao PetHope! 🐾
+        </p>
 
-        <button type="submit">Entrar</button>
-    </form>
+        <form id="formLogin">
 
-    <div class="mensagem" id="mensagem"></div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required placeholder="exemplo@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password"
+                       id="senha"
+                       name="senha"
+                       required
+                       placeholder="Digite sua senha">
+            </div>
+
+            <div class="button-group">
+                <button type="button"
+                        class="btn-back"
+                        onclick="window.location.href='/'">
+                    Voltar
+                </button>
+
+                <button type="submit"
+                        class="btn-next">
+                    Entrar
+                </button>
+            </div>
+
+            <div id="mensagem"></div>
+
+        </form>
+    </div>
 </div>
 
 <script>
-    const form = document.getElementById('loginForm');
+
+    const form = document.getElementById('formLogin');
     const mensagem = document.getElementById('mensagem');
 
-    form.addEventListener('submit', async function (e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         const email = document.getElementById('email').value;
         const senha = document.getElementById('senha').value;
 
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, senha })
-        });
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, senha })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (response.ok) {
-            window.location.href = '/dashboard';
-        } else {
-            mensagem.textContent = data.erro;
+            if (response.ok) {
+
+                mensagem.style.color = "#27ae60";
+                mensagem.textContent = "Login realizado com sucesso!";
+
+                setTimeout(() => {
+                    window.location.href = "/dashboard";
+                }, 1000);
+
+            } else {
+
+                mensagem.style.color = "#d9534f";
+                mensagem.textContent = data.erro || "Email ou senha inválidos.";
+
+            }
+
+        } catch (erro) {
+
+            mensagem.style.color = "#d9534f";
+            mensagem.textContent = "Erro ao conectar ao servidor.";
+
         }
     });
+    
 </script>
 
 </body>
