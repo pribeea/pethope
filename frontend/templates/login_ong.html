@@ -19,9 +19,7 @@
     </div>
 
     <div class="dog-image-container">
-        <img src="{{ url_for('static', filename='imagens/img_login.png') }}"
-             alt="ONG"
-             class="pet-img">
+        <img src="{{ url_for('static', filename='imagens/img_login.png') }}" alt="ONG" class="pet-img">
     </div>
 </div>
 
@@ -37,33 +35,20 @@
 
         <div class="form-group">
             <label for="cnpj">CNPJ:</label>
-            <input
-                type="text"
-                id="cnpj"
-                placeholder="Digite o CNPJ"
-                required>
+            <input type="text" id="cnpj" placeholder="Digite o CNPJ" required>
         </div>
 
         <div class="form-group">
             <label for="senha">Senha:</label>
-            <input
-                type="password"
-                id="senha"
-                placeholder="Digite sua senha"
-                required>
+            <input type="password" id="senha" placeholder="Digite sua senha" required>
         </div>
 
         <div class="button-group">
-            <button
-                type="button"
-                class="btn-back"
-                onclick="window.history.back()">
+            <button type="button" class="btn-back" onclick="window.history.back()">
                 Voltar
             </button>
 
-            <button
-                type="submit"
-                class="btn-next">
+            <button type="submit" class="btn-next">
                 Entrar
             </button>
         </div>
