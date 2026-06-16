@@ -1,27 +1,91 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login ONG | PetHope</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetHope - Login ONG</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='cadastro.css') }}">
+
 </head>
 <body>
 
-<h2>Login da ONG 🐶</h2>
+<div class="main-wrapper">
 
-<form id="loginOng">
-    <input type="text" id="cnpj" placeholder="CNPJ" required>
-    <input type="password" id="senha" placeholder="Senha" required>
-    <button type="submit">Entrar</button>
-    <p id="msg"></p>
-</form>
+<div class="sidebar">
+    <div class="logo-container">
+        🐾 PETHOPE
+    </div>
+
+    <div class="dog-image-container">
+        <img src="{{ url_for('static', filename='imagens/img_login.png') }}"
+             alt="ONG"
+             class="pet-img">
+    </div>
+</div>
+
+<div class="container">
+
+    <h1>Login da ONG</h1>
+
+    <p class="subtitle">
+        Entre para gerenciar seus pets e adoções 🐾
+    </p>
+
+    <form id="loginOng">
+
+        <div class="form-group">
+            <label for="cnpj">CNPJ:</label>
+            <input
+                type="text"
+                id="cnpj"
+                placeholder="Digite o CNPJ"
+                required>
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input
+                type="password"
+                id="senha"
+                placeholder="Digite sua senha"
+                required>
+        </div>
+
+        <div class="button-group">
+            <button
+                type="button"
+                class="btn-back"
+                onclick="window.history.back()">
+                Voltar
+            </button>
+
+            <button
+                type="submit"
+                class="btn-next">
+                Entrar
+            </button>
+        </div>
+
+        <div id="msg"></div>
+
+    </form>
+
+</div>
+
+</div>
 
 <script>
 document.getElementById('loginOng').addEventListener('submit', async (e) => {
+
     e.preventDefault();
 
     const response = await fetch('/api/login_ong', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
             cnpj: document.getElementById('cnpj').value,
             senha: document.getElementById('senha').value
@@ -31,12 +95,25 @@ document.getElementById('loginOng').addEventListener('submit', async (e) => {
     const result = await response.json();
 
     if (response.ok) {
-        window.location.href = '/dashboard_ong';
-    } else {
-        document.getElementById('msg').innerText = result.erro;
-    }
-});
 
+        document.getElementById('msg').style.color = '#27ae60';
+        document.getElementById('msg').innerText =
+            'Login realizado com sucesso!';
+
+        setTimeout(() => {
+            window.location.href = '/dashboard_ong';
+        }, 1000);
+
+    } else {
+
+        document.getElementById('msg').style.color = '#d9534f';
+        document.getElementById('msg').innerText =
+            result.erro;
+
+    }
+
+});
 </script>
+
 </body>
 </html>
