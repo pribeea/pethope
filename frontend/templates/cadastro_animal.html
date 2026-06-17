@@ -2,52 +2,95 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Animal | PetHope</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro_animal.css') }}">
 </head>
 <body>
 
-<h2>Cadastrar Animal 🐾</h2>
+<div class="main-wrapper">
+    <div class="sidebar">
+        <div class="logo-container">
+            🐾 PETHOPE
+        </div>
+        <div class="dog-image-container">
+            <img src="{{ url_for('static', filename='imagens/img_cadastro.jpg') }}" alt="Pets" class="pet-img">
+        </div>
+    </div>
 
-<form id="formAnimal">
-    <input type="text" placeholder="Nome" id="nome" required>
-    <input type="text" placeholder="Espécie (cachorro, gato...)" id="especie" required>
-    <input type="text" placeholder="Raça" id="raca">
-    <input type="number" placeholder="Idade" id="idade">
-    <input type="text" placeholder="Sexo" id="sexo">
-    <textarea placeholder="Descrição" id="descricao"></textarea>
+    <div class="container">
+        <h1>Cadastrar Animal</h1>
+        <p class="subtitle">Registre um novo amigo para encontrar um lar. 🐾</p>
 
-    <button type="submit">Cadastrar</button>
-    <p id="msg"></p>
-</form>
+        <form id="formAnimal">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" required placeholder="Nome do animal">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="especie">Espécie:</label>
+                    <input type="text" id="especie" required placeholder="Ex: Cachorro">
+                </div>
+                <div class="form-group half">
+                    <label for="raca">Raça:</label>
+                    <input type="text" id="raca" placeholder="Ex: Poodle">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" placeholder="Anos">
+                </div>
+                <div class="form-group half">
+                    <label for="sexo">Sexo:</label>
+                    <input type="text" id="sexo" placeholder="Macho/Fêmea">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" placeholder="Conte um pouco sobre o pet..."></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-back" onclick="window.history.back()">Voltar</button>
+                <button type="submit" class="btn-next">Cadastrar</button>
+            </div>
+            
+            <p id="msg"></p>
+        </form>
+    </div>
+</div>
 
 <script>
 document.getElementById('formAnimal').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const msg = document.getElementById('msg');
 
     const response = await fetch('/api/cadastro_animal', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            nome: nome.value,
-            especie: especie.value,
-            raca: raca.value,
-            idade: idade.value,
-            sexo: sexo.value,
-            descricao: descricao.value
+            nome: document.getElementById('nome').value,
+            especie: document.getElementById('especie').value,
+            raca: document.getElementById('raca').value,
+            idade: document.getElementById('idade').value,
+            sexo: document.getElementById('sexo').value,
+            descricao: document.getElementById('descricao').value
         })
     });
 
     const result = await response.json();
 
-        if (response.ok) {
+    if (response.ok) {
         window.location.href = '/animais';
-    }   else {
-        document.getElementById('msg').innerText = result.erro || 'Erro ao cadastrar';
+    } else {
+        msg.innerText = result.erro || 'Erro ao cadastrar';
+        msg.style.color = "#d9534f";
     }
-
-
-    document.getElementById('msg').innerText =
-        response.ok ? result.mensagem : result.erro;
 });
 </script>
 
