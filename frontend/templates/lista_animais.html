@@ -23,6 +23,11 @@
                         <p class="detail"><strong>Espécie:</strong> {{ animal.especie }}</p>
                         <p class="detail"><strong>Idade:</strong> {{ animal.idade }} anos</p>
                         <p class="description"><strong>Descrição: </strong>{{ animal.descricao }}</p>
+
+                        <a href="/animal/{{ animal.id }}" class="btn-detalhes">
+                            Ver detalhes
+                        </a>
+                        
                     </div>
                 </div>
             {% endfor %}
