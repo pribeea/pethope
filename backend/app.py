@@ -58,7 +58,10 @@ def home():
 @app.route('/cadastro')
 def cadastro():
     return render_template('cadastro.html')
-
+    
+@app.route('/opcoes_login') 
+def opcoes():
+    return render_template('opcoes_login.html')
 
 @app.route('/login')
 def login_page():
