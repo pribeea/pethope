@@ -2,29 +2,41 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Animais Cadastrados</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Animais | PetHope</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lista_animais.css') }}">
 </head>
 <body>
 
-<h2>🐾 Animais da ONG</h2>
+<div class="main-wrapper">
+    <header class="header-section">
+        <h2>Escolha o seu pet 🐾</h2>
+        <p class="subtitle">Encontre o companheiro ideal.</p>
+    </header>
 
-{% if animais %}
-    <ul>
-        {% for animal in animais %}
-            <li>
-                <strong>{{ animal.nome }}</strong> <br>
-                Espécie: {{ animal.especie }} <br>
-                Idade: {{ animal.idade }} <br>
-                {{ animal.descricao }}
-                <hr>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Nenhum animal cadastrado ainda 🥲</p>
-{% endif %}
+    <div class="cards-container">
+        {% if animais %}
+            {% for animal in animais %}
+                <div class="animal-card">
+                    <div class="animal-info">
+                        <h3><strong>Nome:</strong> {{ animal.nome }}</h3>
+                        <p class="detail"><strong>Espécie:</strong> {{ animal.especie }}</p>
+                        <p class="detail"><strong>Idade:</strong> {{ animal.idade }} anos</p>
+                        <p class="description"><strong>Descrição: </strong>{{ animal.descricao }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <p>Nenhum pet cadastrado no momento</p>
+            </div>
+        {% endif %}
+    </div>
 
-<a href="/dashboard_ong">Voltar</a>
+    <div class="footer-actions">
+        <a href="/dashboard_ong" class="btn-back">Voltar</a>
+    </div>
+</div>
 
 </body>
 </html>
