@@ -277,6 +277,21 @@ def listar_animais():
     return render_template('lista_animais.html', animais=animais)
 
 
+@app.route('/animal/<int:animal_id>')
+def visualizar_animal(animal_id):
+
+    with Session(engine) as db:
+        animal = db.get(Animal, animal_id)
+
+        if not animal:
+            return "Animal não encontrado", 404
+
+    return render_template(
+        'animal_detalhes.html',
+        animal=animal
+    )
+
+
 # ================= START =================
 
 if __name__ == '__main__':
