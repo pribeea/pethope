@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ animal.nome }} | PetHope</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='animal_detalhes.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>{{ animal.nome }}</h1>
+
+    <div class="card">
+
+        <p><strong>Espécie:</strong> {{ animal.especie }}</p>
+        <p><strong>Raça:</strong>
+            {{ animal.raca if animal.raca else 'Não informada' }}
+        </p>
+        <p><strong>Idade:</strong>
+            {{ animal.idade if animal.idade else 'Não informada' }}
+        </p>
+        <p><strong>Sexo:</strong>
+            {{ animal.sexo if animal.sexo else 'Não informado' }}
+        </p>
+        <p><strong>Descrição:</strong></p>
+        <p>
+            {{ animal.descricao if animal.descricao else 'Sem descrição cadastrada.' }}
+        </p>
+
+    </div>
+
+    <a href="/animais" class="btn-voltar">
+        Voltar para lista
+    </a>
+
+</div>
+
+</body>
+</html>
