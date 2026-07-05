@@ -1,47 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Voluntário | PetHope</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #f4f6f8;
-}
-
-header {
-    background: #2e7d32;
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.container {
-    padding: 30px;
-}
-
-.card {
-    background: white;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 15px;
-    background: #2e7d32;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Voluntário | PetHope</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
-
 <body>
 
 <header>
@@ -51,7 +14,7 @@ header {
 
 <div class="container">
 
-    <h2>Olá, {{ nome }} 💚</h2>
+    <h2>Olá, {{ nome }}</h2>
 
     <div class="card">
         <h3>🐶 Animais disponíveis</h3>
