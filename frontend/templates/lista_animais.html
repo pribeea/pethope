@@ -9,38 +9,69 @@
 <body>
 
 <div class="main-wrapper">
+
     <header class="header-section">
-        <h2>Escolha o seu pet 🐾</h2>
+        <h2>Escolha o seu pet</h2>
         <p class="subtitle">Encontre o companheiro ideal.</p>
     </header>
 
     <div class="cards-container">
+
         {% if animais %}
+
             {% for animal in animais %}
-                <div class="animal-card">
-                    <div class="animal-info">
-                        <h3><strong>Nome:</strong> {{ animal.nome }}</h3>
-                        <p class="detail"><strong>Espécie:</strong> {{ animal.especie }}</p>
-                        <p class="detail"><strong>Idade:</strong> {{ animal.idade }} anos</p>
-                        <p class="description"><strong>Descrição: </strong>{{ animal.descricao }}</p>
 
-                        <a href="/animal/{{ animal.id }}" class="btn-detalhes">
-                            Ver detalhes
-                        </a>
-                        
-                    </div>
+            <div class="animal-card">
+
+                <div class="animal-info">
+
+                    <h3>{{ animal.nome }}</h3>
+
+                    <p><strong>Espécie:</strong> {{ animal.especie }}</p>
+
+                    <p><strong>Idade:</strong> {{ animal.idade }} anos</p>
+
+                    <p><strong>Descrição:</strong> {{ animal.descricao }}</p>
+
+                    <p>
+                        <strong>Status:</strong>
+
+                        {% if animal.status == "Disponível" %}
+                            🟢 Disponível
+                        {% elif animal.status == "Pendente" %}
+                            🟡 Processo de adoção
+                        {% elif animal.status == "Adotado" %}
+                            🔴 Adotado
+                        {% endif %}
+                    </p>
+
+                    <a href="/animal/{{ animal.id }}" class="btn-detalhes">
+                        Ver detalhes
+                    </a>
                 </div>
-            {% endfor %}
-        {% else %}
-            <div class="empty-state">
-                <p>Nenhum pet cadastrado no momento</p>
+
             </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-state">
+                <p>Nenhum pet cadastrado no momento.</p>
+            </div>
+
         {% endif %}
+
     </div>
 
-    <div class="footer-actions">
-        <a href="/dashboard_ong" class="btn-back">Voltar</a>
-    </div>
+    {% if session.get('user_id') %}
+        
+        <div class="footer-actions">
+            <a href="/dashboard_ong" class="btn-back">Voltar</a>
+        </div>
+
+    {% endif %}
+
 </div>
 
 </body>
