@@ -2,11 +2,11 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #F7E9E8; 
+    background-color: #EEDEF9; 
 }
 
 header {
-    background-color: #706677; 
+    background-color: #3C0D3C; 
     color: white;
     padding: 15px 5%;
     display: flex;
@@ -50,7 +50,7 @@ main {
 
 .card {
     background-color: #ffffff;
-    color: #706677; 
+    color: #3C0D3C; 
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
