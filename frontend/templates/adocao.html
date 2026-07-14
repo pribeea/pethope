@@ -51,13 +51,11 @@
                 ⚪ Status não definido
             {% endif %}
 
-    <form action="/adotar/{{ animal.id }}" method="post">
-
-        <button>
-            Quero adotar
-        </button>
-
-    </form>
+     <button
+        type="button"
+        onclick="window.location.href='/adotar/{{ animal.id }}'">
+        Quero adotar
+    </button>
 
         </div>
 
