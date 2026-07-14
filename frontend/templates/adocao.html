@@ -26,11 +26,15 @@
                 {{ animal.raca if animal.raca else 'Não informada' }}
             </p>
 
+            <p><strong>Sexo:</strong>
+                {{ animal.sexo if animal.sexo else 'Não informada' }}
+            </p>
+
             <p><strong>Idade:</strong>
                 {{ animal.idade if animal.idade else 'Não informada' }}
             </p>
 
-            <p>
+            <p><strong>Descrição:</strong>
                 {{ animal.descricao if animal.descricao else 'Sem descrição cadastrada.' }}
             </p>
 
