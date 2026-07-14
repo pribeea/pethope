@@ -29,11 +29,25 @@
             {{ animal.descricao if animal.descricao else 'Sem descrição cadastrada.' }}
         </p>
 
+        {% if animal.status == "Disponível" %}
+            🟢 Disponível
+
+        {% elif animal.status == "Em processo de adoção" %}
+            🟡 Em processo de adoção
+
+        {% elif animal.status == "Adotado" %}
+            🔴 Adotado
+
+        {% else %}
+            ⚪ Status não definido
+        {% endif %}
+
     </div>
 
     <a href="/animais" class="btn-voltar">
-        Voltar para lista
+        Voltar para lista de animais
     </a>
+
 
 </div>
 
