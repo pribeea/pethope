@@ -24,12 +24,10 @@
         <p><strong>Sexo:</strong>
             {{ animal.sexo if animal.sexo else 'Não informado' }}
         </p>
-        <p><strong>Descrição:</strong></p>
-        <p>
+        <p><strong>Descrição:</strong>
             {{ animal.descricao if animal.descricao else 'Sem descrição cadastrada.' }}
-        </p>
-
-        {% if animal.status == "Disponível" %}
+        </p><strong>Status:</strong>
+            {% if animal.status == "Disponível" %}
             🟢 Disponível
 
         {% elif animal.status == "Em processo de adoção" %}
@@ -41,6 +39,9 @@
         {% else %}
             ⚪ Status não definido
         {% endif %}
+    </p>
+
+
 
     </div>
 
