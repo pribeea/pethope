@@ -55,6 +55,15 @@ class Adocao(SQLModel, table=True):
     data: date
     status: str
 
+class FormularioAdocao(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    adocao_id: int = Field(foreign_key="adocao.id")
+    telefone: str
+    endereco: str
+    cpf: str
+    rg: str
+    motivo: str
+
 # ================= ROTAS HTML =================
 
 @app.route('/')
@@ -365,8 +374,15 @@ def adocao():
 
 @app.route('/adotar/<int:id>', methods=['POST'])
 def adotar(id):
+
     if 'user_id' not in session:
         return redirect('/login')
+
+    telefone = request.form.get("telefone")
+    endereco = request.form.get("endereco")
+    cpf = request.form.get("cpf")
+    rg = request.form.get("rg")
+    motivo = request.form.get("motivo")
 
     with Session(engine) as db:
 
@@ -375,23 +391,24 @@ def adotar(id):
         if not animal:
             return "Animal não encontrado", 404
 
-        if animal.status != "Disponível":
-            return "Esse animal não está disponível para adoção."
-
         nova_adocao = Adocao(
             usuario_id=session['user_id'],
-            animal_id=animal.id,
+            animal_id=id,
             data=date.today(),
             status="Pendente"
         )
 
+        db.add(nova_adocao)
+
         animal.status = "Em processo de adoção"
 
-        db.add(nova_adocao)
         db.add(animal)
+
         db.commit()
 
-    return redirect('/adocao')
+    return jsonify({
+    "mensagem": "Solicitação enviada com sucesso!"}
+    ), 201
 
 @app.route('/aprovar/<int:id>', methods=['POST'])
 def aprovar(id):
@@ -442,6 +459,23 @@ def recusar(id):
         db.commit()
 
     return redirect('/solicitacoes')
+
+@app.route('/adotar/<int:id>')
+def formulario_adocao(id):
+
+    if 'user_id' not in session:
+        return redirect('/login')
+
+    with Session(engine) as db:
+        animal = db.get(Animal, id)
+
+        if not animal:
+            return "Animal não encontrado", 404
+
+    return render_template(
+        'formulario_adocao.html',
+        animal=animal
+    )
 
 # ================= START =================
 
