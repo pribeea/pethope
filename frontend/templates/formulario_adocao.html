@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de adoção | PetHope</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='formulario_adocao.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Solicitação de adoção</h1>
+
+    <p>Animal: {{ animal.nome }}</p>
+
+    <form id="formAdocao" action="/adotar/{{ animal.id }}" method="POST">
+
+        <div class="form-group">
+            <label for="nome">Nome completo:</label>
+            <input
+                type="text"
+                id="nome"
+                name="nome"
+                required
+                placeholder="Digite seu nome completo">
+        </div>
+
+        <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                required
+                placeholder="000.000.000-00">
+        </div>
+
+        <div class="form-group">
+            <label for="rg">RG:</label>
+            <input
+                type="text"
+                id="rg"
+                name="rg"
+                required
+                placeholder="00.000.000-0">
+        </div>
+
+        <div class="form-group">
+            <label for="telefone">Telefone:</label>
+            <input
+                type="text"
+                id="telefone"
+                name="telefone"
+                required
+                placeholder="(00) 00000-0000">
+        </div>
+
+        <div class="form-group">
+            <label for="endereco">Endereço:</label>
+            <input
+                type="text"
+                id="endereco"
+                name="endereco"
+                required
+                placeholder="Rua, número, bairro">
+        </div>
+
+        <div class="form-group">
+            <label for="motivo">Por que deseja adotar este animal?</label>
+            <textarea
+                id="motivo"
+                name="motivo"
+                rows="5"
+                required
+                placeholder="Conte um pouco sobre sua motivação"></textarea>
+        </div>
+
+        <div class="button-group">
+
+            <button
+                type="button"
+                class="btn-back"
+                onclick="window.history.back()">
+                Voltar
+            </button>
+
+            <button
+                type="submit"
+                class="btn-next">
+                Enviar Solicitação
+            </button>
+
+        </div>
+
+        <p id="msg"></p>
+
+    </form>
+
+</div>
+
+<script>
+document.getElementById("formAdocao").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const msg = document.getElementById("msg");
+
+    const response = await fetch(this.action, {
+        method: "POST",
+        body: new FormData(this)
+    });
+
+    const resultado = await response.json();
+
+    msg.textContent = resultado.mensagem;
+    msg.style.color = "#28a745";
+
+    setTimeout(() => {
+        window.location.href = "/adocao";
+    }, 1500);
+});
+</script>
+
+</body>
+</html> 
