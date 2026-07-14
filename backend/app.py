@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template, session, redirect
 from sqlmodel import SQLModel, Field, Session, create_engine, select
 from werkzeug.security import generate_password_hash, check_password_hash
 from typing import Optional
+from datetime import date
 
 
 def limpar_cnpj(cnpj):
@@ -44,9 +45,15 @@ class Animal(SQLModel, table=True):
     idade: Optional[int] = None
     sexo: Optional[str] = None
     descricao: Optional[str] = None
-    disponivel: bool = True
+    status: str = "Disponível"    
     ong_id: int = Field(foreign_key="ong.id")
 
+class Adocao(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    usuario_id: int = Field(foreign_key="user.id")
+    animal_id: int = Field(foreign_key="animal.id")
+    data: date
+    status: str
 
 # ================= ROTAS HTML =================
 
@@ -156,9 +163,6 @@ def dashboard():
     elif tipo == 'adotante':
         return render_template('dashboard_adotante.html', nome=nome)
 
-    elif tipo == 'administrador':
-        return render_template('dashboard_admin.html', nome=nome)
-
     return redirect('/login')
 
 
@@ -167,6 +171,33 @@ def logout():
     session.clear()
     return redirect('/')
 
+@app.route('/minhas_adocoes')
+def minhas_adocoes():
+
+    if 'user_id' not in session:
+        return redirect('/login')
+
+    with Session(engine) as db:
+
+        adocoes = db.exec(
+            select(Adocao).where(Adocao.usuario_id == session['user_id'])
+        ).all()
+
+        dados = []
+
+        for adocao in adocoes:
+            animal = db.get(Animal, adocao.animal_id)
+
+            dados.append({
+                "animal": animal,
+                "status": adocao.status,
+                "data": adocao.data
+            })
+
+    return render_template(
+        "minhas_adocoes.html",
+        adocoes=dados
+    )
 
 # ================= ONGS =================
 
@@ -232,6 +263,37 @@ def dashboard_ong():
 
     return render_template('dashboard_ong.html', nome=session.get('ong_nome'))
 
+@app.route('/solicitacoes')
+def solicitacoes():
+
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+
+    with Session(engine) as db:
+
+        solicitacoes = db.exec(
+            select(Adocao)
+        ).all()
+
+        dados = []
+
+        for s in solicitacoes:
+            animal = db.get(Animal, s.animal_id)
+            usuario = db.get(User, s.usuario_id)
+
+            if animal.ong_id == session['ong_id']:
+
+                dados.append({
+                    "id": s.id,
+                    "animal": animal,
+                    "usuario": usuario,
+                    "status": s.status
+                })
+
+    return render_template(
+        "solicitacoes.html",
+        solicitacoes=dados
+    )
 
 # ================= ANIMAIS =================
 
@@ -252,6 +314,7 @@ def cadastrar_animal():
         idade=data.get('idade'),
         sexo=data.get('sexo'),
         descricao=data.get('descricao'),
+        status="Disponível",
         ong_id=session['ong_id']
     )
 
@@ -277,11 +340,11 @@ def listar_animais():
     return render_template('lista_animais.html', animais=animais)
 
 
-@app.route('/animal/<int:animal_id>')
-def visualizar_animal(animal_id):
+@app.route('/animal/<int:id>')
+def detalhes(id):
 
     with Session(engine) as db:
-        animal = db.get(Animal, animal_id)
+        animal = db.get(Animal, id)
 
         if not animal:
             return "Animal não encontrado", 404
@@ -291,6 +354,94 @@ def visualizar_animal(animal_id):
         animal=animal
     )
 
+# ================= ADOÇÃO =================
+@app.route('/adocao')
+def adocao():
+    with Session(engine) as db:
+        animais = db.exec(
+            select(Animal).where(Animal.status == "Disponível")
+        ).all()
+    return render_template('adocao.html', animais=animais)
+
+@app.route('/adotar/<int:id>', methods=['POST'])
+def adotar(id):
+    if 'user_id' not in session:
+        return redirect('/login')
+
+    with Session(engine) as db:
+
+        animal = db.get(Animal, id)
+
+        if not animal:
+            return "Animal não encontrado", 404
+
+        if animal.status != "Disponível":
+            return "Esse animal não está disponível para adoção."
+
+        nova_adocao = Adocao(
+            usuario_id=session['user_id'],
+            animal_id=animal.id,
+            data=date.today(),
+            status="Pendente"
+        )
+
+        animal.status = "Em processo de adoção"
+
+        db.add(nova_adocao)
+        db.add(animal)
+        db.commit()
+
+    return redirect('/adocao')
+
+@app.route('/aprovar/<int:id>', methods=['POST'])
+def aprovar(id):
+
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+
+    with Session(engine) as db:
+
+        adocao = db.get(Adocao, id)
+
+        if not adocao:
+            return "Solicitação não encontrada",404
+
+        animal = db.get(Animal, adocao.animal_id)
+
+        adocao.status = "Aprovada"
+        animal.status = "Adotado"
+
+        db.add(adocao)
+        db.add(animal)
+
+        db.commit()
+
+    return redirect('/solicitacoes')
+
+@app.route('/recusar/<int:id>', methods=['POST'])
+def recusar(id):
+
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+
+    with Session(engine) as db:
+
+        adocao = db.get(Adocao, id)
+
+        if not adocao:
+            return "Solicitação não encontrada",404
+
+        animal = db.get(Animal, adocao.animal_id)
+
+        adocao.status = "Recusada"
+        animal.status = "Disponível"
+
+        db.add(adocao)
+        db.add(animal)
+
+        db.commit()
+
+    return redirect('/solicitacoes')
 
 # ================= START =================
 
