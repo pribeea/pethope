@@ -8,12 +8,17 @@
 </head>
 <body>
 
+<header>
+    <h2>PetHope 🐾</h2>
+    <a href="/logout">Sair</a>
+</header>
+
 <div class="main-wrapper">
 
-    <header class="header-section">
+    <div class="header-section">
         <h2>Escolha o seu pet</h2>
         <p class="subtitle">Encontre o companheiro ideal.</p>
-    </header>
+    </div>
 
     <div class="cards-container">
 
@@ -31,17 +36,20 @@
 
                     <p><strong>Idade:</strong> {{ animal.idade }} anos</p>
 
+                    <p><strong>Sexo:</strong> {{ animal.sexo }}</p>
+
                     <p><strong>Descrição:</strong> {{ animal.descricao }}</p>
 
                     <p>
                         <strong>Status:</strong>
-
                         {% if animal.status == "Disponível" %}
                             🟢 Disponível
-                        {% elif animal.status == "Pendente" %}
+                        {% elif animal.status == "Em processo de adoção" %}
                             🟡 Processo de adoção
                         {% elif animal.status == "Adotado" %}
                             🔴 Adotado
+                        {% else %}
+                            ⚪ {{ animal.status }} 
                         {% endif %}
                     </p>
 
@@ -64,13 +72,11 @@
 
     </div>
 
-    {% if session.get('user_id') %}
-        
-        <div class="footer-actions">
-            <a href="/dashboard_ong" class="btn-back">Voltar</a>
-        </div>
-
-    {% endif %}
+    <div class="footer-actions">
+        <a href="/dashboard_ong" class="btn-back">
+            Voltar
+        </a>
+    </div>
 
 </div>
 
