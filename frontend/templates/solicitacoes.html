@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Solicitações</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='solicitacoes.css') }}">
 </head>
 <body>
 
@@ -42,6 +43,8 @@
 
     {% endif %}
 
+{% else %}
+    <p>Nenhuma solicitação de adoção encontrada.</p>
 {% endfor %}
 
 <br>
