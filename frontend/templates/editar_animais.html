@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Animal</title>
+</head>
+<body>
+
+<h1>Editar Animal</h1>
+
+<form action="/editar_animal/{{ animal.id }}" method="post">
+
+    <label>Nome:</label><br>
+    <input type="text" name="nome" value="{{ animal.nome }}" required><br><br>
+
+    <label>Espécie:</label><br>
+    <input type="text" name="especie" value="{{ animal.especie }}" required><br><br>
+
+    <label>Raça:</label><br>
+    <input type="text" name="raca" value="{{ animal.raca }}"><br><br>
+
+    <label>Idade:</label><br>
+    <input type="number" name="idade" value="{{ animal.idade }}"><br><br>
+
+    <label>Sexo:</label><br>
+    <select name="sexo">
+        <option value="Macho" {% if animal.sexo == "Macho" %}selected{% endif %}>Macho</option>
+        <option value="Fêmea" {% if animal.sexo == "Fêmea" %}selected{% endif %}>Fêmea</option>
+    </select><br><br>
+
+    <label>Descrição:</label><br>
+    <textarea name="descricao" rows="5" cols="40">{{ animal.descricao }}</textarea><br><br>
+
+    <button type="submit">Salvar alterações</button>
+
+</form>
+
+<br>
+
+<a href="/animais">Cancelar</a>
+
+</body>
+</html>
