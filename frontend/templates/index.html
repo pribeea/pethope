@@ -2,19 +2,46 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetHope 🐾</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
 
-<div class="box">
-    <h1>PetHope 🐾</h1>
-    <p>Quem é você?</p>
+    <div class="main-container">
+        <div class="left-section">
+            <div class="logo">
+                🐾 PetHope
+            </div>
 
-    <a href="/cadastro">Pessoa Física</a>
-    <a href="/cadastro_ong">ONG</a>
-    <a href="/opcoes_login">Já tem uma conta? Faça login aqui</a>
-</div>
+            <div class="hero-content">
+                <h1>Bem vindo ao PetHope!</h1>
+                <p>Uma plataforma que ajuda ONGs de proteção animal a organizar adoções, doações, animais e voluntários de forma simples, rápida e prática.</p>
+            </div>
+
+            <div class="selection-area">
+                <h2>COMO DESEJA SE CADASTRAR?</h2>
+                
+                <div class="options-container">
+                    <a href="/cadastro" class="card-option">
+                        <span>Pessoa Física</span>
+                    </a>
+
+                    <a href="/cadastro_ong" class="card-option">
+                        <span>Sou uma ONG</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="login-footer">
+                Já tem uma conta? <a href="/opcoes_login">Faça login aqui</a>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <img src="{{ url_for('static', filename='imagens/img_index.jpg') }}">
+        </div>
+    </div>
     
 </body>
 </html>
