@@ -40,16 +40,18 @@
             ⚪ Status não definido
         {% endif %}
                             
-        <a href="/editar_animal/{{ animal.id }}">
-            Editar
-        </a>
+        <div class="card-actions">
+            <a href="/editar_animal/{{ animal.id }}" class="btn-outline">
+                Editar
+            </a>
 
         <form action="/excluir_animal/{{ animal.id }}" method="post">
-            <button type="submit">
-                Excluir
-            </button>
+                <button type="submit" class="btn-outline">
+                    Excluir
+                </button>
         </form>
-
+        </div>
+        
     </p>
     </div>
 
