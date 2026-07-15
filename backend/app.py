@@ -13,7 +13,7 @@ app = Flask(__name__, template_folder='../frontend/templates', static_folder='..
 
 app.config['SECRET_KEY'] = 'pethope-secret'
 
-DATABASE_URL = "mysql+pymysql://root:admin@localhost/pethope"
+DATABASE_URL = "mysql+pymysql://root:@localhost:3307/pethope"
 
 engine = create_engine(DATABASE_URL, echo=False)
 
@@ -362,6 +362,52 @@ def detalhes(id):
         'animal_detalhes.html',
         animal=animal
     )
+
+@app.route('/editar_animal/<int:id>')
+def editar_animal(id):
+
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+
+    with Session(engine) as db:
+        animal = db.get(Animal, id)
+
+    return render_template("editar_animais.html", animal=animal)
+
+@app.route('/editar_animal/<int:id>', methods=['POST'])
+def salvar_edicao(id):
+
+    with Session(engine) as db:
+
+        animal = db.get(Animal, id)
+
+        animal.nome = request.form["nome"]
+        animal.especie = request.form["especie"]
+        animal.raca = request.form["raca"]
+        animal.idade = request.form["idade"]
+        animal.sexo = request.form["sexo"]
+        animal.descricao = request.form["descricao"]
+
+        db.add(animal)
+        db.commit()
+
+    return redirect('/animais')
+
+@app.route('/excluir_animal/<int:id>', methods=['POST'])
+def excluir_animal(id):
+
+    if 'ong_id' not in session:
+        return redirect('/login_ong')
+
+    with Session(engine) as db:
+
+        animal = db.get(Animal, id)
+
+        if animal:
+            db.delete(animal)
+            db.commit()
+
+    return redirect('/animais')
 
 # ================= ADOÇÃO =================
 @app.route('/adocao')
