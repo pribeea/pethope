@@ -1,14 +1,15 @@
 <template>
   <div class="page-dashboard-ong">
     <header>
-      <h1>PetHope 🐾</h1>
+      <h2><img src="/pata-branca.png" class="logo-pata" alt="" />PetHope</h2>
       <a href="#" @click.prevent="sair">Sair</a>
     </header>
 
     <main>
       <section>
         <p>Bem-vinda, {{ nome }}</p>
-        <h2>Gerenciamento</h2>
+        <h1>Gerenciamento</h1>
+        <br>
 
         <div class="cards">
           <router-link to="/cadastro_animal" class="card">Cadastrar Animal</router-link>
