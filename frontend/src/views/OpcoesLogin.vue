@@ -1,7 +1,7 @@
 <template>
   <div class="page-opcoes-login">
     <div class="box">
-      <h1>PetHope 🐾</h1>
+      <h2><img src="/pata-roxa.png" class="logo-pata" alt="" />PetHope</h2>
       <p>Quem é você?</p>
 
       <router-link to="/login">Pessoa Física</router-link>
