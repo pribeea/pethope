@@ -1,7 +1,7 @@
 <template>
   <div class="page-dashboard">
     <header>
-      <h2>PetHope 🐾</h2>
+      <h2><img src="/pata-branca.png" class="logo-pata" alt="" />PetHope</h2>
       <a href="#" style="color: white" @click.prevent="sair">Sair</a>
     </header>
 
