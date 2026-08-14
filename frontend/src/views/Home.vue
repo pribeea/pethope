@@ -2,7 +2,7 @@
 <div class="page-home">
     <div class="main-container">
       <div class="left-section">
-        <div class="logo">🐾 PetHope</div>
+        <h2><img src="/pata-roxa.png" class="logo-pata" alt="" />PetHope</h2>
 
         <div class="hero-content">
           <h1>Bem vindo ao PetHope!</h1>
