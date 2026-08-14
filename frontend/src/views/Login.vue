@@ -2,7 +2,7 @@
 <div class="page-login">
     <div class="main-wrapper">
       <div class="sidebar">
-        <div class="logo-container">🐾 PETHOPE</div>
+        <div class="logo-container"><img src="/pata-branca.png" class="logo-pata" alt="" />PETHOPE</div>
         <div class="dog-image-container">
           <img src="/imagens/img_login.png" alt="Pets" class="pet-img" />
         </div>
