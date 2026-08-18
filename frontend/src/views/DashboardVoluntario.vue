@@ -15,6 +15,12 @@
       </div>
 
       <div class="card">
+        <h3>ONGs parceiras</h3>
+        <p>Conheça as ONGs cadastradas e veja os animais de cada uma.</p>
+        <router-link class="btn" :to="{ name: 'ongs' }">Ver ONGs</router-link>
+      </div>
+
+      <div class="card">
         <h3>Ser voluntário</h3>
         <p>Ajude ONGs e participe de eventos.</p>
         <a class="btn" href="#">Quero ajudar</a>
