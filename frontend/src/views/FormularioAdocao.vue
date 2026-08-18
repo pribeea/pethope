@@ -73,7 +73,9 @@ async function carregar() {
 async function enviar() {
   const { data } = await http.post(`/api/animals/${props.id}/adopt`, form)
   msg.value = data.mensagem
-  setTimeout(() => router.push('/adocao'), 1500)
+  setTimeout(() => {
+    router.push({ name: 'animais_por_ong', params: { ongId: animal.value.ong_id } })
+  }, 1500)
 }
 
 onMounted(carregar)
