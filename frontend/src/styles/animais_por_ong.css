@@ -1,0 +1,145 @@
+.page-animais-por-ong {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #EEDEF9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.page-animais-por-ong header {
+    width: 100%;
+    background-color: #3C0D3C;
+    color: white;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-animais-por-ong header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.page-animais-por-ong header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #ffffff;
+    padding: 6px 18px;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.page-animais-por-ong header a:hover {
+    background-color: white;
+    color: #3C0D3C;
+}
+
+.page-animais-por-ong .container {
+    width: 100%;
+    max-width: 650px;
+    padding: 30px 15px;
+    box-sizing: border-box;
+}
+
+.page-animais-por-ong .btn-voltar-topo {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #3C0D3C;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.page-animais-por-ong h1 {
+    color: #333333;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.page-animais-por-ong .ong-info p {
+    margin: 4px 0 20px 0;
+    color: #444444;
+    font-size: 15px;
+}
+
+.page-animais-por-ong .titulo-animais {
+    color: #2D0A2D;
+    font-size: 22px;
+    margin: 30px 0 20px 0;
+}
+
+.page-animais-por-ong .card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+.page-animais-por-ong .card h2 {
+    margin: 0 0 5px 0;
+    color: #333333;
+    font-size: 22px;
+}
+
+.page-animais-por-ong .card p {
+    margin: 0;
+    font-size: 15px;
+    color: #444;
+}
+
+.page-animais-por-ong .card strong {
+    color: #222;
+}
+
+.page-animais-por-ong .card button {
+    background-color: #3C0D3C;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 15px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.page-animais-por-ong .card button:hover {
+    background-color: #2D0A2D;
+}
+
+.page-animais-por-ong .mensagem {
+    color: #333333;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.page-animais-por-ong .btn-voltar {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #3C0D3C;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 35px;
+    border: 2px solid #3C0D3C;
+    border-radius: 30px;
+}
+
+.page-animais-por-ong .btn-voltar:hover {
+    background-color: #3C0D3C;
+    color: #ffffff;
+}
