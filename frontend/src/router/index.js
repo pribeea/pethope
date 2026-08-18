@@ -6,6 +6,8 @@ import OpcoesLogin from '../views/OpcoesLogin.vue'
 import Login from '../views/Login.vue'
 import CadastroOng from '../views/CadastroOng.vue'
 import LoginOng from '../views/LoginOng.vue'
+import ListaOngs from '../views/ListaOngs.vue'
+import AnimaisPorOng from '../views/AnimaisPorOng.vue'
 import CadastroAnimal from '../views/CadastroAnimal.vue'
 import ListaAnimais from '../views/ListaAnimais.vue'
 import AnimalDetalhes from '../views/AnimalDetalhes.vue'
@@ -25,6 +27,8 @@ const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/cadastro_ong', name: 'cadastro_ong', component: CadastroOng },
   { path: '/login_ong', name: 'login_ong', component: LoginOng },
+  { path: '/ongs', name: 'ongs', component: ListaOngs },
+  { path: '/ongs/:ongId/animais', name: 'animais_por_ong', component: AnimaisPorOng, props: true },
   { path: '/cadastro_animal', name: 'cadastro_animal', component: CadastroAnimal },
   { path: '/animais', name: 'animais', component: ListaAnimais },
   { path: '/animal/:id', name: 'animal_detalhes', component: AnimalDetalhes, props: true },
