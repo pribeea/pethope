@@ -223,6 +223,24 @@ def cadastrar_ong(dados: OngCreate, db: Session = Depends(get_session)):
     return ong
 
 
+@app.get("/api/ongs", response_model=List[OngRead])
+def listar_ongs(db: Session = Depends(get_session)):
+    """Lista pública de todas as ONGs cadastradas (usada por adotantes/voluntários)."""
+    logger.info("Listando ONGs cadastradas")
+    ongs = db.exec(select(Ong)).all()
+    return ongs
+
+
+@app.get("/api/ongs/{ong_id}", response_model=OngRead)
+def detalhes_ong(ong_id: int, db: Session = Depends(get_session)):
+    """Detalhes públicos de uma ONG específica."""
+    ong = db.get(Ong, ong_id)
+    if not ong:
+        logger.warning(f"ONG não encontrada: {ong_id}")
+        raise HTTPException(status_code=404, detail="ONG não encontrada")
+    return ong
+
+
 @app.post("/api/ongs/login")
 def login_ong(dados: LoginOng, request: Request, db: Session = Depends(get_session)):
     cnpj = limpar_cnpj(dados.cnpj)
@@ -273,6 +291,7 @@ def cadastrar_animal(
 def listar_animais(
     request: Request,
     status_filtro: Optional[str] = None,
+    ong_id: Optional[int] = None,
     minha_ong: bool = False,
     db: Session = Depends(get_session),
 ):
@@ -282,6 +301,10 @@ def listar_animais(
         ong = exigir_ong(request)
         query = query.where(Animal.ong_id == ong["id"])
         logger.info(f"Listando animais da ONG: {ong['id']}")
+    elif ong_id is not None:
+        # Navegação pública: adotante/voluntário vendo os animais de uma ONG específica
+        query = query.where(Animal.ong_id == ong_id)
+        logger.info(f"Listando animais da ONG {ong_id} (navegação pública)")
 
     if status_filtro:
         query = query.where(Animal.status == status_filtro)
