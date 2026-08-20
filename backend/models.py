@@ -1,9 +1,3 @@
-"""
-Modelos de tabela (SQLModel) usados pelo backend FastAPI.
-
-Tabelas: user, ong, animal, adocao, formularioadocao — mesma modelagem de
-dados do protótipo original.
-"""
 from datetime import date
 from typing import Optional
 
