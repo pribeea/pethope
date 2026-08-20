@@ -1,15 +1,3 @@
-"""
-Backend FastAPI do PetHope.
-
-Expõe uma API REST em JSON, consumida pelo frontend em Vue.js (frontend/).
-Reaproveita a mesma modelagem de dados e regras de negócio que existiam no
-protótipo original em Flask (mesmas tabelas, mesmas validações, mesmo
-fluxo de cadastro/login/adoção), agora reescritas em FastAPI.
-
-Como rodar (veja também README.md na raiz do projeto):
-    pip install -r backend/requirements.txt
-    uvicorn backend.main:app --reload --port 8000
-"""
 import logging
 from datetime import date
 from typing import List, Optional
