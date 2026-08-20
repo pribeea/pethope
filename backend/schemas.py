@@ -42,7 +42,6 @@ class OngCreate(BaseModel):
     
     @validator('cnpj')
     def cnpj_valido(cls, v):
-        # Remove caracteres não numéricos
         cnpj_clean = ''.join(filter(str.isdigit, v))
         if len(cnpj_clean) != 14:
             raise ValueError('CNPJ deve ter 14 dígitos')
