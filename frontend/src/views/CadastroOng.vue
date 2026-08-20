@@ -28,7 +28,7 @@
 
           <div class="form-group">
             <label for="senha">Senha:</label>
-            <input id="senha" v-model="form.senha" type="password" required placeholder="Crie uma senha segura" />
+            <input id="senha" v-model="form.senha" type="password" required minlength="6" placeholder="Mínimo 6 caracteres" />
           </div>
 
           <div class="button-group">
