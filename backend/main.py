@@ -26,7 +26,6 @@ from .schemas import (
     UserRead,
 )
 
-# Configuração de logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -44,9 +43,6 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Sessão baseada em cookie (equivalente à session do Flask), mas com nome
-# de cookie e chave secreta próprios para não colidir com o cookie de
-# sessão usado pelo backend Flask.
 app.add_middleware(
     SessionMiddleware,
     secret_key="pethope-fastapi-secret",
@@ -54,7 +50,6 @@ app.add_middleware(
     same_site="lax",
 )
 
-# CORS liberado para os servidores de desenvolvimento do Vite (Vue).
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -69,10 +64,6 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    # O schema do banco agora é gerenciado pelo Alembic (pasta /alembic).
-    # Rode `alembic upgrade head` antes de subir a aplicação para criar
-    # ou atualizar as tabelas — não usamos mais create_all() aqui para
-    # evitar que o schema real fique fora de sincronia com as migrações.
     logger.info("Aplicação iniciada (schema gerenciado via Alembic)")
 
 
@@ -291,7 +282,6 @@ def listar_animais(
         query = query.where(Animal.ong_id == ong["id"])
         logger.info(f"Listando animais da ONG: {ong['id']}")
     elif ong_id is not None:
-        # Navegação pública: adotante/voluntário vendo os animais de uma ONG específica
         query = query.where(Animal.ong_id == ong_id)
         logger.info(f"Listando animais da ONG {ong_id} (navegação pública)")
 
