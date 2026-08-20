@@ -1,4 +1,3 @@
-"""Schemas Pydantic usados nos requests/responses da API FastAPI."""
 from datetime import date
 from typing import Optional
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, validator
