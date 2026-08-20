@@ -7,7 +7,7 @@ from sqlmodel import Session, create_engine
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "mysql+pymysql://root:20071607@localhost:3306/pethope",
+    "mysql+pymysql://root:admin@localhost:3306/pethope",
 )
 
 engine = create_engine(DATABASE_URL, echo=False)
