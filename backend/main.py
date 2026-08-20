@@ -16,7 +16,7 @@ from typing import List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from sqlmodel import Session, SQLModel, select
+from sqlmodel import Session, select
 from starlette.middleware.sessions import SessionMiddleware
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -81,10 +81,11 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    # Idempotente: cria as tabelas caso ainda não existam (por exemplo, em
-    # um banco novo). Se o Flask já criou as tabelas, não há efeito algum.
-    SQLModel.metadata.create_all(engine)
-    logger.info("Aplicação iniciada e tabelas verificadas")
+    # O schema do banco agora é gerenciado pelo Alembic (pasta /alembic).
+    # Rode `alembic upgrade head` antes de subir a aplicação para criar
+    # ou atualizar as tabelas — não usamos mais create_all() aqui para
+    # evitar que o schema real fique fora de sincronia com as migrações.
+    logger.info("Aplicação iniciada (schema gerenciado via Alembic)")
 
 
 # ================= HELPERS DE SESSÃO =================
