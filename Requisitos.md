@@ -6,7 +6,7 @@ RF01 – Cadastrar ONG
 
 RF02 – Cadastrar Usuário
 - Usuários (voluntários, adotantes, administradores) devem conseguir selecionar o tipo de conta no sistema;
-- Usuários devem conseguir criar contas no sistema informando dados essenciais.
+- Usuários devem conseguir criar contas no sistema informando dados essenciais de acordo com o tipo de conta selecionada.
 
 RF03 – Cadastrar Animais
 - Deve ser possível registrar animais disponíveis na ONG, informando seus dados, sendo a descrição um dado opcional.
@@ -19,11 +19,14 @@ RF04 – Gerenciar Adoções
 - Acompanhar o status (em andamento, concluída, rejeitada);
 - Mudar o status da solicitação de adoção.
 
-RF05 – Gerenciar Doações
-- O sistema deve possibilitar o registro e acompanhamento de doações financeiras ou de itens (ração, remédios, acessórios etc.).
+RF05 – Gerenciar Voluntários
+- O sistema deve possibilitar o registro e acompanhamento de voluntários interessados em auxiliar ONGs.
 
-RF06 – Implementar busca e filtros
-- O usuário deve poder pesquisar animais, instituições, doações e adoções com filtros (status, tipo, data, espécie etc.).
+RF06 – Gerenciar Doações
+- O sistema deve possibilitar o registro e acompanhamento de doações financeiras ou de itens (ração, remédios, acessórios, etc.).
 
-RF07 – Validação de Formulários
-- O sistema deve validar campos obrigatórios e formatos corretos antes de enviar dados (e-mail, telefone, campos numéricos etc.).
+RF07 – Implementar busca e filtros
+- O usuário deve poder pesquisar animais, instituições, doações e adoções com filtros (status, tipo, data, espécie, etc.).
+
+RF08 – Validação de Formulários
+- O sistema deve validar campos obrigatórios e formatos corretos antes de enviar dados (e-mail, telefone, campos numéricos, etc.).
