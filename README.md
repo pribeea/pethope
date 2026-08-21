@@ -35,21 +35,31 @@ Aplicação disponível em `http://localhost:5173`.
 
 ## Usando o Alembic:
 
+```bash
 pip install alembic
 alembic init alembic
+```
 
-:: 1. Depois de alterar backend/models.py, gerar a migração:
+**1. Depois de alterar backend/models.py, gerar a migração:**
+```bash
 alembic revision --autogenerate -m "descricao da mudanca"
+```
 
-:: 2. Aplicar as migracoes pendentes no banco:
+**2. Aplicar as migracoes pendentes no banco:**
+```bash
 alembic upgrade head
+```
 
-:: 3. Subir a API:
+**3. Subir a API:**
+```bash
 uvicorn backend.main:app --reload --port 8000
+```
 
-:: "Carimbar" o banco numa revisao sem executar o SQL
-:: (usado quando as tabelas ja existem no banco):
+**"Carimbar" o banco numa revisao sem executar o SQL**
+**(usado quando as tabelas ja existem no banco):**
+```bash
 alembic stamp head
+```
 
 ## Endpoints:
 ```markdown
