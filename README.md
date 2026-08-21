@@ -55,12 +55,6 @@ alembic upgrade head
 uvicorn backend.main:app --reload --port 8000
 ```
 
-**"Carimbar" o banco numa revisao sem executar o SQL**
-**(usado quando as tabelas ja existem no banco):**
-```bash
-alembic stamp head
-```
-
 ## Endpoints:
 ```markdown
 | Método | Endpoint                     | Descrição                           |
