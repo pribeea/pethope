@@ -33,6 +33,24 @@ npm run dev
 ```
 Aplicação disponível em `http://localhost:5173`.
 
+## Usando o Alembic:
+
+pip install alembic
+alembic init alembic
+
+:: 1. Depois de alterar backend/models.py, gerar a migração:
+alembic revision --autogenerate -m "descricao da mudanca"
+
+:: 2. Aplicar as migracoes pendentes no banco:
+alembic upgrade head
+
+:: 3. Subir a API:
+uvicorn backend.main:app --reload --port 8000
+
+:: "Carimbar" o banco numa revisao sem executar o SQL
+:: (usado quando as tabelas ja existem no banco):
+alembic stamp head
+
 ## Endpoints:
 ```markdown
 | Método | Endpoint                     | Descrição                           |
