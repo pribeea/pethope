@@ -45,7 +45,7 @@ alembic init alembic
 alembic revision --autogenerate -m "descricao da mudanca"
 ```
 
-**2. Aplicar as migracoes pendentes no banco:**
+**2. Aplicar as migrações pendentes no banco:**
 ```bash
 alembic upgrade head
 ```
