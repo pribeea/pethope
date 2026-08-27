@@ -4,12 +4,12 @@ from typing import List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from sqlmodel import Session, select
+from sqlmodel import Session, select, delete
 from starlette.middleware.sessions import SessionMiddleware
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .database import engine, get_session
-from .models import Adocao, Animal, FormularioAdocao, Ong, User
+from .models import Adocao, Animal, FormularioAdocao, Ong, User, Atividade, InscricaoAtividade
 from .schemas import (
     AdocaoRead,
     AdocaoSolicitar,
@@ -24,6 +24,12 @@ from .schemas import (
     SolicitacaoRead,
     UserCreate,
     UserRead,
+    AtividadeCreate,
+    AtividadeUpdate,
+    AtividadeRead,
+    InscricaoAtividadeCreate,
+    InscricaoAtividadeRead,
+    MinhaAtividadeRead,
 )
 
 logging.basicConfig(
@@ -556,3 +562,536 @@ def recusar_adocao(
 
     logger.info(f"Adoção recusada: {adocao_id}")
     return {"mensagem": "Solicitação recusada"}
+
+
+# ================= VOLUNTÁRIOS =================
+
+@app.post("/api/atividades", response_model=AtividadeRead, status_code=status.HTTP_201_CREATED)
+def cadastrar_atividade(
+    dados: AtividadeCreate,
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    logger.info(
+        f"ONG {ong['id']} tentando cadastrar atividade"
+    )
+
+    atividade = Atividade(
+    titulo=dados.titulo,
+    descricao=dados.descricao,
+    dias=dados.dias,
+    horario=dados.horario,
+    detalhes=dados.detalhes,
+    vagas=dados.vagas,
+    ong_id=ong["id"],
+    )
+
+    db.add(atividade)
+    db.commit()
+    db.refresh(atividade)
+
+    logger.info(
+        f"Atividade cadastrada: {atividade.id}"
+    )
+
+    return AtividadeRead(
+    id=atividade.id,
+    titulo=atividade.titulo,
+    descricao=atividade.descricao,
+    dias=atividade.dias,
+    horario=atividade.horario,
+    detalhes=atividade.detalhes,
+    vagas=atividade.vagas,
+    ong_id=atividade.ong_id,
+    ong_nome=ong["nome"],
+    )
+
+
+@app.put("/api/atividades/{atividade_id}", response_model=AtividadeRead)
+def editar_atividade(
+    atividade_id: int,
+    dados: AtividadeUpdate,
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    logger.info(
+        f"ONG {ong['id']} tentando editar "
+        f"a atividade {atividade_id}"
+    )
+
+    atividade = db.get(
+        Atividade,
+        atividade_id,
+    )
+
+    if not atividade:
+        raise HTTPException(
+            status_code=404,
+            detail="Atividade não encontrada.",
+        )
+
+    if atividade.ong_id != ong["id"]:
+        logger.warning(
+            f"ONG {ong['id']} tentou editar "
+            f"a atividade {atividade_id} "
+            f"de outra ONG."
+        )
+
+        raise HTTPException(
+            status_code=403,
+            detail="Você não pode editar esta atividade.",
+        )
+
+    dados_atualizados = dados.model_dump(
+        exclude_unset=True
+    )
+
+    for campo, valor in dados_atualizados.items():
+        setattr(
+            atividade,
+            campo,
+            valor
+        )
+
+    db.add(atividade)
+    db.commit()
+    db.refresh(atividade)
+
+    logger.info(
+        f"Atividade {atividade_id} editada "
+        f"com sucesso pela ONG {ong['id']}"
+    )
+
+    return AtividadeRead(
+        id=atividade.id,
+        titulo=atividade.titulo,
+        descricao=atividade.descricao,
+        dias=atividade.dias,
+        horario=atividade.horario,
+        detalhes=atividade.detalhes,
+        vagas=atividade.vagas,
+        ong_id=atividade.ong_id,
+        ong_nome=ong["nome"],
+    )
+
+
+@app.delete("/api/atividades/{atividade_id}", status_code=status.HTTP_204_NO_CONTENT)
+def excluir_atividade(
+    atividade_id: int,
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    logger.info(
+        f"Tentativa de excluir atividade {atividade_id} "
+        f"pela ONG: {ong['id']}"
+    )
+
+    atividade = db.get(Atividade, atividade_id)
+
+    if not atividade:
+        raise HTTPException(
+            status_code=404,
+            detail="Atividade não encontrada"
+        )
+
+    if atividade.ong_id != ong["id"]:
+        raise HTTPException(
+            status_code=403,
+            detail="Atividade não pertence à sua ONG"
+        )
+
+    db.exec(
+        delete(InscricaoAtividade).where(
+            InscricaoAtividade.atividade_id == atividade_id
+        )
+    )
+
+    db.delete(atividade)
+    db.commit()
+    logger.info(
+        f"Atividade {atividade_id} excluída com sucesso"
+    )
+
+    return None
+
+
+@app.get("/api/atividades", response_model=List[AtividadeRead])
+def listar_atividades(
+    db: Session = Depends(get_session),
+):
+    logger.info(
+        "Listando atividades de voluntariado"
+    )
+
+    atividades = db.exec(
+        select(Atividade)
+    ).all()
+
+    resultado = []
+
+    for atividade in atividades:
+
+        ong = db.get(
+            Ong,
+            atividade.ong_id,
+        )
+
+        if not ong:
+            continue
+
+        resultado.append(
+           AtividadeRead(
+                id=atividade.id,
+                titulo=atividade.titulo,
+                descricao=atividade.descricao,
+                dias=atividade.dias,
+                horario=atividade.horario,
+                detalhes=atividade.detalhes,
+                vagas=atividade.vagas,
+                ong_id=atividade.ong_id,
+                ong_nome=ong.nome,
+            )
+        )
+
+    return resultado
+
+
+@app.get("/api/atividades/minhas", response_model=List[MinhaAtividadeRead])
+def minhas_atividades_voluntario(
+    db: Session = Depends(get_session),
+    usuario: dict = Depends(exigir_usuario),
+):
+    if usuario["tipo"] != "voluntario":
+        raise HTTPException(
+            status_code=403,
+            detail="Apenas voluntários podem acessar suas atividades.",
+        )
+
+    inscricoes = db.exec(
+        select(InscricaoAtividade).where(
+            InscricaoAtividade.voluntario_id == usuario["id"]
+        )
+    ).all()
+
+    resultado = []
+
+    for inscricao in inscricoes:
+
+        atividade = db.get(
+            Atividade,
+            inscricao.atividade_id,
+        )
+
+        if not atividade:
+            continue
+
+        ong = db.get(
+            Ong,
+            atividade.ong_id,
+        )
+
+        if not ong:
+            continue
+
+        resultado.append(
+            MinhaAtividadeRead(
+                id=inscricao.id,
+                atividade_id=atividade.id,
+                titulo=atividade.titulo,
+                descricao=atividade.descricao,
+                dias=atividade.dias,
+                horario=atividade.horario,
+                detalhes=atividade.detalhes,
+                vagas=atividade.vagas,
+                ong_id=atividade.ong_id,
+                ong_nome=ong.nome,
+                status=inscricao.status,
+                data_inscricao=inscricao.data_inscricao,
+            )
+        )
+
+    return resultado
+
+
+@app.get("/api/atividades/minhas-ong", response_model=List[AtividadeRead])
+def minhas_atividades_ong(
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    atividades = db.exec(
+        select(Atividade).where(
+            Atividade.ong_id == ong["id"]
+        )
+    ).all()
+
+    resultado = []
+
+    for atividade in atividades:
+
+        resultado.append(
+            AtividadeRead(
+                id=atividade.id,
+                titulo=atividade.titulo,
+                descricao=atividade.descricao,
+                dias=atividade.dias,
+                horario=atividade.horario,
+                detalhes=atividade.detalhes,
+                vagas=atividade.vagas,
+                ong_id=atividade.ong_id,
+                ong_nome=ong["nome"],
+            )
+        )
+
+    return resultado
+
+
+@app.get("/api/atividades/{atividade_id}", response_model=AtividadeRead)
+def detalhes_atividade(
+    atividade_id: int,
+    db: Session = Depends(get_session),
+):
+    atividade = db.get(
+        Atividade,
+        atividade_id,
+    )
+
+    if not atividade:
+        raise HTTPException(
+            status_code=404,
+            detail="Atividade não encontrada",
+        )
+
+    ong = db.get(
+        Ong,
+        atividade.ong_id,
+    )
+
+    if not ong:
+        raise HTTPException(
+            status_code=404,
+            detail="ONG da atividade não encontrada",
+        )
+
+    return AtividadeRead(
+        id=atividade.id,
+        titulo=atividade.titulo,
+        descricao=atividade.descricao,
+        dias=atividade.dias,
+        horario=atividade.horario,
+        detalhes=atividade.detalhes,
+        vagas=atividade.vagas,
+        ong_id=atividade.ong_id,
+        ong_nome=ong.nome,
+        ong_endereco=ong.endereco,
+        ong_contato=ong.contato,
+    )
+
+
+@app.post("/api/atividades/{atividade_id}/inscricao", response_model=InscricaoAtividadeRead, status_code=status.HTTP_201_CREATED)
+def inscrever_voluntario(
+    atividade_id: int,
+    dados: InscricaoAtividadeCreate,
+    db: Session = Depends(get_session),
+    usuario: dict = Depends(exigir_usuario),
+):
+    logger.info(
+        f"Usuário {usuario['id']} tentando se inscrever "
+        f"na atividade {atividade_id}"
+    )
+
+    if usuario["tipo"] != "voluntario":
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "Apenas usuários cadastrados como "
+                "voluntários podem se inscrever."
+            ),
+        )
+
+    atividade = db.get(
+        Atividade,
+        atividade_id,
+    )
+
+    if not atividade:
+        raise HTTPException(
+            status_code=404,
+            detail="Atividade não encontrada",
+        )
+
+    inscricao_existente = db.exec(
+        select(InscricaoAtividade).where(
+            InscricaoAtividade.atividade_id == atividade_id,
+            InscricaoAtividade.voluntario_id == usuario["id"],
+        )
+    ).first()
+
+    if inscricao_existente:
+        raise HTTPException(
+            status_code=400,
+            detail="Você já está inscrito nesta atividade.",
+        )
+
+    inscricoes = db.exec(
+        select(InscricaoAtividade).where(
+            InscricaoAtividade.atividade_id == atividade_id,
+            InscricaoAtividade.status != "Recusada",
+        )
+    ).all()
+
+    if len(inscricoes) >= atividade.vagas:
+        raise HTTPException(
+            status_code=400,
+            detail="Não há mais vagas disponíveis.",
+        )
+
+    inscricao = InscricaoAtividade(
+        atividade_id=atividade_id,
+        voluntario_id=usuario["id"],
+        telefone=dados.telefone,
+        motivo=dados.motivo,
+        status="Pendente",
+    )
+
+    db.add(inscricao)
+    db.commit()
+    db.refresh(inscricao)
+
+    voluntario = db.get(
+        User,
+        usuario["id"],
+    )
+
+    logger.info(
+        f"Inscrição criada: {inscricao.id}"
+    )
+
+    return InscricaoAtividadeRead(
+        id=inscricao.id,
+        atividade_id=atividade_id,
+        voluntario_id=usuario["id"],
+        voluntario_nome=usuario["nome"],
+        voluntario_email=voluntario.email,
+        telefone=inscricao.telefone,
+        motivo=inscricao.motivo,
+        data_inscricao=inscricao.data_inscricao,
+        status=inscricao.status,
+    )
+
+
+@app.get("/api/atividades/{atividade_id}/inscricoes", response_model=List[InscricaoAtividadeRead])
+def listar_inscricoes_atividade(
+    atividade_id: int,
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    atividade = db.get(
+        Atividade,
+        atividade_id,
+    )
+
+    if not atividade:
+        raise HTTPException(
+            status_code=404,
+            detail="Atividade não encontrada",
+        )
+
+    if atividade.ong_id != ong["id"]:
+        raise HTTPException(
+            status_code=403,
+            detail=(
+                "Você não pode visualizar "
+                "as inscrições desta atividade."
+            ),
+        )
+
+    inscricoes = db.exec(
+        select(InscricaoAtividade).where(
+            InscricaoAtividade.atividade_id == atividade_id
+        )
+    ).all()
+
+    resultado = []
+
+    for inscricao in inscricoes:
+
+        voluntario = db.get(
+            User,
+            inscricao.voluntario_id,
+        )
+
+        if not voluntario:
+            continue
+
+        resultado.append(
+            InscricaoAtividadeRead(
+                id=inscricao.id,
+                atividade_id=inscricao.atividade_id,
+                voluntario_id=inscricao.voluntario_id,
+                voluntario_nome=voluntario.nome,
+                voluntario_email=voluntario.email,
+                telefone=inscricao.telefone,
+                motivo=inscricao.motivo,
+                data_inscricao=inscricao.data_inscricao,
+                status=inscricao.status,
+            )
+        )
+
+    return resultado
+
+
+@app.put("/api/inscricoes-atividade/{inscricao_id}/status")
+def alterar_status_inscricao_atividade(
+    inscricao_id: int,
+    status_novo: str,
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    if status_novo not in [
+        "Pendente",
+        "Aprovada",
+        "Recusada",
+    ]:
+        raise HTTPException(
+            status_code=400,
+            detail="Status inválido.",
+        )
+
+    inscricao = db.get(
+        InscricaoAtividade,
+        inscricao_id,
+    )
+
+    if not inscricao:
+        raise HTTPException(
+            status_code=404,
+            detail="Inscrição não encontrada.",
+        )
+
+    atividade = db.get(
+        Atividade,
+        inscricao.atividade_id,
+    )
+
+    if not atividade:
+        raise HTTPException(
+            status_code=404,
+            detail="Atividade não encontrada.",
+        )
+
+    if atividade.ong_id != ong["id"]:
+        raise HTTPException(
+            status_code=403,
+            detail="Você não pode alterar esta inscrição.",
+        )
+
+    inscricao.status = status_novo
+
+    db.add(inscricao)
+    db.commit()
+    db.refresh(inscricao)
+
+    return {
+        "mensagem": "Status atualizado com sucesso.",
+        "status": inscricao.status,
+    }
