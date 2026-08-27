@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, validator
 
@@ -176,3 +176,96 @@ class SolicitacaoRead(BaseModel):
     usuario: UserRead
     status: str
     formulario: Optional[FormularioAdocaoRead] = None
+
+
+# ================= VOLUNTARIADO =================
+
+class AtividadeCreate(BaseModel):
+    titulo: str = Field(min_length=3, max_length=150)
+    descricao: str = Field(min_length=5, max_length=1000)
+    dias: str = Field(min_length=5, max_length=100)
+    horario: str = Field(min_length=5, max_length=100)
+    detalhes: Optional[str] = Field(default=None, max_length=3000)
+    vagas: int = Field(gt=0, le=1000 )
+
+class AtividadeUpdate(BaseModel):
+    titulo: Optional[str] = Field(
+        None,
+        min_length=3,
+        max_length=150
+    )
+
+    descricao: Optional[str] = Field(
+        None,
+        min_length=5,
+        max_length=1000
+    )
+
+    dias: Optional[str] = Field(
+        None,
+        min_length=5,
+        max_length=100
+    )
+
+    horario: Optional[str] = Field(
+        None,
+        min_length=5,
+        max_length=100
+    )
+
+    detalhes: Optional[str] = Field(
+        None,
+        max_length=3000
+    )
+
+    vagas: Optional[int] = Field(
+        None,
+        gt=0,
+        le=1000
+    )
+
+class AtividadeRead(BaseModel):
+    id: int
+    titulo: str
+    descricao: str
+    dias: str
+    horario: str
+    ong_endereco: Optional[str] = None
+    ong_contato: Optional[str] = None
+    detalhes: Optional[str] = None
+    vagas: int
+    ong_id: int
+    ong_nome: str
+
+
+class InscricaoAtividadeCreate(BaseModel):
+    telefone: str = Field(min_length=10, max_length=20)
+    motivo: str = Field(min_length=5, max_length=1000)
+
+
+class InscricaoAtividadeRead(BaseModel):
+    id: int
+    atividade_id: int
+    voluntario_id: int
+    voluntario_nome: str
+    voluntario_email: str
+    telefone: str
+    motivo: str
+    data_inscricao: datetime
+    status: str
+
+
+class MinhaAtividadeRead(BaseModel):
+    id: int
+    atividade_id: int
+    titulo: str
+    descricao: str
+    dias: str
+    horario: str
+    detalhes: Optional[str] = None
+    vagas: int
+    ong_id: int
+    ong_nome: str
+    status: str
+    data_inscricao: datetime
+
