@@ -33,17 +33,37 @@ const router = useRouter()
 const nome = ref('')
 
 async function carregar() {
-  const { data } = await http.get('/api/auth/me')
-  if (!data.autenticado || data.tipo_sessao !== 'usuario') {
+  try {
+    const { data } = await http.get('/api/auth/me')
+
+    if (!data.autenticado || data.tipo_sessao !== 'usuario') {
+      router.push('/login')
+      return
+    }
+
+    if (data.tipo_usuario !== 'adotante') {
+      if (data.tipo_usuario === 'voluntario') {
+        router.push('/dashboard_voluntario')
+      } else {
+        router.push('/login')
+      }
+      return
+    }
+
+    nome.value = data.nome
+  } catch (err) {
+    console.error('Erro ao carregar dashboard:', err)
     router.push('/login')
-    return
   }
-  nome.value = data.nome
 }
 
 async function sair() {
-  await http.post('/api/auth/logout')
-  router.push('/')
+  try {
+    await http.post('/api/auth/logout')
+    router.push('/')
+  } catch (err) {
+    console.error('Erro ao fazer logout:', err)
+  }
 }
 
 onMounted(carregar)
