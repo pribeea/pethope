@@ -1,0 +1,368 @@
+.page-lista-atividades {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #EEDEF9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-lista-atividades header {
+    width: 100%;
+    background-color: #3C0D3C;
+    color: white;
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.page-lista-atividades header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-pata {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.page-lista-atividades header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #ffffff;
+    padding: 6px 18px;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.page-lista-atividades header a:hover {
+    background-color: #ffffff;
+    color: #3C0D3C;
+}
+
+.main-wrapper {
+    width: 100%;
+    max-width: 650px;
+    padding: 40px 15px;
+    box-sizing: border-box;
+}
+
+.header-section {
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.header-section h2 {
+    color: #2D0A2D;
+    font-size: 30px;
+    margin: 0;
+}
+
+.subtitle {
+    color: #3C0D3C;
+    font-size: 16px;
+    margin: 5px 0 0 0;
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.atividade-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    width: 100%;
+    min-height: 4cm;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    box-sizing: border-box;
+}
+
+.atividade-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.atividade-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.atividade-topo h3 {
+    margin: 0;
+    color: #3C0D3C;
+    font-size: 22px;
+}
+
+.atividade-info p {
+    margin: 4px 0;
+    font-size: 15px;
+    color: #444444;
+    line-height: 1.5;
+}
+
+.atividade-info strong {
+    color: #2D0A2D;
+}
+
+.informacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.informacoes span {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+    color: #444444;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.informacoes strong {
+    color: #2D0A2D;
+}
+
+.detalhes {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #444444;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.detalhes strong {
+    color: #2D0A2D;
+}
+
+.acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-voluntarios {
+    background-color: #3C0D3C;
+    color: #ffffff;
+}
+
+.btn-voluntarios:hover {
+    background-color: #2D0A2D;
+}
+
+.btn-editar {
+    background-color: #6E3A75;
+    color: #ffffff;
+}
+
+.btn-editar:hover {
+    background-color: #5A2D61;
+}
+
+.btn-excluir {
+    background-color: #A83232;
+    color: #ffffff;
+}
+
+.btn-excluir:hover {
+    background-color: #8F2929;
+}
+
+.form-edicao {
+    width: 100%;
+}
+
+.form-edicao h3 {
+    margin: 0 0 20px;
+    color: #3C0D3C;
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #444444;
+    margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: 2px solid #3C0D3C;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.campos-linha {
+    display: grid;
+    grid-template-columns: 1fr 1fr 100px;
+    gap: 15px;
+    align-items: start;
+}
+
+.campo-vagas {
+    max-width: 100px;
+}
+
+.erro-form {
+    background-color: #FCEAEA;
+    color: #A83232;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.acoes-edicao {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-cancelar {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #cccccc;
+}
+
+.btn-cancelar:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-salvar {
+    background-color: #3C0D3C;
+    color: #ffffff;
+}
+
+.btn-salvar:hover {
+    background-color: #2D0A2D;
+}
+
+.btn-salvar:disabled,
+.btn-cancelar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.loading {
+    width: 100%;
+    padding: 20px 0;
+    text-align: left;
+    color: #3C0D3C;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.erro {
+    width: 100%;
+    padding: 20px 0;
+    text-align: left;
+    color: #d9534f;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.empty-state {
+    color: #2D0A2D;
+    font-weight: bold;
+    padding: 20px 0;
+    text-align: left;
+}
+
+.footer-actions {
+    width: 100%;
+}
+
+.btn-back {
+    margin-top: 40px;
+    display: inline-block;
+    text-decoration: none;
+    color: #3C0D3C;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 35px;
+    border: 2px solid #3C0D3C;
+    border-radius: 30px;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.btn-back:hover {
+    background-color: #3C0D3C;
+    color: #ffffff;
+}
+
