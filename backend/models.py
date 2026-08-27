@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
 from sqlmodel import Field, SQLModel
@@ -49,3 +49,24 @@ class FormularioAdocao(SQLModel, table=True):
     cpf: str
     rg: str
     motivo: str
+
+
+class Atividade(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    titulo: str
+    descricao: str
+    dias: str
+    horario: str
+    detalhes: Optional[str] = None
+    vagas: int
+    ong_id: int = Field(foreign_key="ong.id")
+
+
+class InscricaoAtividade(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    atividade_id: int = Field(foreign_key="atividade.id")
+    voluntario_id: int = Field(foreign_key="user.id")
+    telefone: str
+    motivo: str
+    data_inscricao: datetime = Field(default_factory=datetime.now)
+    status: str = "Pendente"
