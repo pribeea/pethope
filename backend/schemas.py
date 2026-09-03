@@ -134,6 +134,7 @@ class AnimalRead(BaseModel):
     descricao: Optional[str] = None
     status: str
     ong_id: int
+    foto: Optional[str] = None
 
 
 # ================= ADOÇÃO =================
