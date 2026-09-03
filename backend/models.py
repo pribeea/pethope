@@ -31,7 +31,7 @@ class Animal(SQLModel, table=True):
     descricao: Optional[str] = None
     status: str = "Disponível"
     ong_id: int = Field(foreign_key="ong.id")
-
+    foto: Optional[str] = None
 
 class Adocao(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
