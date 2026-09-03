@@ -1,12 +1,14 @@
 import logging
 from datetime import date
 from typing import List, Optional
+from uuid import uuid4
 
-from fastapi import Depends, FastAPI, HTTPException, Request, status
+from fastapi import Depends, FastAPI, HTTPException, Request, status, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select, delete
 from starlette.middleware.sessions import SessionMiddleware
 from werkzeug.security import check_password_hash, generate_password_hash
+from fastapi.staticfiles import Staticfiles 
 
 from .database import engine, get_session
 from .models import Adocao, Animal, FormularioAdocao, Ong, User, Atividade, InscricaoAtividade
@@ -48,6 +50,11 @@ app = FastAPI(
     description="API REST do PetHope, consumida pelo frontend Vue.js",
     version="1.0.0",
 )
+
+UPLOAD_DIR = Path("uploads/animais")
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 app.add_middleware(
     SessionMiddleware,
@@ -349,6 +356,75 @@ def editar_animal(
     logger.info(f"Animal editado com sucesso: {animal_id}")
     return animal
 
+@app.post("/api/animals/{animal_id}/foto", response_model=AnimalRead)
+async def atualizar_foto_animal(
+    animal_id: int,
+    foto: UploadFile = File(...),
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    logger.info(
+        f"Tentativa de atualizar foto do animal {animal_id} "
+        f"pela ONG: {ong['id']}"
+    )
+
+    animal = db.get(Animal, animal_id)
+
+    if not animal:
+        raise HTTPException(
+            status_code=404,
+            detail="Animal não encontrado"
+        )
+
+    if animal.ong_id != ong["id"]:
+        raise HTTPException(
+            status_code=403,
+            detail="Animal não pertence à sua ONG"
+        )
+
+    if not foto.content_type or not foto.content_type.startswith("image/"):
+        raise HTTPException(
+            status_code=400,
+            detail="O arquivo enviado deve ser uma imagem"
+        )
+
+    extensoes_permitidas = {".jpg", ".jpeg", ".png", ".webp"}
+    extensao = Path(foto.filename or "").suffix.lower()
+
+    if extensao not in extensoes_permitidas:
+        raise HTTPException(
+            status_code=400,
+            detail="Formato de imagem não permitido. Use JPG, JPEG, PNG ou WEBP."
+        )
+
+    novo_nome = f"{uuid4().hex}{extensao}"
+    caminho_novo = UPLOAD_DIR / novo_nome
+
+    conteudo = await foto.read()
+
+    with open(caminho_novo, "wb") as arquivo:
+        arquivo.write(conteudo)
+
+    foto_antiga = animal.foto
+    animal.foto = f"/uploads/animais/{novo_nome}"
+
+    db.add(animal)
+    db.commit()
+    db.refresh(animal)
+
+    if foto_antiga:
+        caminho_antigo = Path(foto_antiga.lstrip("/"))
+
+        if caminho_antigo.exists():
+            try:
+                caminho_antigo.unlink()
+            except Exception as erro:
+                logger.warning(
+                    f"Não foi possível excluir a foto antiga: {erro}"
+                )
+
+    logger.info(f"Foto do animal {animal_id} atualizada com sucesso")
+    return animal
 
 @app.delete("/api/animals/{animal_id}", status_code=status.HTTP_204_NO_CONTENT)
 def excluir_animal(
