@@ -2,13 +2,14 @@ import logging
 from datetime import date
 from typing import List, Optional
 from uuid import uuid4
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select, delete
 from starlette.middleware.sessions import SessionMiddleware
 from werkzeug.security import check_password_hash, generate_password_hash
-from fastapi.staticfiles import Staticfiles 
+from fastapi.staticfiles import StaticFiles 
 
 from .database import engine, get_session
 from .models import Adocao, Animal, FormularioAdocao, Ong, User, Atividade, InscricaoAtividade
