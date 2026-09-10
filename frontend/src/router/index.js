@@ -6,8 +6,8 @@ import OpcoesLogin from '../views/OpcoesLogin.vue'
 import Login from '../views/Login.vue'
 import CadastroOng from '../views/CadastroOng.vue'
 import LoginOng from '../views/LoginOng.vue'
-import ListaOngs from '../views/ListaOngs.vue'
-import AnimaisPorOng from '../views/AnimaisPorOng.vue'
+import ListaOngs from '../views/Listaongs.vue'
+import AnimaisPorOng from '../views/Animaisporong.vue'
 import CadastroAnimal from '../views/CadastroAnimal.vue'
 import ListaAnimais from '../views/ListaAnimais.vue'
 import AnimalDetalhes from '../views/AnimalDetalhes.vue'
@@ -26,6 +26,11 @@ import InscricoesAtividade from '../views/InscricoesAtividade.vue'
 import MinhasAtividadesOng from '../views/MinhasAtividadesOng.vue'
 import MinhasAtividadesVoluntario from '../views/MinhasAtividadesVoluntario.vue'
 import AtividadeDetalhe from '../views/AtividadeDetalhe.vue'
+import Doacoes from '../views/Doacoes.vue'
+import FormularioDoacao from '../views/FormularioDoacao.vue'
+import PagamentoDoacao from '../views/PagamentoDoacao.vue'
+import MinhasDoacoes from '../views/MinhasDoacoes.vue'
+import DoacoesRecebidas from '../views/DoacoesRecebidas.vue'
 
 
 const routes = [
@@ -55,6 +60,11 @@ const routes = [
   { path: '/atividades-ong', name: 'atividades_ong', component: MinhasAtividadesOng },
   { path: '/minhas-atividades-voluntario', name: 'minhas_atividades_voluntario', component: MinhasAtividadesVoluntario },
   { path: '/atividades/:atividadeId', name: 'detalhes_atividade', component: AtividadeDetalhe, props: true },
+  { path: '/doacoes', name: 'doacoes', component: Doacoes },
+  { path: '/doar/:ongId', name: 'formulario_doacao', component: FormularioDoacao, props: true },
+  { path: '/doacao/:id/pagamento', name: 'pagamento_doacao', component: PagamentoDoacao, props: true },
+  { path: '/minhas-doacoes', name: 'minhas_doacoes', component: MinhasDoacoes },
+  { path: '/doacoes-recebidas', name: 'doacoes_recebidas', component: DoacoesRecebidas },
 ]
 
 
