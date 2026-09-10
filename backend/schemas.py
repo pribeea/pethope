@@ -270,3 +270,30 @@ class MinhaAtividadeRead(BaseModel):
     status: str
     data_inscricao: datetime
 
+
+# ================= DOAÇÕES =================
+
+class DoacaoCreate(BaseModel):
+    ong_id: int
+    valor: float = Field(gt=0, le=100000)
+    nome_doador: Optional[str] = Field(None, max_length=100)
+
+
+class DoacaoRead(BaseModel):
+    id: int
+    ong_id: int
+    ong_nome: str
+    valor: float
+    metodo: str
+    status: str
+    codigo_pagamento: str
+    link_pagamento: str
+    qr_code_base64: str
+    nome_doador: Optional[str] = None
+    data_criacao: datetime
+
+
+class DoacaoConfirmarResponse(BaseModel):
+    mensagem: str
+    status: str
+
