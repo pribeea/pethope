@@ -26,6 +26,9 @@
         <router-link class="btn" :to="{ name: 'animais_por_ong', params: { ongId: ong.id } }">
           Ver animais disponíveis
         </router-link>
+        <router-link class="btn btn-doar" :to="{ name: 'formulario_doacao', params: { ongId: ong.id } }">
+          💜 Fazer doação
+        </router-link>
       </div>
 
       <a href="#" class="btn-voltar" @click.prevent="$router.back()">Voltar</a>
@@ -91,6 +94,18 @@ onMounted(carregar)
   color: #d9534f;
   font-weight: bold;
   font-size: 18px;
+}
+
+.btn-doar {
+  margin-left: 10px;
+  background-color: #ffffff !important;
+  color: #3C0D3C !important;
+  border: 2px solid #3C0D3C;
+}
+
+.btn-doar:hover {
+  background-color: #3C0D3C !important;
+  color: #ffffff !important;
 }
 </style>
 
