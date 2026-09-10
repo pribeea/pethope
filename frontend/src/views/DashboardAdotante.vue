@@ -20,6 +20,18 @@
         <router-link class="btn" to="/minhas_adocoes">Minhas solicitações de adoção</router-link>
       </div>
 
+      <div class="card">
+        <h3>Fazer uma doação</h3>
+        <p>Apoie financeiramente uma ONG parceira.</p>
+        <router-link class="btn" to="/doacoes">Doar agora</router-link>
+      </div>
+
+      <div class="card">
+        <h3>Minhas doações</h3>
+        <p>Acompanhe o histórico das doações que você fez.</p>
+        <router-link class="btn" to="/minhas-doacoes">Ver minhas doações</router-link>
+      </div>
+
     </div>
   </div>
 </template>
