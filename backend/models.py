@@ -70,3 +70,16 @@ class InscricaoAtividade(SQLModel, table=True):
     motivo: str
     data_inscricao: datetime = Field(default_factory=datetime.now)
     status: str = "Pendente"
+
+
+class Doacao(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    ong_id: int = Field(foreign_key="ong.id")
+    usuario_id: Optional[int] = Field(default=None, foreign_key="user.id")
+    nome_doador: Optional[str] = None
+    valor: float
+    metodo: str = "Pix"
+    status: str = "Pendente"  # "Pendente" | "Paga"
+    codigo_pagamento: str = ""
+    link_pagamento: str = ""
+    data_criacao: datetime = Field(default_factory=datetime.now)
