@@ -2,9 +2,6 @@
 <div class="page-formulario-doacao">
     <div class="container" v-if="doacao">
       <h1>💜 Pagamento da doação</h1>
-      <p class="aviso-simulacao">
-        ⚠️ Ambiente de simulação (protótipo acadêmico). Nenhum valor real será cobrado.
-      </p>
 
       <p class="resumo">
         Doação de <strong>R$ {{ doacao.valor.toFixed(2) }}</strong> para
@@ -20,14 +17,6 @@
         <div class="copia-cola">
           <input type="text" :value="doacao.codigo_pagamento" readonly />
           <button type="button" @click="copiar(doacao.codigo_pagamento)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Link de pagamento (simulado):</label>
-        <div class="copia-cola">
-          <input type="text" :value="doacao.link_pagamento" readonly />
-          <button type="button" @click="copiar(doacao.link_pagamento)">Copiar</button>
         </div>
       </div>
 
