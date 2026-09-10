@@ -1,9 +1,12 @@
+import base64
+import io
 import logging
 from datetime import date
 from typing import List, Optional
 from uuid import uuid4
 from pathlib import Path
 
+import qrcode
 from fastapi import Depends, FastAPI, HTTPException, Request, status, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select, delete
@@ -12,13 +15,16 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from fastapi.staticfiles import StaticFiles 
 
 from .database import engine, get_session
-from .models import Adocao, Animal, FormularioAdocao, Ong, User, Atividade, InscricaoAtividade
+from .models import Adocao, Animal, Doacao, FormularioAdocao, Ong, User, Atividade, InscricaoAtividade
 from .schemas import (
     AdocaoRead,
     AdocaoSolicitar,
     AnimalCreate,
     AnimalRead,
     AnimalUpdate,
+    DoacaoConfirmarResponse,
+    DoacaoCreate,
+    DoacaoRead,
     LoginOng,
     LoginUsuario,
     MeResponse,
@@ -1172,3 +1178,154 @@ def alterar_status_inscricao_atividade(
         "mensagem": "Status atualizado com sucesso.",
         "status": inscricao.status,
     }
+
+
+# ================= DOAÇÕES =================
+#
+# Não há integração com nenhum gateway de pagamento real. O código de
+# pagamento e o link gerados são fictícios (ambiente de teste do projeto)
+# e a confirmação de pagamento é apenas simulada pelo próprio doador.
+
+def gerar_dados_pagamento_fake(doacao_id: int) -> tuple[str, str]:
+    """Gera um código de pagamento e um link de pagamento fictícios,
+    únicos por doação, apenas para fins de demonstração."""
+    codigo = f"PETHOPE-DOACAO-{doacao_id:06d}-{uuid4().hex[:12].upper()}"
+    link = f"https://pagamento-simulado.pethope.local/doacao/{doacao_id}"
+    return codigo, link
+
+
+def gerar_qr_code_base64(dado: str) -> str:
+    """Gera a imagem (PNG em base64) de um QR code a partir de um texto."""
+    qr = qrcode.QRCode(version=1, box_size=8, border=2)
+    qr.add_data(dado)
+    qr.make(fit=True)
+    imagem = qr.make_image(fill_color="#3C0D3C", back_color="white")
+
+    buffer = io.BytesIO()
+    imagem.save(buffer, format="PNG")
+    codificado = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    return f"data:image/png;base64,{codificado}"
+
+
+def montar_doacao_read(doacao: Doacao, ong_nome: str) -> DoacaoRead:
+    return DoacaoRead(
+        id=doacao.id,
+        ong_id=doacao.ong_id,
+        ong_nome=ong_nome,
+        valor=doacao.valor,
+        metodo=doacao.metodo,
+        status=doacao.status,
+        codigo_pagamento=doacao.codigo_pagamento,
+        link_pagamento=doacao.link_pagamento,
+        qr_code_base64=gerar_qr_code_base64(doacao.codigo_pagamento),
+        nome_doador=doacao.nome_doador,
+        data_criacao=doacao.data_criacao,
+    )
+
+
+@app.post("/api/doacoes", response_model=DoacaoRead, status_code=status.HTTP_201_CREATED)
+def criar_doacao(
+    dados: DoacaoCreate,
+    request: Request,
+    db: Session = Depends(get_session),
+):
+    """Inicia uma doação: qualquer pessoa pode doar, logada ou não."""
+    logger.info(f"Nova doação sendo iniciada para a ONG {dados.ong_id}")
+
+    ong = db.get(Ong, dados.ong_id)
+    if not ong:
+        logger.warning(f"Tentativa de doação para ONG inexistente: {dados.ong_id}")
+        raise HTTPException(status_code=404, detail="ONG não encontrada")
+
+    usuario = usuario_logado(request)
+    nome_doador = dados.nome_doador or (usuario["nome"] if usuario else None) or "Doador anônimo"
+
+    doacao = Doacao(
+        ong_id=dados.ong_id,
+        usuario_id=usuario["id"] if usuario else None,
+        nome_doador=nome_doador,
+        valor=dados.valor,
+        metodo="Pix",
+        status="Pendente",
+    )
+    db.add(doacao)
+    db.commit()
+    db.refresh(doacao)
+
+    codigo, link = gerar_dados_pagamento_fake(doacao.id)
+    doacao.codigo_pagamento = codigo
+    doacao.link_pagamento = link
+    db.add(doacao)
+    db.commit()
+    db.refresh(doacao)
+
+    logger.info(f"Doação criada: {doacao.id} - R${doacao.valor:.2f} para a ONG {ong.id}")
+    return montar_doacao_read(doacao, ong.nome)
+
+
+@app.get("/api/doacoes/minhas", response_model=List[DoacaoRead])
+def minhas_doacoes(
+    db: Session = Depends(get_session),
+    usuario: dict = Depends(exigir_usuario),
+):
+    logger.info(f"Listando doações do usuário: {usuario['id']}")
+
+    doacoes = db.exec(
+        select(Doacao)
+        .where(Doacao.usuario_id == usuario["id"])
+        .order_by(Doacao.data_criacao.desc())
+    ).all()
+
+    resultado = []
+    for doacao in doacoes:
+        ong = db.get(Ong, doacao.ong_id)
+        resultado.append(montar_doacao_read(doacao, ong.nome if ong else "ONG"))
+    return resultado
+
+
+@app.get("/api/doacoes/recebidas", response_model=List[DoacaoRead])
+def doacoes_recebidas(
+    db: Session = Depends(get_session),
+    ong: dict = Depends(exigir_ong),
+):
+    logger.info(f"Listando doações recebidas pela ONG: {ong['id']}")
+
+    doacoes = db.exec(
+        select(Doacao)
+        .where(Doacao.ong_id == ong["id"])
+        .order_by(Doacao.data_criacao.desc())
+    ).all()
+
+    return [montar_doacao_read(doacao, ong["nome"]) for doacao in doacoes]
+
+
+@app.get("/api/doacoes/{doacao_id}", response_model=DoacaoRead)
+def detalhes_doacao(doacao_id: int, db: Session = Depends(get_session)):
+    """Público: permite reabrir a página de pagamento a partir do link gerado."""
+    doacao = db.get(Doacao, doacao_id)
+    if not doacao:
+        raise HTTPException(status_code=404, detail="Doação não encontrada")
+
+    ong = db.get(Ong, doacao.ong_id)
+    return montar_doacao_read(doacao, ong.nome if ong else "ONG")
+
+
+@app.post("/api/doacoes/{doacao_id}/confirmar", response_model=DoacaoConfirmarResponse)
+def confirmar_doacao(doacao_id: int, db: Session = Depends(get_session)):
+    """Simula a confirmação do pagamento (não há gateway real integrado)."""
+    doacao = db.get(Doacao, doacao_id)
+    if not doacao:
+        raise HTTPException(status_code=404, detail="Doação não encontrada")
+
+    if doacao.status == "Paga":
+        return DoacaoConfirmarResponse(mensagem="Esta doação já havia sido confirmada.", status=doacao.status)
+
+    doacao.status = "Paga"
+    db.add(doacao)
+    db.commit()
+
+    logger.info(f"Doação confirmada (simulação): {doacao_id}")
+    return DoacaoConfirmarResponse(
+        mensagem="Pagamento confirmado com sucesso! Muito obrigado pela doação.",
+        status=doacao.status,
+    )
