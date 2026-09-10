@@ -32,8 +32,10 @@
 
     <div class="footer-actions">
       <router-link to="/doacoes" class="btn-back">Fazer nova doação</router-link>
+      <router-link to="/dashboard_adotante" class="btn-back">Voltar pra dashboard</router-link>
     </div>
   </div>
+
 </template>
 
 <script setup>
