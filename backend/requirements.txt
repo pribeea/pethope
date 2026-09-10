@@ -9,3 +9,4 @@ python-multipart>=0.0.9
 pydantic[email]>=2.7
 slowapi>=0.1.9
 SQLAlchemy>=2.0
+qrcode[pil]>=7.4
