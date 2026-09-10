@@ -17,6 +17,7 @@
           <router-link to="/solicitacoes" class="card">Solicitações de Adoção</router-link>
           <router-link to="/cadastrar-atividade" class="card">Cadastrar Atividade de Voluntariado</router-link>
           <router-link to="/atividades-ong" class="card">Minhas Atividades de Voluntariado</router-link>
+          <router-link to="/doacoes-recebidas" class="card">Doações Recebidas</router-link>
         </div>
       </section>
     </main>
