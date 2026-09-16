@@ -297,22 +297,46 @@ def listar_animais(
 ):
     query = select(Animal)
 
+    # ================= FILTRO POR ONG =================
+
     if minha_ong:
         ong = exigir_ong(request)
-        query = query.where(Animal.ong_id == ong["id"])
-        logger.info(f"Listando animais da ONG: {ong['id']}")
+
+        query = query.where(
+            Animal.ong_id == ong["id"]
+        )
+
+        logger.info(
+            f"Listando animais da ONG: {ong['id']}"
+        )
+
     elif ong_id is not None:
-        query = query.where(Animal.ong_id == ong_id)
-        logger.info(f"Listando animais da ONG {ong_id} (navegação pública)")
+
+        query = query.where(
+            Animal.ong_id == ong_id
+        )
+
+        logger.info(
+            f"Listando animais da ONG {ong_id}"
+        )
+
+    # ================= FILTRO POR STATUS =================
 
     if status_filtro:
-        query = query.where(Animal.status == status_filtro)
+        query = query.where(
+            Animal.status == status_filtro
+        )
 
     animais = db.exec(query).all()
 
+    # ================= SOLICITAÇÕES PENDENTES =================
+
     if not minha_ong:
+
         usuario = usuario_logado(request)
+
         if usuario:
+
             ids_pendentes = set(
                 db.exec(
                     select(Adocao.animal_id).where(
@@ -321,11 +345,45 @@ def listar_animais(
                     )
                 ).all()
             )
+
             if ids_pendentes:
-                animais = [a for a in animais if a.id not in ids_pendentes]
+                animais = [
+                    animal
+                    for animal in animais
+                    if animal.id not in ids_pendentes
+                ]
 
-    return animais
+    # ================= MONTAR RESPOSTA =================
 
+    resultado = []
+
+    for animal in animais:
+
+        ong = db.get(
+            Ong,
+            animal.ong_id
+        )
+
+        if not ong:
+            continue
+
+        resultado.append(
+            AnimalRead(
+                id=animal.id,
+                nome=animal.nome,
+                especie=animal.especie,
+                raca=animal.raca,
+                idade=animal.idade,
+                sexo=animal.sexo,
+                descricao=animal.descricao,
+                status=animal.status,
+                ong_id=animal.ong_id,
+                ong_nome=ong.nome,
+                foto=animal.foto,
+            )
+        )
+
+    return resultado
 
 @app.get("/api/animals/{animal_id}", response_model=AnimalRead)
 def detalhes_animal(animal_id: int, db: Session = Depends(get_session)):
