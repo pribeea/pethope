@@ -6,14 +6,40 @@
         PetHope
       </h2>
 
-      <a href="#" @click.prevent="sair">Sair</a>
+      <div class="menu">
+        <router-link to="/dashboard_ong">Início</router-link>
+        <router-link to="/animais">Meus animais</router-link>
+        <router-link to="/solicitacoes">Adoções</router-link>
+        <router-link to="/atividades-ong">Voluntários</router-link>
+        <router-link to="/perfil">Perfil</router-link>
+        <a href="#" @click.prevent="sair">Sair</a>
+      </div>
     </header>
 
     <div class="main-wrapper">
       <div class="header-section">
-        <h2>Escolha o seu pet</h2>
-        <p class="subtitle">Encontre o companheiro ideal.</p>
+        <div class="header-section-texto">
+          <h2>Escolha o seu pet</h2>
+          <p class="subtitle">Encontre o companheiro ideal.</p>
+        </div>
+
+        <svg class="header-section-arte" viewBox="0 0 200 140" aria-hidden="true">
+          <ellipse cx="100" cy="72" rx="88" ry="56" fill="#f3e5fb" />
+          <g fill="#a86fd1">
+            <circle cx="70" cy="60" r="7" />
+            <circle cx="86" cy="50" r="7" />
+            <circle cx="104" cy="50" r="7" />
+            <circle cx="120" cy="60" r="7" />
+            <ellipse cx="95" cy="78" rx="26" ry="19" />
+          </g>
+          <g fill="#e0a8e8">
+            <path d="M148 34c-6 0-10 5-10 10 0 7 10 14 10 14s10-7 10-14c0-5-4-10-10-10Z" />
+            <path d="M164 52c-4 0-7 3.5-7 7 0 5 7 10 7 10s7-5 7-10c0-3.5-3-7-7-7Z" />
+          </g>
+        </svg>
       </div>
+
+      <h2 class="titulo-secao">🐾 Pets disponíveis</h2>
 
       <div v-if="carregando" class="loading">
         <p>🔄 Carregando seus pets...</p>
@@ -33,15 +59,18 @@
               :src="urlFoto(animal.foto)"
               :alt="`Foto de ${animal.nome}`"
             />
+            <span class="animal-favorito">♡</span>
           </div>
 
           <div v-else class="animal-foto sem-foto">
             <span>🐾</span>
+            <span class="animal-favorito">♡</span>
           </div>
 
           <div class="animal-info">
 
             <div class="titulo-animal">
+              <p class="animal-ong">{{ animal.ong_nome || 'ONG não informada' }}</p>
               <h3>{{ animal.nome }}</h3>
 
               <router-link
@@ -51,35 +80,6 @@
                 Ver detalhes
               </router-link>
             </div>
-
-            <p>
-              <strong>Espécie:</strong>
-              {{ animal.especie }}
-            </p>
-
-            <p>
-              <strong>Idade:</strong>
-              {{ animal.idade ?? 'Não informada' }}
-
-              <span
-                v-if="
-                  animal.idade !== null &&
-                  animal.idade !== undefined
-                "
-              >
-                anos
-              </span>
-            </p>
-
-            <p>
-              <strong>Sexo:</strong>
-              {{ animal.sexo || 'Não informado' }}
-            </p>
-
-            <p>
-              <strong>Descrição:</strong>
-              {{ animal.descricao || 'Sem descrição cadastrada.' }}
-            </p>
 
             <p>
               <strong>Status:</strong>
