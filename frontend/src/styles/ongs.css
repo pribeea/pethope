@@ -1,111 +1,295 @@
 .page-ongs {
     margin: 0;
     padding: 0;
+    min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #EEDEF9;
-    min-height: 100vh;
+    color: #333333;
 }
+
+/* =========================
+   HEADER
+   ========================= */
 
 .page-ongs header {
     background-color: #3C0D3C;
-    color: white;
+    color: #ffffff;
     padding: 15px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
 .page-ongs header h2 {
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 22px;
-    color: white;
+    color: #ffffff;
+}
+
+.page-ongs .logo-pata {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
 }
 
 .page-ongs header a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 14px;
-    border: 1px solid white;
-    padding: 5px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 7px 18px;
     border-radius: 20px;
+    transition: 0.2s ease;
 }
+
+.page-ongs header a:hover {
+    background-color: #ffffff;
+    color: #3C0D3C;
+}
+
+/* =========================
+   CONTAINER
+   ========================= */
 
 .page-ongs .container {
-    max-width: 650px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 30px 15px;
+    padding: 45px 30px 35px;
 }
 
+/* =========================
+   TÍTULO
+   ========================= */
+
 .page-ongs h1 {
-    color: #333333;
-    font-size: 28px;
-    margin-bottom: 6px;
+    margin: 0 0 8px;
+    color: #3C0D3C;
+    font-size: 30px;
+    font-weight: 700;
 }
 
 .page-ongs .subtitle {
+    margin: 0 0 32px;
     color: #666666;
-    margin-bottom: 25px;
     font-size: 15px;
+    line-height: 1.5;
 }
+
+/* =========================
+   LISTA DE ONGS
+   ========================= */
+
+.page-ongs .ongs-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* =========================
+   CARD DA ONG
+   ========================= */
 
 .page-ongs .card {
     background-color: #ffffff;
     border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    padding: 24px;
+    margin: 0;
+    box-shadow: 0 4px 14px rgba(60, 13, 60, 0.08);
+    border: 1px solid rgba(60, 13, 60, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 230px;
 }
+
+.page-ongs .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(60, 13, 60, 0.12);
+}
+
+/* Nome da ONG */
 
 .page-ongs .card h3 {
-    margin: 0 0 10px 0;
-    color: #333333;
-    font-size: 20px;
+    margin: 0 0 18px;
+    color: #3C0D3C;
+    font-size: 21px;
+    font-weight: 700;
 }
 
+/* Informações */
+
 .page-ongs .card p {
-    margin: 0 0 6px 0;
+    margin: 0 0 9px;
     color: #666666;
-    font-size: 15px;
-    line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.page-ongs .card p strong {
+    color: #444444;
+}
+
+/* =========================
+   BOTÕES
+   ========================= */
+
+.page-ongs .card-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 18px;
 }
 
 .page-ongs .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     background-color: #3C0D3C;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 12px 25px;
-    border-radius: 30px;
-    margin-top: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 11px 18px;
+    border-radius: 25px;
+    border: 2px solid #3C0D3C;
+    transition: 0.2s ease;
 }
 
 .page-ongs .btn:hover {
     background-color: #2D0A2D;
+    border-color: #2D0A2D;
+    transform: translateY(-1px);
 }
+
+/* Botão de doação */
+
+.page-ongs .btn-doar {
+    background-color: #ffffff !important;
+    color: #3C0D3C !important;
+    border: 2px solid #3C0D3C;
+}
+
+.page-ongs .btn-doar:hover {
+    background-color: #3C0D3C !important;
+    color: #ffffff !important;
+}
+
+/* =========================
+   LOADING
+   ========================= */
+
+.page-ongs .loading {
+    text-align: center;
+    padding: 50px 20px;
+    color: #3C0D3C;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+/* =========================
+   ERRO
+   ========================= */
+
+.page-ongs .erro {
+    text-align: center;
+    padding: 50px 20px;
+    color: #d9534f;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* =========================
+   NENHUMA ONG
+   ========================= */
 
 .page-ongs .mensagem {
-    color: #333333;
-    font-weight: bold;
-    margin-top: 20px;
+    background-color: #ffffff;
+    color: #555555;
+    text-align: center;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(60, 13, 60, 0.06);
 }
 
-.page-ongs .btn-voltar {
-    display: inline-block;
-    margin-top: 20px;
+/* =========================
+   BOTÃO VOLTAR
+   ========================= */
+
+.page-ongs .footer-actions {
+    margin-top: 38px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.page-ongs .btn-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: #3C0D3C;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 10px 35px;
+    font-weight: 600;
+    padding: 11px 40px;
     border: 2px solid #3C0D3C;
     border-radius: 30px;
+    transition: 0.2s ease;
 }
 
-.page-ongs .btn-voltar:hover {
+.page-ongs .btn-back:hover {
     background-color: #3C0D3C;
     color: #ffffff;
+}
+
+/* =========================
+   RESPONSIVIDADE
+   ========================= */
+
+@media (max-width: 800px) {
+
+    .page-ongs .container {
+        padding: 35px 20px;
+    }
+
+    .page-ongs .ongs-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .page-ongs header {
+        padding: 14px 20px;
+    }
+
+    .page-ongs header h2 {
+        font-size: 20px;
+    }
+
+    .page-ongs .container {
+        padding: 30px 15px;
+    }
+
+    .page-ongs h1 {
+        font-size: 26px;
+    }
+
+    .page-ongs .card {
+        padding: 20px;
+    }
+
+    .page-ongs .card-actions {
+        flex-direction: column;
+    }
+
+    .page-ongs .btn {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
