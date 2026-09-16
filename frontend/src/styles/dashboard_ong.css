@@ -1,83 +1,336 @@
-.page-dashboard-ong {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #EEDEF9;
-    min-height: 100vh;
+* {
+  box-sizing: border-box;
 }
 
-header {
-    background-color: #3C0D3C; 
-    color: white;
-    padding: 15px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+.pagina-ong {
+  width: 100%;
+  min-height: 100vh;
+  background: #ead8f5;
+  color: #481047;
+  position: relative;
+  overflow: hidden;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 22px;
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.navbar {
+  width: 100%;
+  height: 63px;
+  background: #4b0b45;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 53px;
 }
 
-h1 {
-    color: #3C0D3C;
+
+/* LOGO */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  text-decoration: none;
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-header p {
-    margin: 0;
-    font-size: 14px;
-    opacity: 0.9;
+.logo-pata {
+  font-size: 26px;
+  line-height: 1;
 }
 
-p {
-    color: #3C0D3C;
+
+/* MENU */
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 29px;
 }
 
-header a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-    border: 1px solid white;
-    padding: 5px 15px;
-    border-radius: 20px;
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  transition: opacity 0.2s ease;
 }
 
-main {
-    max-width: 700px; 
-    margin: 0 auto;
-    padding: 40px 20px;
+.menu a:hover {
+  opacity: 0.7;
 }
 
-h2 {
-    margin: 10px 0 25px 0;
-    font-size: 26px;
-    color: #ffffff;
+
+/* ========================================
+   CONTEÚDO
+======================================== */
+
+.conteudo {
+  width: 588px;
+  margin: 0 auto;
+  padding-top: 29px;
 }
 
-.cards {
-    display: flex;
-    flex-direction: column; 
-    gap: 15px; 
+/* BOAS-VINDAS */
+
+.boas-vindas {
+  margin: 0 0 5px 0;
+  color: #624568;
+  font-size: 13px;
+  letter-spacing: 0.2px;
 }
 
-.card {
-    background-color: #ffffff;
-    color: #3C0D3C; 
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    padding: 25px 30px; 
-    border-radius: 20px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    display: flex; 
-    box-sizing: border-box;
+/* TÍTULO */
+
+.conteudo h1 {
+  margin: 0 0 17px 0;
+  color: #4b1048;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.card:hover {
-    transform: translateX(10px); 
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    background-color: #fcfcfc;
+
+/* ========================================
+   CARDS
+======================================== */
+
+.card-opcao {
+  width: 100%;
+  height: 68px;
+  margin-bottom: 14px;
+  padding: 9px 13px;
+  background: #fffaff;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card-opcao:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 5px 14px rgba(75, 11, 69, 0.12);
+}
+
+/* ========================================
+   ÍCONES
+======================================== */
+
+.icone {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* SVG */
+
+.icone svg {
+  width: 29px;
+  height: 29px;
+  fill: none;
+  stroke: white;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* CORES */
+
+.icone-rosa {
+  background: #d09bd2;
+}
+
+.icone-amarelo {
+  background: #fff09b;
+}
+
+.icone-verde {
+  background: #b8d9b9;
+}
+
+
+/* ========================================
+   TEXTO DOS CARDS
+======================================== */
+
+.texto-opcao {
+  flex: 1;
+  margin-left: 17px;
+  min-width: 0;
+}
+
+.texto-opcao h2 {
+  margin: 0 0 4px 0;
+  color: #4b1048;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+
+.texto-opcao p {
+  margin: 0;
+  color: #624568;
+  font-size: 9px;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+}
+
+
+/* ========================================
+   SETA
+======================================== */
+
+.seta {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: #eedafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b1048;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+
+/* ========================================
+   PATINHAS DO FUNDO
+======================================== */
+
+.patinhas {
+  position: absolute;
+  right: 27px;
+  bottom: 80px;
+  width: 155px;
+  height: 125px;
+  opacity: 0.12;
+  pointer-events: none;
+  transform: rotate(-10deg);
+}
+
+
+.pata-grande {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 80px;
+  filter: grayscale(1);
+  opacity: 0.8;
+}
+
+.pata-pequena {
+  position: absolute;
+  right: 60px;
+  bottom: 52px;
+  font-size: 48px;
+  filter: grayscale(1);
+  opacity: 0.8;
+}
+
+/* ========================================
+   RODAPÉ
+======================================== */
+
+footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #68456b;
+  font-size: 10px;
+  letter-spacing: 0.2px;
+}
+
+
+footer strong {
+  color: #4b1048;
+}
+
+.footer-pata {
+  font-size: 11px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 700px) {
+
+  .navbar {
+    padding: 0 25px;
+  }
+
+  .menu {
+    gap: 15px;
+  }
+
+  .menu a {
+    font-size: 13px;
+  }
+
+  .conteudo {
+    width: calc(100% - 40px);
+  }
+}
+
+
+@media (max-width: 550px) {
+
+  .navbar {
+    height: auto;
+    min-height: 63px;
+    padding: 14px 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 18px;
+  }
+
+  .conteudo {
+    width: calc(100% - 30px);
+    padding-top: 25px;
+  }
+
+  .patinhas {
+    display: none;
+  }
+
+  footer {
+    bottom: 18px;
+
+    padding: 0 15px;
+
+    text-align: center;
+  }
+
 }
