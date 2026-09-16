@@ -124,7 +124,6 @@ class AnimalUpdate(BaseModel):
 
 class AnimalRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-
     id: int
     nome: str
     especie: str
@@ -134,8 +133,8 @@ class AnimalRead(BaseModel):
     descricao: Optional[str] = None
     status: str
     ong_id: int
+    ong_nome: Optional[str] = None
     foto: Optional[str] = None
-
 
 # ================= ADOÇÃO =================
 
