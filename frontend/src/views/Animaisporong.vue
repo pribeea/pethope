@@ -1,146 +1,406 @@
 <template>
-<div class="page-animais-por-ong">
+  <div class="page-lista-animais">
+
+    <!-- NAVBAR -->
     <header>
-      <h2><img src="/pata-branca.png" class="logo-pata" alt="" />PetHope</h2>
-      <a href="#" @click.prevent="sair">Sair</a>
+      <h2>
+        <img
+          src="/pata-branca.png"
+          class="logo-pata"
+          alt=""
+        />
+        PetHope
+      </h2>
+
+      <div class="menu">
+        <router-link to="/dashboard">Início</router-link>
+        <router-link to="/animais">Meus animais</router-link>
+        <router-link to="/solicitacoes">Adoções</router-link>
+        <router-link to="/atividades-ong">Voluntários</router-link>
+        <router-link to="/perfil">Perfil</router-link>
+        <a href="#"@click.prevent="sair">Sair</a>
+      </div>
     </header>
 
-    <div class="container">
-      <router-link :to="{ name: 'ongs' }" class="btn-voltar-topo">&larr; Todas as ONGs</router-link>
+   
+    <!-- CONTEÚDO -->
+    <div class="main-wrapper">
 
-      <div v-if="carregandoOng" class="loading">
-        <p>🔄 Carregando ONG...</p>
-      </div>
-      <div v-else-if="erroOng" class="erro">
-        <p>❌ {{ erroOng }}</p>
-      </div>
-      <template v-else-if="ong">
-        <h1>🏠 {{ ong.nome }}</h1>
-        <div class="ong-info">
-          <p v-if="ong.endereco"><strong>Endereço:</strong> {{ ong.endereco }}</p>
-          <p v-if="ong.contato"><strong>Contato:</strong> {{ ong.contato }}</p>
+      <!-- CABEÇALHO -->
+      <div class="header-section">
+
+        <div class="header-section-texto">
+          <h2>
+            Escolha o seu pet
+          </h2>
+
+          <p class="subtitle">
+            Encontre o companheiro ideal.
+          </p>
         </div>
-      </template>
 
-      <h2 class="titulo-animais">🐾 Animais disponíveis para adoção</h2>
+        <svg
+          class="header-section-arte"
+          viewBox="0 0 200 140"
+          aria-hidden="true"
+        >
+          <ellipse
+            cx="100"
+            cy="72"
+            rx="88"
+            ry="56"
+            fill="#f3e5fb"
+          />
 
-      <div v-if="carregandoAnimais" class="loading">
-        <p>🔄 Carregando animais...</p>
+          <g fill="#a86fd1">
+            <circle
+              cx="70"
+              cy="60"
+              r="7"
+            />
+
+            <circle
+              cx="86"
+              cy="50"
+              r="7"
+            />
+
+            <circle
+              cx="104"
+              cy="50"
+              r="7"
+            />
+
+            <circle
+              cx="120"
+              cy="60"
+              r="7"
+            />
+
+            <ellipse
+              cx="95"
+              cy="78"
+              rx="26"
+              ry="19"
+            />
+          </g>
+
+          <g fill="#e0a8e8">
+
+            <path
+              d="M148 34c-6 0-10 5-10 10 0 7 10 14 10 14s10-7 10-14c0-5-4-10-10-10Z"
+            />
+
+            <path
+              d="M164 52c-4 0-7 3.5-7 7 0 5 7 10 7 10s7-5 7-10c0-3.5-3-7-7-7Z"
+            />
+
+          </g>
+        </svg>
+
       </div>
 
-      <div v-else-if="erroAnimais" class="erro">
-        <p>❌ {{ erroAnimais }}</p>
+
+      <!-- TÍTULO -->
+      <h2 class="titulo-secao">
+        🐾 Pets disponíveis
+      </h2>
+
+
+      <!-- CARREGANDO -->
+      <div
+        v-if="carregando"
+        class="loading"
+      >
+        <p>
+          🔄 Carregando pets...
+        </p>
       </div>
 
-      <p v-else-if="animais.length === 0" class="mensagem">
-        Esta ONG não tem animais disponíveis para adoção no momento.
-      </p>
 
-      <div v-else class="card" v-for="animal in animais" :key="animal.id">
-        <h2>{{ animal.nome }}</h2>
-        <p><strong>Espécie:</strong> {{ animal.especie }}</p>
-        <p><strong>Raça:</strong> {{ animal.raca || 'Não informada' }}</p>
-        <p><strong>Sexo:</strong> {{ animal.sexo || 'Não informado' }}</p>
-        <p><strong>Idade:</strong> {{ animal.idade || 'Não informada' }}</p>
-        <p><strong>Descrição:</strong> {{ animal.descricao || 'Sem descrição cadastrada.' }}</p>
+      <!-- CARDS -->
+      <div
+        v-else
+        class="cards-container"
+      >
 
-        <span v-if="animal.status === 'Disponível'">🟢 Disponível</span>
-        <span v-else-if="animal.status === 'Em processo de adoção'">🟡 Em processo de adoção</span>
-        <span v-else-if="animal.status === 'Adotado'">🔴 Adotado</span>
-        <span v-else>⚪ Status não definido</span>
+        <!-- ANIMAIS -->
+        <div
+          v-if="animais.length"
+          v-for="animal in animais"
+          :key="animal.id"
+          class="animal-card"
+        >
 
-        <button type="button" @click="$router.push(`/adotar/${animal.id}`)">Quero adotar</button>
+          <!-- FOTO -->
+          <div
+            v-if="animal.foto"
+            class="animal-foto"
+          >
+
+            <img
+              :src="urlFoto(animal.foto)"
+              :alt="`Foto de ${animal.nome}`"
+            />
+
+            <span class="animal-favorito">
+              ♡
+            </span>
+
+          </div>
+
+
+          <!-- SEM FOTO -->
+          <div
+            v-else
+            class="animal-foto sem-foto"
+          >
+
+            <span>
+              🐾
+            </span>
+
+            <span class="animal-favorito">
+              ♡
+            </span>
+
+          </div>
+
+
+          <!-- INFORMAÇÕES -->
+          <div class="animal-info">
+
+            <div class="titulo-animal">
+
+              <!-- NOME DA ONG -->
+              <p class="animal-ong">
+                {{ animal.ong_nome || 'ONG não informada' }}
+              </p>
+
+              <!-- NOME DO ANIMAL -->
+              <h3>
+                {{ animal.nome }}
+              </h3>
+
+              <!-- STATUS -->
+              <p class="animal-status">
+
+                <strong>
+                  Status:
+                </strong>
+
+                <span
+                  v-if="animal.status === 'Disponível'"
+                >
+                  🟢 Disponível
+                </span>
+
+                <span
+                  v-else-if="
+                    animal.status === 'Em processo de adoção'
+                  "
+                >
+                  🟡 Processo de adoção
+                </span>
+
+                <span
+                  v-else-if="
+                    animal.status === 'Adotado'
+                  "
+                >
+                  🔴 Adotado
+                </span>
+
+                <span v-else>
+                  ⚪ {{ animal.status }}
+                </span>
+
+              </p>
+
+
+              <!-- DETALHES -->
+              <router-link
+                :to="`/animaisdetalhes/${animal.id}`"
+                class="btn-detalhes"
+              >
+                Ver detalhes
+              </router-link>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          v-else-if="erro"
+          class="erro"
+        >
+          <p>
+            ❌ {{ erro }}
+          </p>
+        </div>
+
+        <div
+          v-else
+          class="empty-state"
+        >
+          <p>
+            Nenhum pet disponível para adoção nesta ONG.
+          </p>
+        </div>
+
       </div>
 
-      <a href="#" class="btn-voltar" @click.prevent="$router.back()">Voltar</a>
+      <div class="footer-actions">
+
+        <router-link
+          :to="dashboard"
+          class="btn-back"
+        >
+          Voltar
+        </router-link>
+
+      </div>
+
     </div>
-</div>
+
+  </div>
 </template>
+
 
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import http from '../api/http'
 
-const props = defineProps({ ongId: { type: [String, Number], required: true } })
-
 const router = useRouter()
-const ong = ref(null)
-const carregandoOng = ref(true)
-const erroOng = ref('')
+
+const props = defineProps({
+  ongId: {
+    type: [String, Number],
+    required: true
+  }
+})
+
+const dashboard = ref('/dashboard_adotante')
 
 const animais = ref([])
-const carregandoAnimais = ref(true)
-const erroAnimais = ref('')
+
+const carregando = ref(true)
+
+const erro = ref('')
+function urlFoto(caminho) {
+
+  if (!caminho) {
+    return ''
+  }
+  if (
+    caminho.startsWith('http://') ||
+    caminho.startsWith('https://')
+  ) {
+    return caminho
+  }
+
+  const baseURL =
+    http.defaults.baseURL ||
+    'http://localhost:8000'
+
+  return `${baseURL}${caminho}`
+}
 
 async function carregar() {
-  const { data: me } = await http.get('/api/auth/me')
-  if (!me.autenticado || me.tipo_sessao !== 'usuario') {
-    router.push('/login')
-    return
-  }
 
-  await Promise.all([carregarOng(), carregarAnimais()])
-}
+  carregando.value = true
+  erro.value = ''
 
-async function carregarOng() {
-  carregandoOng.value = true
-  erroOng.value = ''
   try {
-    const { data } = await http.get(`/api/ongs/${props.ongId}`)
-    ong.value = data
-  } catch (err) {
-    console.error('Erro ao carregar ONG:', err)
-    erroOng.value = err.response?.data?.detail || 'Não foi possível carregar os dados desta ONG.'
-  } finally {
-    carregandoOng.value = false
-  }
-}
 
-async function carregarAnimais() {
-  carregandoAnimais.value = true
-  erroAnimais.value = ''
-  try {
-    const { data } = await http.get('/api/animals', {
-      params: { ong_id: props.ongId, status_filtro: 'Disponível' },
-    })
+    const { data: me } =
+      await http.get('/api/auth/me')
+
+    if (
+      !me.autenticado ||
+      me.tipo_sessao !== 'usuario'
+    ) {
+
+      router.push('/login')
+
+      return
+    }
+
+    if (
+      me.tipo_usuario === 'voluntario'
+    ) {
+
+      dashboard.value =
+        '/dashboard_voluntario'
+
+    } else {
+
+      dashboard.value =
+        '/dashboard_adotante'
+
+    }
+    const { data } =
+      await http.get('/api/animals', {
+
+        params: {
+          ong_id: props.ongId,
+          status_filtro: 'Disponível'
+        }
+      })
+
     animais.value = data
+
   } catch (err) {
-    console.error('Erro ao carregar animais:', err)
-    erroAnimais.value = err.response?.data?.detail || 'Não foi possível carregar os animais desta ONG.'
+
+    console.error(
+      'Erro ao carregar animais:',
+      err
+    )
+
+    if (
+      err.response?.status === 401
+    ) {
+
+      router.push('/login')
+
+      return
+    }
+    erro.value =
+      err.response?.data?.detail ||
+      'Erro ao carregar animais'
+
   } finally {
-    carregandoAnimais.value = false
+
+    carregando.value = false
+
   }
+
 }
 
 async function sair() {
   try {
-    await http.post('/api/auth/logout')
-    router.push('/')
-  } catch (err) {
-    console.error('Erro ao fazer logout:', err)
-  }
-}
 
+    await http.post(
+      '/api/auth/logout'
+    )
+
+    router.push('/')
+
+  } catch (err) {
+
+    console.error(
+      'Erro ao fazer logout:',
+      err
+    )
+
+  }
+
+}
 onMounted(carregar)
 </script>
 
-<style scoped>
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #3C0D3C;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.erro {
-  text-align: center;
-  padding: 40px;
-  color: #d9534f;
-  font-weight: bold;
-  font-size: 18px;
-}
-</style>
 
 <style scoped src="../styles/animais_por_ong.css"></style>
