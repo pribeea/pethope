@@ -14,7 +14,7 @@
 
       <div class="menu">
         <router-link to="/dashboard">Início</router-link>
-        <router-link to="/animais">Meus animais</router-link>
+        <router-link to="/ongs">ONGs disponíveis</router-link>
         <router-link to="/solicitacoes">Adoções</router-link>
         <router-link to="/atividades-ong">Voluntários</router-link>
         <router-link to="/perfil">Perfil</router-link>
