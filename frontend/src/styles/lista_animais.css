@@ -1,184 +1,333 @@
+* {
+  box-sizing: border-box;
+}
+
 .page-lista-animais {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #EEDEF9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  min-height: 100vh;
+  background: #f7f1fc;
+  color: #481047;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-header {
-    width: 100%;
-    background-color: #3C0D3C;
-    color: white;
-    padding: 15px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+/* =========================
+   HEADER
+========================= */
+
+.page-lista-animais > header {
+  height: 63px;
+  background: #2b1636;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 55px;
 }
 
-header h2 {
-    margin: 0;
-    font-size: 22px;
-    color: #ffffff;
+.page-lista-animais > header h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  color: white;
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-header a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-    border: 1px solid #ffffff;
-    padding: 6px 18px;
-    border-radius: 30px;
-    transition: 0.3s;
+.logo-pata {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
-header a:hover {
-    background-color: white;
-    color: #3C0D3C;
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 29px;
 }
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s;
+}
+
+.menu a:hover {
+  opacity: 0.7;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
 
 .main-wrapper {
-    width: 100%;
-    max-width: 900px;
-    padding: 40px 15px;
-    box-sizing: border-box;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 34px 40px 60px;
 }
 
 .header-section {
-    width: 100%;
-    margin-bottom: 30px;
-    text-align: left;
+  background: #efe0fa;
+  border: 1px solid #ddc7f2;
+  border-radius: 14px;
+  padding: 22px 28px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.header-section h2 {
-    color: #2D0A2D;
-    font-size: 30px;
-    margin: 0;
+.header-section-texto h2 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2b1636;
+  letter-spacing: 0.3px;
+}
+
+.header-section-arte {
+  width: 140px;
+  height: auto;
+  flex-shrink: 0;
 }
 
 .subtitle {
-    color: #3C0D3C;
-    font-size: 16px;
-    margin: 5px 0 0 0;
+  margin: 0;
+  font-size: 14px;
+  color: #6b4d70;
 }
+
+/* =========================
+   TÍTULO DA SEÇÃO
+========================= */
+
+.titulo-secao {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #4b1048;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* =========================
+   ESTADOS (loading / erro / vazio)
+========================= */
+
+.loading,
+.erro,
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  font-size: 15px;
+  color: #6b4d70;
+}
+
+.erro {
+  color: #a63a3a;
+}
+
+
+/* =========================
+   GRID DE CARDS
+========================= */
 
 .cards-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 22px;
 }
 
+
+/* =========================
+   CARD DO ANIMAL
+========================= */
+
 .animal-card {
-    background-color: #ffffff;
-    border-radius: 20px;
-    display: flex;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    width: 100%;
-    min-height: 285px;
-    overflow: hidden;
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(75, 16, 69, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.animal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(75, 16, 69, 0.14);
 }
 
 .animal-foto {
-    width: 320px;
-    min-width: 320px;
-    height: 285px;
-    overflow: hidden;
+  width: 100%;
+  height: 190px;
+  background: #efe0fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .animal-foto img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.animal-foto.sem-foto {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #d2d6e1;
+.animal-foto.sem-foto span:first-child {
+  font-size: 48px;
+  opacity: 0.4;
 }
 
-.animal-foto.sem-foto span {
-    font-size: 50px;
+.animal-favorito {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #d15a6e;
+  box-shadow: 0 1px 3px rgba(75, 16, 69, 0.15);
 }
+
+
+/* =========================
+   INFO DO ANIMAL
+========================= */
 
 .animal-info {
-    flex: 1;
-    padding: 25px 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
 }
 
 .titulo-animal {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 18px;
+  display: contents;
 }
 
 .titulo-animal h3 {
-    margin: 0;
-    color: #3C0D3C;
-    font-size: 24px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2b1636;
+}
+
+.animal-ong {
+  margin: 0;
+  font-size: 10px;
+  font-weight: bold;
+  color: #8a6d8f;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .animal-info p {
-    margin: 4px 0;
-    font-size: 15px;
-    color: #444;
-    line-height: 1.5;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5e4260;
 }
 
-.animal-info strong {
-    color: #2D0A2D;
+.animal-info p strong {
+  color: #4b1048;
 }
+
+
+/* =========================
+   BOTÃO VER DETALHES
+========================= */
 
 .btn-detalhes {
-    display: inline-block;
-    flex-shrink: 0;
-    padding: 10px 24px;
-    background-color: #3C0D3C;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 30px;
-    white-space: nowrap;
+  order: 99;
+  margin-top: 10px;
+  background: #4b0b45;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 10px 14px;
+  border-radius: 999px;
+  transition: opacity 0.2s;
 }
 
 .btn-detalhes:hover {
-    background-color: #2D0A2D;
+  opacity: 0.85;
 }
 
-.empty-state {
-    color: #2D0A2D;
-    font-weight: bold;
-    padding: 20px;
-    text-align: left;
+/* =========================
+   AÇÕES DO RODAPÉ
+========================= */
+
+.footer-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
 }
 
 .btn-back {
-    margin-top: 40px;
-    display: inline-block;
-    text-decoration: none;
-    color: #3C0D3C;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 12px 35px;
-    border: 2px solid #3C0D3C;
-    border-radius: 30px;
+  background: #ffffff;
+  color: #4b0b45;
+  border: 1.5px solid #4b0b45;
+  border-radius: 999px;
+  padding: 10px 28px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
 }
 
 .btn-back:hover {
-    background-color: #3C0D3C;
-    color: #ffffff;
+  background: #4b0b45;
+  color: white;
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 720px) {
+  .page-lista-animais > header {
+    flex-direction: column;
+    height: auto;
+    gap: 12px;
+    padding: 14px 20px;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    gap: 14px 20px;
+  }
+
+  .main-wrapper {
+    padding: 24px 20px 40px;
+  }
+
+  .header-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-section-arte {
+    width: 110px;
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
 }
