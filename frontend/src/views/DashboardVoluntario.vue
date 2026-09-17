@@ -1,51 +1,333 @@
 <template>
   <div class="page-dashboard">
-    <header>
-      <h2><img src="/pata-branca.png" class="logo-pata" alt="" /> PetHope</h2>
-      <a href="#" @click.prevent="sair">Sair</a>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+      <h2 class="logo">
+        <img
+          src="/pata-branca.png"
+          class="logo-pata"
+          alt=""
+        />
+        PetHope
+      </h2>
+
+      <nav class="menu">
+
+        <router-link to="/dashboard_voluntario">
+          Início
+        </router-link>
+
+        <router-link :to="{ name: 'ongs' }">
+          Ongs disponíveis
+        </router-link>
+
+        <router-link to="/minhas_adocoes">
+          Minhas adoções
+        </router-link>
+
+        <router-link to="/atividades">
+          Voluntários
+        </router-link>
+
+        <router-link to="/doacoes">
+          Doações
+        </router-link>
+
+        <router-link to="/perfil">
+          Perfil
+        </router-link>
+
+        <a href="#" @click.prevent="sair">
+          Sair
+        </a>
+
+      </nav>
+
     </header>
 
-    <div class="container">
-      <h2>Olá, {{ nome }}</h2>
 
-      <div class="card">
-        <h3>ONGs parceiras</h3>
-        <p>Conheça as ONGs cadastradas e veja os animais de cada uma.</p>
-        <router-link class="btn" :to="{ name: 'ongs' }">Ver ONGs</router-link>
-      </div>
+    <!-- CONTEÚDO -->
+    <main class="dashboard-container">
 
-      <div class="card">
-        <h3>Minhas adoções</h3>
-        <p>Veja os animais que você solicitou para adoção.</p>
-        <router-link class="btn" to="/minhas_adocoes">Minhas solicitações de adoção</router-link>
-      </div>
+      <!-- BOAS-VINDAS -->
+      <section class="welcome-section">
 
-      <div class="card">
-        <h3>Ser voluntário</h3>
-        <p>Encontre atividades de ONGs e participe das ações.</p>
-        <router-link class="btn" to="/atividades">Ver atividades</router-link>
-      </div>
+        <div class="welcome-text">
 
-      <div class="card">
-        <h3>Minhas atividades</h3>
-        <p>Acompanhe suas inscrições em atividades de voluntariado.</p>
-        <router-link class="btn" to="/minhas-atividades-voluntario">Minhas atividades</router-link>
-      </div>
+          <p class="welcome-small">
+            Seja bem-vindo ao PetHope! 🐾
+          </p>
 
-      <div class="card">
-        <h3>Fazer uma doação</h3>
-        <p>Apoie financeiramente uma ONG parceira.</p>
-        <router-link class="btn" to="/doacoes">Doar agora</router-link>
-      </div>
+          <h1>
+            Olá, {{ nome }}!
+          </h1>
 
-      <div class="card">
-        <h3>Minhas doações</h3>
-        <p>Acompanhe o histórico das doações que você fez.</p>
-        <router-link class="btn" to="/minhas-doacoes">Ver minhas doações</router-link>
-      </div>
-    </div>
+          <p class="welcome-description">
+            Faça parte da nossa rede de voluntários e ajude
+            a transformar a vida dos animais.
+          </p>
+
+          <router-link
+            to="/atividades"
+            class="btn-primary"
+          >
+            Encontrar atividades
+          </router-link>
+
+        </div>
+
+
+        <!-- ARTE -->
+        <div class="welcome-art">
+
+          <div class="art-circle"></div>
+
+          <span class="paw paw-1">🐾</span>
+          <span class="paw paw-2">🐾</span>
+          <span class="paw paw-3">🐾</span>
+
+          <div class="art-heart">
+            ♡
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- AÇÕES -->
+      <section class="actions-section">
+
+        <div class="section-title">
+
+          <h2>
+            O que você quer fazer?
+          </h2>
+
+          <p>
+            Acesse rapidamente as principais opções.
+          </p>
+
+        </div>
+
+
+        <div class="cards-grid">
+
+
+          <!-- ADOTAR -->
+          <div class="action-card destaque">
+
+            <div class="card-icon">
+              🐶
+            </div>
+
+            <div class="card-content">
+
+              <h3>
+                Encontrar um pet
+              </h3>
+
+              <p>
+                Conheça nossas ONGs parceiras e encontre
+                um animal esperando por um lar.
+              </p>
+
+              <router-link
+                :to="{ name: 'ongs' }"
+                class="card-link"
+              >
+                Ver ONGs →
+              </router-link>
+
+            </div>
+
+          </div>
+
+
+          <!-- ADOÇÕES -->
+          <div class="action-card">
+
+            <div class="card-icon">
+              ❤️
+            </div>
+
+            <div class="card-content">
+
+              <h3>
+                Minhas adoções
+              </h3>
+
+              <p>
+                Acompanhe os animais que você solicitou
+                para adoção e veja o andamento das solicitações.
+              </p>
+
+              <router-link
+                to="/minhas_adocoes"
+                class="card-link"
+              >
+                Ver minhas adoções →
+              </router-link>
+
+            </div>
+
+          </div>
+
+
+          <!-- ATIVIDADES -->
+          <div class="action-card">
+
+            <div class="card-icon">
+              🐾
+            </div>
+
+            <div class="card-content">
+
+              <h3>
+                Ser voluntário
+              </h3>
+
+              <p>
+                Encontre atividades de ONGs parceiras
+                e participe das ações.
+              </p>
+
+              <router-link
+                to="/atividades"
+                class="card-link"
+              >
+                Ver atividades →
+              </router-link>
+
+            </div>
+
+          </div>
+
+
+          <!-- MINHAS ATIVIDADES -->
+          <div class="action-card">
+
+            <div class="card-icon">
+              📋
+            </div>
+
+            <div class="card-content">
+
+              <h3>
+                Minhas atividades
+              </h3>
+
+              <p>
+                Acompanhe suas inscrições e veja
+                as atividades de voluntariado das quais participa.
+              </p>
+
+              <router-link
+                to="/minhas-atividades-voluntario"
+                class="card-link"
+              >
+                Minhas atividades →
+              </router-link>
+
+            </div>
+
+          </div>
+
+
+          <!-- DOAÇÃO -->
+          <div class="action-card">
+
+            <div class="card-icon">
+              💜
+            </div>
+
+            <div class="card-content">
+
+              <h3>
+                Fazer uma doação
+              </h3>
+
+              <p>
+                Ajude uma ONG parceira a continuar
+                cuidando dos animais.
+              </p>
+
+              <router-link
+                to="/doacoes"
+                class="card-link"
+              >
+                Doar agora →
+              </router-link>
+
+            </div>
+
+          </div>
+
+
+          <!-- HISTÓRICO DE DOAÇÕES -->
+          <div class="action-card">
+
+            <div class="card-icon">
+              💰
+            </div>
+
+            <div class="card-content">
+
+              <h3>
+                Minhas doações
+              </h3>
+
+              <p>
+                Consulte o histórico das doações
+                que você já realizou.
+              </p>
+
+              <router-link
+                to="/minhas-doacoes"
+                class="card-link"
+              >
+                Ver histórico →
+              </router-link>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- FRASE FINAL -->
+      <section class="bottom-message">
+
+        <div class="bottom-paw">
+          🐾
+        </div>
+
+        <div>
+
+          <h3>
+            Pequenos gestos fazem grandes diferenças.
+          </h3>
+
+          <p>
+            Cada adoção, doação e ação voluntária ajudam
+            a transformar a vida de um animal.
+          </p>
+
+        </div>
+
+      </section>
+
+    </main>
+
   </div>
 </template>
+
 
 <script setup>
 import { onMounted, ref } from 'vue'
@@ -55,8 +337,10 @@ import http from '../api/http'
 const router = useRouter()
 const nome = ref('')
 
+
 async function carregar() {
   try {
+
     const { data } = await http.get('/api/auth/me')
 
     if (!data.autenticado || data.tipo_sessao !== 'usuario') {
@@ -65,31 +349,43 @@ async function carregar() {
     }
 
     if (data.tipo_usuario !== 'voluntario') {
+
       if (data.tipo_usuario === 'adotante') {
         router.push('/dashboard_adotante')
       } else {
         router.push('/login')
       }
+
       return
     }
 
     nome.value = data.nome
+
   } catch (err) {
+
     console.error('Erro ao carregar dashboard:', err)
     router.push('/login')
+
   }
 }
+
 
 async function sair() {
   try {
+
     await http.post('/api/auth/logout')
     router.push('/')
+
   } catch (err) {
+
     console.error('Erro ao fazer logout:', err)
+
   }
 }
 
+
 onMounted(carregar)
 </script>
+
 
 <style scoped src="../styles/dashboard.css"></style>
