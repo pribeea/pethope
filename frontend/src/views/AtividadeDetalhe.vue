@@ -1,15 +1,6 @@
 <template>
 <div class="page-detalhes-atividade">
-    <header>
-      <h2>
-        <img src="/pata-branca.png" class="logo-pata" alt="" />
-        PetHope
-      </h2>
-
-      <a href="#" @click.prevent="sair">Sair</a>
-    </header>
-
-    <main class="main-wrapper">
+<main class="main-wrapper">
       <div v-if="carregando" class="mensagem">
         <p>🔄 Carregando atividade...</p>
       </div>
