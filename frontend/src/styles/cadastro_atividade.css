@@ -4,15 +4,6 @@ body, #app {
     min-height: 100%;
 }
 
-.page-cadastro-atividade {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #EEDEF9;
-}
-
 .page-cadastro-atividade header {
     width: 100%;
     background-color: #3C0D3C;
@@ -56,10 +47,17 @@ body, #app {
     color: #3C0D3C;
 }
 
+.page-cadastro-atividade {
+    min-height: 100vh;
+    background-color: #EEDEF9;
+    padding: 30px 20px 50px;
+    box-sizing: border-box;
+}
+
 .container {
     width: 100%;
     max-width: 600px;
-    margin: 50px auto;
+    margin: 30px auto 0;
     background-color: #EEDEF9;
     padding: 40px 48px;
     border-radius: 20px;
