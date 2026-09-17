@@ -1,333 +1,331 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .page-lista-animais {
-  min-height: 100vh;
-  background: #f7f1fc;
-  color: #481047;
-  font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background-color: #EEDEF9;
+    color: #3C0D3C;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
-/* =========================
-   HEADER
-========================= */
-
 .page-lista-animais > header {
-  height: 63px;
-  background: #2b1636;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 55px;
+    width: 100%;
+    min-height: 76px;
+    background-color: #3C0D3C;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 55px;
+    box-shadow: 0 4px 15px rgba(60, 13, 60, 0.15);
 }
 
 .page-lista-animais > header h2 {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin: 0;
-  color: white;
-  font-size: 21px;
-  font-weight: bold;
-  letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
 }
 
-.logo-pata {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
+.page-lista-animais .logo-pata {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
 }
 
-.menu {
-  display: flex;
-  align-items: center;
-  gap: 29px;
+.page-lista-animais .menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
-.menu a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  transition: opacity 0.2s;
+.page-lista-animais .menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.2s ease;
 }
 
-.menu a:hover {
-  opacity: 0.7;
+.page-lista-animais .menu a:hover {
+    color: #D9A5E5;
 }
 
-
-/* =========================
-   CONTEÚDO
-========================= */
-
-.main-wrapper {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 34px 40px 60px;
+.page-lista-animais .main-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 30px 70px;
 }
 
-.header-section {
-  background: #efe0fa;
-  border: 1px solid #ddc7f2;
-  border-radius: 14px;
-  padding: 22px 28px;
-  margin-bottom: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+.page-lista-animais .header-section {
+    background-color: white;
+    border-radius: 22px;
+    padding: 30px 35px;
+    margin-bottom: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    box-shadow: 0 6px 20px rgba(60, 13, 60, 0.08);
 }
 
-.header-section-texto h2 {
-  margin: 0 0 6px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #2b1636;
-  letter-spacing: 0.3px;
+.page-lista-animais .header-section-texto {
+    flex: 1;
 }
 
-.header-section-arte {
-  width: 140px;
-  height: auto;
-  flex-shrink: 0;
+.page-lista-animais .header-section-texto h2 {
+    margin: 0 0 8px;
+    color: #3C0D3C;
+    font-size: 28px;
+    font-weight: 700;
 }
 
-.subtitle {
-  margin: 0;
-  font-size: 14px;
-  color: #6b4d70;
+.page-lista-animais .subtitle {
+    margin: 0;
+    color: #755C75;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
-/* =========================
-   TÍTULO DA SEÇÃO
-========================= */
-
-.titulo-secao {
-  margin: 0 0 20px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #4b1048;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.page-lista-animais .header-section-arte {
+    width: 145px;
+    height: auto;
+    flex-shrink: 0;
 }
 
-
-/* =========================
-   ESTADOS (loading / erro / vazio)
-========================= */
-
-.loading,
-.erro,
-.empty-state {
-  text-align: center;
-  padding: 50px 20px;
-  font-size: 15px;
-  color: #6b4d70;
+.page-lista-animais .titulo-secao {
+    margin: 0 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #3C0D3C;
+    font-size: 22px;
+    font-weight: 700;
 }
 
-.erro {
-  color: #a63a3a;
+.page-lista-animais .loading,
+.page-lista-animais .erro,
+.page-lista-animais .empty-state {
+    background-color: white;
+    border-radius: 20px;
+    padding: 45px 25px;
+    text-align: center;
+    font-size: 15px;
+    color: #755C75;
+    box-shadow: 0 5px 18px rgba(60, 13, 60, 0.06);
 }
 
-
-/* =========================
-   GRID DE CARDS
-========================= */
-
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 22px;
+.page-lista-animais .erro {
+    color: #A94442;
 }
 
-
-/* =========================
-   CARD DO ANIMAL
-========================= */
-
-.animal-card {
-  background: #ffffff;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(75, 16, 69, 0.08);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s, box-shadow 0.2s;
+.page-lista-animais .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
 }
 
-.animal-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(75, 16, 69, 0.14);
+.page-lista-animais .animal-card {
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 18px rgba(60, 13, 60, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.animal-foto {
-  width: 100%;
-  height: 190px;
-  background: #efe0fa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
+.page-lista-animais .animal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(60, 13, 60, 0.14);
 }
 
-.animal-foto img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.page-lista-animais .animal-foto {
+    width: 100%;
+    height: 200px;
+    background-color: #F5EAF9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
 }
 
-.animal-foto.sem-foto span:first-child {
-  font-size: 48px;
-  opacity: 0.4;
+.page-lista-animais .animal-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.animal-favorito {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #d15a6e;
-  box-shadow: 0 1px 3px rgba(75, 16, 69, 0.15);
+.page-lista-animais .animal-foto.sem-foto span:first-child {
+    font-size: 52px;
+    opacity: 0.35;
 }
 
-
-/* =========================
-   INFO DO ANIMAL
-========================= */
-
-.animal-info {
-  padding: 16px 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
+.page-lista-animais .animal-favorito {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.94);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #D15A6E;
+    box-shadow: 0 3px 8px rgba(60, 13, 60, 0.12);
 }
 
-.titulo-animal {
-  display: contents;
+.page-lista-animais .animal-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    flex: 1;
 }
 
-.titulo-animal h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
-  color: #2b1636;
+.page-lista-animais .titulo-animal {
+    display: contents;
 }
 
-.animal-ong {
-  margin: 0;
-  font-size: 10px;
-  font-weight: bold;
-  color: #8a6d8f;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
+.page-lista-animais .titulo-animal h3 {
+    margin: 0;
+    color: #3C0D3C;
+    font-size: 20px;
+    font-weight: 700;
 }
 
-.animal-info p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.5;
-  color: #5e4260;
+.page-lista-animais .animal-ong {
+    margin: 0 0 3px;
+    color: #A86FD1;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
 }
 
-.animal-info p strong {
-  color: #4b1048;
+.page-lista-animais .animal-info p {
+    margin: 0;
+    color: #755C75;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
-
-/* =========================
-   BOTÃO VER DETALHES
-========================= */
-
-.btn-detalhes {
-  order: 99;
-  margin-top: 10px;
-  background: #4b0b45;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  font-size: 13px;
-  font-weight: bold;
-  padding: 10px 14px;
-  border-radius: 999px;
-  transition: opacity 0.2s;
+.page-lista-animais .animal-info p strong {
+    color: #3C0D3C;
 }
 
-.btn-detalhes:hover {
-  opacity: 0.85;
+.page-lista-animais .btn-detalhes {
+    order: 99;
+    margin-top: 12px;
+    padding: 11px 18px;
+    background-color: #3C0D3C;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-/* =========================
-   AÇÕES DO RODAPÉ
-========================= */
-
-.footer-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 36px;
+.page-lista-animais .btn-detalhes:hover {
+    background-color: #5A175A;
+    transform: translateY(-1px);
 }
 
-.btn-back {
-  background: #ffffff;
-  color: #4b0b45;
-  border: 1.5px solid #4b0b45;
-  border-radius: 999px;
-  padding: 10px 28px;
-  font-size: 14px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+.page-lista-animais .footer-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
 }
 
-.btn-back:hover {
-  background: #4b0b45;
-  color: white;
+.page-lista-animais .btn-back {
+    padding: 12px 30px;
+    background-color: white;
+    color: #3C0D3C;
+    border: 2px solid #3C0D3C;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+.page-lista-animais .btn-back:hover {
+    background-color: #3C0D3C;
+    color: white;
+    transform: translateY(-2px);
+}
 
-/* =========================
-   RESPONSIVO
-========================= */
+@media (max-width: 900px) {
+    .page-lista-animais > header {
+        padding: 0 30px;
+    }
+
+    .page-lista-animais .menu {
+        gap: 18px;
+    }
+
+    .page-lista-animais .menu a {
+        font-size: 14px;
+    }
+}
 
 @media (max-width: 720px) {
-  .page-lista-animais > header {
-    flex-direction: column;
-    height: auto;
-    gap: 12px;
-    padding: 14px 20px;
-  }
+    .page-lista-animais > header {
+        min-height: auto;
+        flex-direction: column;
+        gap: 15px;
+        padding: 16px 20px;
+    }
 
-  .menu {
-    flex-wrap: wrap;
-    gap: 14px 20px;
-  }
+    .page-lista-animais .menu {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+    }
 
-  .main-wrapper {
-    padding: 24px 20px 40px;
-  }
+    .page-lista-animais .main-wrapper {
+        padding: 35px 20px 50px;
+    }
 
-  .header-section {
-    flex-direction: column;
-    text-align: center;
-  }
+    .page-lista-animais .header-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 22px;
+    }
 
-  .header-section-arte {
-    width: 110px;
-  }
+    .page-lista-animais .header-section-arte {
+        width: 115px;
+    }
 
-  .cards-container {
-    grid-template-columns: 1fr;
-  }
+    .page-lista-animais .cards-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-lista-animais .header-section-texto h2 {
+        font-size: 24px;
+    }
+
+    .page-lista-animais .titulo-secao {
+        font-size: 20px;
+    }
+
+    .page-lista-animais .animal-foto {
+        height: 210px;
+    }
+
+    .page-lista-animais .animal-info {
+        padding: 18px;
+    }
 }
