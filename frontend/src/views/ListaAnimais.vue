@@ -1,26 +1,10 @@
 <template>
   <div class="page-lista-animais">
-    <header>
-      <h2>
-        <img src="/pata-branca.png" class="logo-pata" alt="" />
-        PetHope
-      </h2>
-
-      <div class="menu">
-        <router-link to="/dashboard_ong">Início</router-link>
-        <router-link to="/animais">Meus animais</router-link>
-        <router-link to="/solicitacoes">Adoções</router-link>
-        <router-link to="/atividades-ong">Voluntários</router-link>
-        <router-link to="/perfil">Perfil</router-link>
-        <a href="#" @click.prevent="sair">Sair</a>
-      </div>
-    </header>
-
-    <div class="main-wrapper">
+<div class="main-wrapper">
       <div class="header-section">
         <div class="header-section-texto">
-          <h2>Escolha o seu pet</h2>
-          <p class="subtitle">Encontre o companheiro ideal.</p>
+          <h2>Meus animais</h2>
+          <p class="subtitle">Gerencie os animais cadastrados pela sua ONG.</p>
         </div>
 
         <svg class="header-section-arte" viewBox="0 0 200 140" aria-hidden="true">
