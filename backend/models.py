@@ -27,6 +27,7 @@ class Animal(SQLModel, table=True):
     especie: str
     raca: Optional[str] = None
     idade: Optional[int] = None
+    unidade_idade: Optional[str] = None
     sexo: Optional[str] = None
     descricao: Optional[str] = None
     status: str = "Disponível"
