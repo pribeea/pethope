@@ -1,11 +1,6 @@
 <template>
   <div class="page-inscricoes">
-    <header>
-      <h2><img src="/pata-branca.png" class="logo-pata" alt="" /> PetHope</h2>
-      <a href="#" @click.prevent="sair">Sair</a>
-    </header>
-
-    <main class="container">
+<main class="container">
       <h1>Voluntários inscritos</h1>
 
       <p v-if="carregando" class="mensagem">Carregando inscrições...</p>
