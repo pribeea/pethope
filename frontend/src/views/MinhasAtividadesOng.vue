@@ -1,15 +1,6 @@
 <template>
   <div class="page-lista-atividades">
-    <header>
-      <h2>
-        <img src="/pata-branca.png" class="logo-pata" alt="" />
-        PetHope
-      </h2>
-
-      <a href="#" @click.prevent="sair">Sair</a>
-    </header>
-
-    <div class="main-wrapper">
+<div class="main-wrapper">
 
       <div class="header-section">
         <h2>Minhas atividades</h2>
