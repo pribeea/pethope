@@ -220,7 +220,7 @@
 
               <!-- DETALHES -->
               <router-link
-                :to="`/animaisdetalhes/${animal.id}`"
+                :to="`/animal/${animal.id}`"
                 class="btn-detalhes"
               >
                 Ver detalhes
