@@ -274,6 +274,7 @@ def cadastrar_animal(
         especie=dados.especie,
         raca=dados.raca,
         idade=dados.idade,
+        unidade_idade=dados.unidade_idade,
         sexo=dados.sexo,
         descricao=dados.descricao,
         status="Disponível",
