@@ -1,76 +1,700 @@
+/* ========================================
+   PÁGINA
+======================================== */
+
 .page-dashboard {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #EEDEF9;
+
     min-height: 100vh;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background-color: #EEDEF9;
+    color: #333333;
 }
 
-header {
-    background-color: #3C0D3C; 
-    color: white;
-    padding: 15px 5%;
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.page-dashboard header {
+    width: 100%;
+
+    min-height: 72px;
+
+    padding: 12px 5%;
+
+    box-sizing: border-box;
+
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+    background-color: #3C0D3C;
+
+    color: white;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
 }
 
-header a {
+
+/* LOGO */
+
+.page-dashboard header .logo {
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
     color: white;
+
+    font-size: 23px;
+    font-weight: 700;
+}
+
+
+.page-dashboard .logo-pata {
+    width: 34px;
+    height: 34px;
+
+    object-fit: contain;
+}
+
+
+/* MENU */
+
+.page-dashboard .menu {
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+}
+
+
+.page-dashboard .menu a {
+    color: white;
+
     text-decoration: none;
-    font-weight: bold;
+
     font-size: 14px;
-    border: 1px solid white;
-    padding: 5px 15px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.page-dashboard .menu a:hover {
+    color: #E0A8E8;
+}
+
+
+/* ========================================
+   CONTAINER PRINCIPAL
+======================================== */
+
+.dashboard-container {
+    width: 90%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 40px 0 55px;
+
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   BANNER DE BOAS-VINDAS
+======================================== */
+
+.welcome-section {
+    width: 100%;
+    min-height: 270px;
+
+    padding: 40px 50px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: #E5CFF2;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+}
+
+
+.welcome-text {
+    max-width: 600px;
+}
+
+
+.welcome-small {
+    margin: 0 0 8px;
+
+    color: #8152A4;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.welcome-text h1 {
+    margin: 0 0 12px;
+
+    color: #3C0D3C;
+
+    font-size: 38px;
+    font-weight: 700;
+}
+
+
+.welcome-description {
+    max-width: 520px;
+
+    margin: 0 0 25px;
+
+    color: #66556B;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+}
+
+
+/* BOTÃO PRINCIPAL */
+
+.btn-primary {
+    display: inline-block;
+
+    padding: 12px 25px;
+
+    border-radius: 30px;
+
+    background-color: #3C0D3C;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.btn-primary:hover {
+    background-color: #5A185A;
+
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   ARTE DO BANNER
+======================================== */
+
+.welcome-art {
+    position: relative;
+
+    width: 260px;
+    height: 210px;
+
+    flex-shrink: 0;
+}
+
+
+.art-circle {
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    top: 10px;
+    left: 30px;
+
+    border-radius: 50%;
+
+    background-color: #F5EAFB;
+}
+
+
+.paw {
+    position: absolute;
+
+    color: #A86FD1;
+
+    font-size: 38px;
+}
+
+
+.paw-1 {
+    top: 35px;
+    left: 70px;
+
+    transform: rotate(-20deg);
+}
+
+
+.paw-2 {
+    top: 112px;
+    left: 155px;
+
+    font-size: 27px;
+
+    transform: rotate(25deg);
+}
+
+
+.paw-3 {
+    top: 125px;
+    left: 45px;
+
+    font-size: 24px;
+
+    transform: rotate(-30deg);
+}
+
+
+.art-heart {
+    position: absolute;
+
+    top: 55px;
+    left: 125px;
+
+    color: #E0A8E8;
+
+    font-size: 62px;
+}
+
+
+/* ========================================
+   SEÇÃO DE AÇÕES
+======================================== */
+
+.actions-section {
+    margin-top: 42px;
+}
+
+
+.section-title {
+    margin-bottom: 22px;
+}
+
+
+.section-title h2 {
+    margin: 0 0 5px;
+
+    color: #3C0D3C;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+
+.section-title p {
+    margin: 0;
+
+    color: #766979;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   GRID DOS CARDS
+======================================== */
+
+.cards-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* ========================================
+   CARD
+======================================== */
+
+.action-card {
+    min-height: 175px;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    background-color: #FFFFFF;
+
+    border-radius: 20px;
+
+    border: 1px solid #E9DDEE;
+
+    box-shadow: 0 4px 14px rgba(60, 13, 60, 0.07);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.action-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 22px rgba(60, 13, 60, 0.12);
+}
+
+
+/* CARD DE DESTAQUE */
+
+.action-card.destaque {
+    border: 2px solid #C89DDE;
+}
+
+
+/* ========================================
+   ÍCONE DO CARD
+======================================== */
+
+.card-icon {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background-color: #F1E3F7;
+
+    font-size: 27px;
+}
+
+
+/* ========================================
+   CONTEÚDO DO CARD
+======================================== */
+
+.card-content {
+    flex: 1;
+}
+
+
+.card-content h3 {
+    margin: 0 0 8px;
+
+    color: #3C0D3C;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+
+.card-content p {
+    margin: 0 0 14px;
+
+    color: #6C626F;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* LINK DO CARD */
+
+.card-link {
+    color: #713494;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+
+.card-link:hover {
+    color: #3C0D3C;
+
+    text-decoration: underline;
+}
+
+
+/* ========================================
+   MENSAGEM FINAL
+======================================== */
+
+.bottom-message {
+    margin-top: 35px;
+
+    padding: 22px 28px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    background-color: #F0E4F6;
+
     border-radius: 20px;
 }
 
-header h2 {
+
+.bottom-paw {
+    width: 50px;
+    height: 50px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: white;
+
+    font-size: 24px;
+}
+
+
+.bottom-message h3 {
+    margin: 0 0 5px;
+
+    color: #4A2354;
+
+    font-size: 16px;
+}
+
+
+.bottom-message p {
     margin: 0;
-    font-size: 22px;
-    color: white; 
-}
 
-.container {
-    max-width: 650px; 
-    margin: 0 auto; 
-    padding: 30px 15px;
-}
+    color: #766979;
 
-h2 {
-    color: #333333;
-    font-size: 28px;
-    margin-bottom: 25px;
-}
+    font-size: 14px;
 
-.card {
-    background-color: #ffffff;
-    border-radius: 20px; 
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04); 
-}
-
-.card h3 {
-    margin: 0 0 10px 0;
-    color: #333333;
-    font-size: 20px;
-}
-
-.card p {
-    margin: 0 0 20px 0;
-    color: #666666;
-    font-size: 15px;
     line-height: 1.4;
 }
 
-.btn {
-    display: inline-block;
-    text-decoration: none;
-    background-color: #3C0D3C; 
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 12px 25px;
-    border-radius: 30px; 
+
+/* ========================================
+   RESPONSIVO — TABLET
+======================================== */
+
+@media (max-width: 850px) {
+
+    .page-dashboard .menu {
+        gap: 17px;
+    }
+
+
+    .page-dashboard .menu a {
+        font-size: 13px;
+    }
+
+
+    .dashboard-container {
+        width: 92%;
+    }
+
+
+    .welcome-section {
+        padding: 35px;
+
+        min-height: 250px;
+    }
+
+
+    .welcome-text h1 {
+        font-size: 32px;
+    }
+
+
+    .welcome-art {
+        width: 220px;
+
+        transform: scale(0.85);
+    }
+
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ========================================
+   RESPONSIVO — CELULAR
+======================================== */
+
+@media (max-width: 650px) {
+
+    .page-dashboard header {
+        padding: 15px 5%;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .page-dashboard .menu {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 12px 18px;
+    }
+
+
+    .dashboard-container {
+        width: 92%;
+
+        padding-top: 25px;
+    }
+
+
+    .welcome-section {
+        padding: 30px 25px;
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    .welcome-text {
+        max-width: 100%;
+    }
+
+
+    .welcome-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    .welcome-art {
+        margin-top: 10px;
+    }
+
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .action-card {
+        padding: 22px;
+    }
+
+}
+
+
+/* ========================================
+   CELULARES PEQUENOS
+======================================== */
+
+@media (max-width: 430px) {
+
+    .page-dashboard header .logo {
+        font-size: 20px;
+    }
+
+
+    .page-dashboard .logo-pata {
+        width: 29px;
+        height: 29px;
+    }
+
+
+    .page-dashboard .menu {
+        gap: 10px 14px;
+    }
+
+
+    .page-dashboard .menu a {
+        font-size: 12px;
+    }
+
+
+    .welcome-text h1 {
+        font-size: 28px;
+    }
+
+
+    .welcome-description {
+        font-size: 14px;
+    }
+
+
+    .welcome-art {
+        transform: scale(0.75);
+
+        margin-top: -10px;
+        margin-bottom: -20px;
+    }
+
+
+    .action-card {
+        gap: 15px;
+
+        padding: 20px;
+    }
+
+
+    .card-icon {
+        width: 50px;
+        height: 50px;
+
+        font-size: 23px;
+    }
+
+
+    .card-content h3 {
+        font-size: 17px;
+    }
+
+
+    .card-content p {
+        font-size: 13px;
+    }
+
+
+    .bottom-message {
+        padding: 18px;
+
+        gap: 12px;
+    }
+
 }
