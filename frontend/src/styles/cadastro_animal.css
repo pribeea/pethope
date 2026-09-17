@@ -1,22 +1,24 @@
 .page-cadastro-animal {
     margin: 0;
-    padding: 0;
+    padding: 40px 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #EEDEF9;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .main-wrapper {
     display: flex;
     width: 900px;
-    height: 600px;
+    min-height: 600px;
+    height: auto;
     background: #ffffff;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar {
@@ -36,6 +38,14 @@
     padding-left: 32px;
     text-align: left;
     width: 100%;
+}
+
+.logo-pata {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 6px;
 }
 
 .dog-image-container {
@@ -59,6 +69,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-sizing: border-box;
+    min-width: 0;
 }
 
 h1 {
@@ -94,15 +106,23 @@ label {
     margin-bottom: 4px;
 }
 
-input, textarea {
+input,
+textarea,
+select {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 10px;
     background-color: #ffffff;
     font-size: 14px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #3C0D3C;
 }
 
 textarea {
@@ -110,8 +130,18 @@ textarea {
     resize: none;
 }
 
-input:focus, textarea:focus {
-    outline: 2px solid #3C0D3C;
+.idade-container {
+    display: flex;
+    gap: 8px;
+}
+
+.idade-container input {
+    flex: 1;
+}
+
+.idade-container select {
+    width: 100px;
+    flex-shrink: 0;
 }
 
 .button-group {
@@ -140,9 +170,148 @@ input:focus, textarea:focus {
     cursor: pointer;
 }
 
+.btn-back:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-next:hover {
+    background-color: #521552;
+}
+
 #msg {
     text-align: center;
     margin-top: 12px;
     font-size: 14px;
     font-weight: bold;
+}
+
+.foto-group {
+    margin-top: 4px;
+}
+
+.foto-group label > span {
+    font-weight: normal;
+    color: #777777;
+}
+
+.upload-foto {
+    width: 100%;
+    min-height: 64px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border: 2px dashed #c9add8;
+    border-radius: 12px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.upload-foto:hover {
+    border-color: #3C0D3C;
+    background-color: #fbf7fd;
+}
+
+.upload-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.upload-texto strong {
+    color: #3C0D3C;
+    font-size: 14px;
+}
+
+.upload-texto small {
+    color: #777777;
+    font-size: 12px;
+}
+
+.upload-foto input[type="file"] {
+    display: none;
+}
+
+.foto-preview {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 80px;
+}
+
+.foto-preview img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.remover-foto {
+    background: transparent;
+    border: none;
+    color: #b71c1c;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.remover-foto:hover {
+    text-decoration: underline;
+}
+
+@media (max-height: 750px) {
+    .page-cadastro-animal {
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .main-wrapper {
+        margin: 20px 0;
+    }
+
+    .container {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-cadastro-animal {
+        padding: 20px 10px;
+    }
+
+    .main-wrapper {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .sidebar {
+        min-height: 160px;
+    }
+
+    .dog-image-container {
+        display: none;
+    }
+
+    .container {
+        padding: 30px 25px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .idade-container {
+        flex-direction: row;
+    }
+
+    .idade-container select {
+        width: 110px;
+    }
 }
