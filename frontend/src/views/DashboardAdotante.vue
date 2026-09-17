@@ -2,47 +2,7 @@
   <div class="page-dashboard">
 
     <!-- NAVBAR -->
-    <header class="navbar">
-
-      <h2 class="logo">
-        <img
-          src="/pata-branca.png"
-          class="logo-pata"
-          alt=""
-        />
-        PetHope
-      </h2>
-
-      <nav class="menu">
-        <router-link to="/dashboard_adotante">
-          Início
-        </router-link>
-
-        <router-link :to="{ name: 'ongs' }">
-          Adotar
-        </router-link>
-
-        <router-link to="/minhas_adocoes">
-          Minhas adoções
-        </router-link>
-
-        <router-link to="/doacoes">
-          Doações
-        </router-link>
-
-        <router-link to="/perfil">
-          Perfil
-        </router-link>
-
-        <a href="#" @click.prevent="sair">
-          Sair
-        </a>
-      </nav>
-
-    </header>
-
-
-    <!-- CONTEÚDO -->
+<!-- CONTEÚDO -->
     <main class="dashboard-container">
 
       <!-- BOAS-VINDAS -->
