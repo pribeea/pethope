@@ -78,6 +78,7 @@ class AnimalCreate(BaseModel):
     especie: str = Field(min_length=1, max_length=50)
     raca: Optional[str] = Field(None, max_length=50)
     idade: Optional[int] = None
+    unidade_idade: Optional[str] = None
     sexo: Optional[str] = None
     descricao: Optional[str] = Field(None, max_length=500)
     
@@ -99,6 +100,7 @@ class AnimalUpdate(BaseModel):
     especie: Optional[str] = Field(None, min_length=1, max_length=50)
     raca: Optional[str] = Field(None, max_length=50)
     idade: Optional[int] = None
+    unidade_idade: Optional[str] = None
     sexo: Optional[str] = None
     descricao: Optional[str] = Field(None, max_length=500)
     status: Optional[str] = None
@@ -129,6 +131,7 @@ class AnimalRead(BaseModel):
     especie: str
     raca: Optional[str] = None
     idade: Optional[int] = None
+    unidade_idade: Optional[str] = None
     sexo: Optional[str] = None
     descricao: Optional[str] = None
     status: str
