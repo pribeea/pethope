@@ -1,6 +1,10 @@
 <template>
   <div class="page-solicitacoes">
-    <h1>Solicitações de adoção</h1>
+    <div class="solicitacoes-intro">
+      <span class="solicitacoes-eyebrow">🐾 PetHope</span>
+      <h1>Solicitações de adoção</h1>
+      <p>Analise os pedidos e acompanhe o andamento das adoções da sua ONG.</p>
+    </div>
 
     <div v-if="carregando" class="loading">
       <p>🔄 Carregando solicitações...</p>
@@ -11,33 +15,43 @@
       <button type="button" @click="carregar">Tentar novamente</button>
     </div>
 
-    <template v-else-if="solicitacoes.length">
-      <div v-for="s in solicitacoes" :key="s.id">
-        <hr />
-        <h3>{{ s.animal.nome }}</h3>
-        <p><strong>Interessado:</strong> {{ s.usuario.nome }} ({{ s.usuario.email }})</p>
-        <p><strong>Status:</strong> {{ s.status }}</p>
+    <p v-if="solicitacoes.length" class="solicitacoes-resumo">{{ solicitacoes.length }} solicitação(ões) encontrada(s)</p>
 
-        <template v-if="s.formulario">
-          <p><strong>Telefone:</strong> {{ s.formulario.telefone }}</p>
-          <p><strong>Endereço:</strong> {{ s.formulario.endereco }}</p>
-          <p><strong>CPF:</strong> {{ s.formulario.cpf }}</p>
-          <p><strong>RG:</strong> {{ s.formulario.rg }}</p>
-          <p><strong>Motivo da adoção:</strong> {{ s.formulario.motivo }}</p>
-        </template>
+    <template v-if="solicitacoes.length">
+      <div v-for="s in solicitacoes" :key="s.id" class="solicitacao-card">
+        <div v-if="s.animal.foto" class="solicitacao-foto">
+          <img :src="urlFoto(s.animal.foto)" :alt="`Foto de ${s.animal.nome}`" />
+        </div>
+        <div v-else class="solicitacao-foto sem-foto">
+          <span>🐾</span>
+        </div>
 
-        <template v-if="s.status === 'Pendente'">
-          <button type="button" @click="aprovar(s.id)">Aprovar</button>
-          <button type="button" @click="recusar(s.id)">Recusar</button>
-        </template>
-        <p v-else-if="s.status === 'Aprovada'" style="color: green">✅ Solicitação aprovada.</p>
-        <p v-else-if="s.status === 'Recusada'" style="color: red">❌ Solicitação recusada.</p>
+        <div class="solicitacao-info">
+          <h3>{{ s.animal.nome }}</h3>
+          <p class="interessado"><strong>Interessado:</strong> {{ s.usuario.nome }}</p>
+
+          <template v-if="s.formulario">
+            <p><strong>CPF:</strong> {{ s.formulario.cpf }}</p>
+            <p><strong>RG:</strong> {{ s.formulario.rg }}</p>
+            <p><strong>Telefone:</strong> {{ s.formulario.telefone }}</p>
+            <p><strong>Endereço:</strong> {{ s.formulario.endereco }}</p>
+
+            <p class="motivo-titulo"><strong>Por que deseja adotar esse animal?</strong></p>
+            <p class="motivo-texto">{{ s.formulario.motivo }}</p>
+          </template>
+
+          <div v-if="s.status === 'Pendente'" class="solicitacao-acoes">
+            <button type="button" class="btn-recusar" @click="recusar(s.id)">Recusar</button>
+            <button type="button" class="btn-aceitar" @click="aprovar(s.id)">Aceitar</button>
+          </div>
+          <p v-else-if="s.status === 'Aprovada'" class="status-msg status-aprovada">✅ Solicitação aprovada.</p>
+          <p v-else-if="s.status === 'Recusada'" class="status-msg status-recusada">❌ Solicitação recusada.</p>
+        </div>
       </div>
     </template>
 
-    <p v-else>Nenhuma solicitação de adoção encontrada.</p>
+    <p v-else class="mensagem">Nenhuma solicitação de adoção encontrada.</p>
 
-    <br />
     <router-link to="/dashboard_ong" class="btn-voltar">Voltar</router-link>
   </div>
 </template>
@@ -49,6 +63,20 @@ import http from '../api/http'
 const solicitacoes = ref([])
 const carregando = ref(true)
 const erro = ref('')
+
+function urlFoto(caminho) {
+  if (!caminho) {
+    return ''
+  }
+
+  if (caminho.startsWith('http')) {
+    return caminho
+  }
+
+  const baseURL = http.defaults.baseURL || 'http://localhost:8000'
+
+  return `${baseURL}${caminho}`
+}
 
 async function carregar() {
   carregando.value = true
@@ -105,5 +133,9 @@ onMounted(carregar)
   color: #d9534f;
   font-weight: bold;
   font-size: 18px;
+}
+
+.erro button {
+  margin-top: 15px;
 }
 </style>
