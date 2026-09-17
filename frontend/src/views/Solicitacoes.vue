@@ -1,7 +1,6 @@
 <template>
   <div class="page-solicitacoes">
     <div class="solicitacoes-intro">
-      <span class="solicitacoes-eyebrow">🐾 PetHope</span>
       <h1>Solicitações de adoção</h1>
       <p>Analise os pedidos e acompanhe o andamento das adoções da sua ONG.</p>
     </div>
