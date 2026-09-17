@@ -1,29 +1,6 @@
 <template>
   <div class="page-lista-animais">
-
-    <!-- NAVBAR -->
-    <header>
-      <h2>
-        <img
-          src="/pata-branca.png"
-          class="logo-pata"
-          alt=""
-        />
-        PetHope
-      </h2>
-
-      <div class="menu">
-        <router-link to="/dashboard">Início</router-link>
-        <router-link to="/ongs">ONGs disponíveis</router-link>
-        <router-link to="/solicitacoes">Adoções</router-link>
-        <router-link to="/atividades-ong">Voluntários</router-link>
-        <router-link to="/perfil">Perfil</router-link>
-        <a href="#"@click.prevent="sair">Sair</a>
-      </div>
-    </header>
-
-   
-    <!-- CONTEÚDO -->
+<!-- CONTEÚDO -->
     <div class="main-wrapper">
 
       <!-- CABEÇALHO -->
@@ -220,7 +197,7 @@
 
               <!-- DETALHES -->
               <router-link
-                :to="`/animal/${animal.id}`"
+                :to="{ path: `/animal/${animal.id}`, query: { ongId: props.ongId } }"
                 class="btn-detalhes"
               >
                 Ver detalhes
