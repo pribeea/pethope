@@ -1,30 +1,6 @@
 <template>
   <div class="page-ongs">
-
-    <!-- NAVBAR -->
-    <nav class="navbar">
-
-      <router-link to="/dashboard_adotante" class="logo">
-        <span class="logo-pata">🐾</span>
-        <span>PetHope</span>
-      </router-link>
-
-      <div class="menu">
-        <router-link to="/dashboard_adotante">Início</router-link>
-        <router-link to="/ongs">ONGs disponíveis</router-link>
-        <router-link to="/solicitacoes">Adoções</router-link>
-        <router-link to="/atividades-ong">Voluntários</router-link>
-        <router-link to="/perfil">Perfil</router-link>
-
-        <a href="#" @click.prevent="sair">
-          Sair
-        </a>
-      </div>
-
-    </nav>
-
-
-    <!-- CONTEÚDO -->
+<!-- CONTEÚDO -->
     <div class="container">
 
       <h1>ONGs parceiras</h1>
