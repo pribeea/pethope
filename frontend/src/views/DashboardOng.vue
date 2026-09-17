@@ -1,30 +1,6 @@
 <template>
   <div class="pagina-ong">
-
-    <!-- NAVBAR -->
-    <nav class="navbar">
-
-      <router-link to="/dashboard_ong" class="logo">
-        <span class="logo-pata">🐾</span>
-        <span>PetHope</span>
-      </router-link>
-
-      <div class="menu">
-        <router-link to="/dashboard_ong">Início</router-link>
-        <router-link to="/animais">Meus animais</router-link>
-        <router-link to="/solicitacoes">Adoções</router-link>
-        <router-link to="/atividades-ong">Voluntários</router-link>
-        <router-link to="/perfil">Perfil</router-link>
-
-        <a href="#" @click.prevent="sair">
-          Sair
-        </a>
-      </div>
-
-    </nav>
-
-
-    <!-- CONTEÚDO -->
+<!-- CONTEÚDO -->
     <main class="conteudo">
 
       <p class="boas-vindas">
