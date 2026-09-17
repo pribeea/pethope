@@ -19,7 +19,7 @@
 
         <p><strong>Espécie:</strong> {{ animal.especie }}</p>
         <p><strong>Raça:</strong> {{ animal.raca || 'Não informada' }}</p>
-        <p><strong>Idade:</strong> {{ animal.idade || 'Não informada' }}</p>
+        <<p><strong>Idade:</strong> {{ animal.idade ? `${animal.idade} ${animal.unidade_idade || ''}` : 'Não informada' }}</p>
         <p><strong>Sexo:</strong> {{ animal.sexo || 'Não informado' }}</p>
         <p><strong>Descrição:</strong> {{ animal.descricao || 'Sem descrição cadastrada.' }}</p>
 
