@@ -1,15 +1,28 @@
 <template>
   <div class="page-ongs">
 
-    <!-- HEADER -->
-    <header>
-      <h2>
-        <img src="/pata-branca.png" class="logo-pata" alt="" />
-        PetHope
-      </h2>
+    <!-- NAVBAR -->
+    <nav class="navbar">
 
-      <a href="#" @click.prevent="sair">Sair</a>
-    </header>
+      <router-link to="/dashboard_adotante" class="logo">
+        <span class="logo-pata">🐾</span>
+        <span>PetHope</span>
+      </router-link>
+
+      <div class="menu">
+        <router-link to="/dashboard_adotante">Início</router-link>
+        <router-link to="/ongs">ONGs disponíveis</router-link>
+        <router-link to="/solicitacoes">Adoções</router-link>
+        <router-link to="/atividades-ong">Voluntários</router-link>
+        <router-link to="/perfil">Perfil</router-link>
+
+        <a href="#" @click.prevent="sair">
+          Sair
+        </a>
+      </div>
+
+    </nav>
+
 
     <!-- CONTEÚDO -->
     <div class="container">
@@ -160,8 +173,8 @@ async function sair() {
 
   }
 }
+
 onMounted(carregar)
 </script>
-
 
 <style scoped src="../styles/ongs.css"></style>
