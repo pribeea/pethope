@@ -1,6 +1,6 @@
 <template>
   <div class="page-lista-atividades">
-<div class="main-wrapper">
+    <div class="main-wrapper">
 
       <div class="header-section">
         <h2>Minhas atividades</h2>
@@ -20,22 +20,14 @@
 
       <div v-else class="cards-container">
 
-        <article
-          v-if="atividades.length"
-          v-for="atividade in atividades"
-          :key="atividade.id"
-          class="atividade-card"
-        >
+        <article v-if="atividades.length" v-for="atividade in atividades" :key="atividade.id" class="atividade-card">
 
           <div class="atividade-info">
             <div class="atividade-topo">
               <div>
                 <h3>{{ atividade.titulo }}</h3>
 
-                <span
-                  class="status"
-                  :class="classeStatus(atividade.status)"
-                >
+                <span class="status" :class="classeStatus(atividade.status)">
                   {{ atividade.status }}
                 </span>
               </div>
@@ -60,19 +52,15 @@
               {{ atividade.horario }}
             </p>
 
-            <router-link
-              :to="{ name: 'detalhes_atividade', params: { atividadeId: atividade.atividade_id } }"
-              class="btn-detalhes"
-            >
+            <router-link :to="{ name: 'detalhes_atividade', params: { atividadeId: atividade.atividade_id } }"
+              class="btn-detalhes">
               Ver detalhes
             </router-link>
 
           </div>
         </article>
 
-        <div v-else class="empty-state">
-          <p>Você ainda não se inscreveu em nenhuma atividade.</p>
-        </div>
+        <p v-else class="empty-state">Você ainda não se inscreveu em nenhuma atividade.</p>
 
       </div>
       <div class="footer-actions">
@@ -167,7 +155,6 @@ onMounted(carregarAtividades)
 </script>
 
 <style scoped>
-
 .loading {
   width: 100%;
   padding: 40px 0;
@@ -185,7 +172,6 @@ onMounted(carregarAtividades)
   font-size: 16px;
   text-align: left;
 }
-
 </style>
 
 <style scoped src="../styles/minhas_atividades_voluntario.css"></style>
