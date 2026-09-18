@@ -1,6 +1,6 @@
 <template>
   <div class="page-lista-atividades">
-<div class="main-wrapper">
+    <div class="main-wrapper">
 
       <div class="header-section">
         <h2>Minhas atividades</h2>
@@ -20,12 +20,7 @@
 
       <div v-else class="cards-container">
 
-        <article
-          v-if="atividades.length"
-          v-for="atividade in atividades"
-          :key="atividade.id"
-          class="atividade-card"
-        >
+        <article v-if="atividades.length" v-for="atividade in atividades" :key="atividade.id" class="atividade-card">
           <template v-if="atividadeEditando !== atividade.id">
 
             <div class="atividade-info">
@@ -65,26 +60,16 @@
 
               <div class="acoes">
 
-                <router-link
-                  class="btn btn-voluntarios"
-                  :to="{ name: 'inscricoes_atividade', params: { atividadeId: atividade.id } }"
-                >
+                <router-link class="btn btn-voluntarios"
+                  :to="{ name: 'inscricoes_atividade', params: { atividadeId: atividade.id } }">
                   Ver voluntários
                 </router-link>
 
-                <button
-                  type="button"
-                  class="btn btn-editar"
-                  @click="iniciarEdicao(atividade)"
-                >
+                <button type="button" class="btn btn-editar" @click="iniciarEdicao(atividade)">
                   Editar
                 </button>
 
-                <button
-                  type="button"
-                  class="btn btn-excluir"
-                  @click="excluirAtividade(atividade.id)"
-                >
+                <button type="button" class="btn btn-excluir" @click="excluirAtividade(atividade.id)">
                   Excluir
                 </button>
 
@@ -106,12 +91,7 @@
 
                   <label>Título</label>
 
-                  <input
-                    v-model="formulario.titulo"
-                    type="text"
-                    required
-                    maxlength="150"
-                  />
+                  <input v-model="formulario.titulo" type="text" required maxlength="150" />
 
                 </div>
 
@@ -119,12 +99,7 @@
 
                   <label>Descrição</label>
 
-                  <textarea
-                    v-model="formulario.descricao"
-                    required
-                    maxlength="1000"
-                    rows="4"
-                  ></textarea>
+                  <textarea v-model="formulario.descricao" required maxlength="1000" rows="4"></textarea>
 
                 </div>
 
@@ -134,12 +109,7 @@
 
                     <label>Dias</label>
 
-                    <input
-                      v-model="formulario.dias"
-                      type="text"
-                      required
-                      maxlength="100"
-                    />
+                    <input v-model="formulario.dias" type="text" required maxlength="100" />
 
                   </div>
 
@@ -148,12 +118,7 @@
 
                     <label>Horário</label>
 
-                    <input
-                      v-model="formulario.horario"
-                      type="text"
-                      required
-                      maxlength="100"
-                    />
+                    <input v-model="formulario.horario" type="text" required maxlength="100" />
 
                   </div>
 
@@ -162,13 +127,7 @@
 
                     <label>Vagas</label>
 
-                    <input
-                      v-model.number="formulario.vagas"
-                      type="number"
-                      min="1"
-                      max="1000"
-                      required
-                    />
+                    <input v-model.number="formulario.vagas" type="number" min="1" max="1000" required />
 
                   </div>
 
@@ -178,11 +137,7 @@
 
                   <label>Detalhes</label>
 
-                  <textarea
-                    v-model="formulario.detalhes"
-                    maxlength="3000"
-                    rows="4"
-                  ></textarea>
+                  <textarea v-model="formulario.detalhes" maxlength="3000" rows="4"></textarea>
 
                 </div>
 
@@ -192,20 +147,11 @@
 
                 <div class="acoes-edicao">
 
-                  <button
-                    type="button"
-                    class="btn btn-cancelar"
-                    @click="cancelarEdicao"
-                    :disabled="salvando"
-                  >
+                  <button type="button" class="btn btn-cancelar" @click="cancelarEdicao" :disabled="salvando">
                     Cancelar
                   </button>
 
-                  <button
-                    type="submit"
-                    class="btn btn-salvar"
-                    :disabled="salvando"
-                  >
+                  <button type="submit" class="btn btn-salvar" :disabled="salvando">
                     {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
                   </button>
                 </div>
@@ -213,9 +159,8 @@
             </div>
           </template>
         </article>
-        <div v-else class="empty-state">
-          <p>Nenhuma atividade cadastrada no momento.</p>
-        </div>
+        <p v-else class="empty-state">Nenhuma atividade cadastrada no momento.</p>
+
       </div>
 
       <div class="footer-actions">
