@@ -1,6 +1,6 @@
 <template>
   <div class="page-lista-atividades">
-<div class="main-wrapper">
+    <div class="main-wrapper">
 
       <div class="header-section">
         <h2>Atividades de voluntariado</h2>
@@ -20,12 +20,7 @@
 
       <div v-else class="cards-container">
 
-        <article
-          v-if="atividades.length"
-          v-for="atividade in atividades"
-          :key="atividade.id"
-          class="atividade-card"
-        >
+        <article v-if="atividades.length" v-for="atividade in atividades" :key="atividade.id" class="atividade-card">
 
           <div class="atividade-info">
 
@@ -54,10 +49,8 @@
               {{ atividade.horario }}
             </p>
 
-            <router-link
-              :to="{ name: 'detalhes_atividade', params: { atividadeId: atividade.id } }"
-              class="btn-detalhes"
-            >
+            <router-link :to="{ name: 'detalhes_atividade', params: { atividadeId: atividade.id } }"
+              class="btn-detalhes">
               Ver detalhes
             </router-link>
 
@@ -65,9 +58,7 @@
 
         </article>
 
-        <div v-else class="empty-state">
-          <p>Nenhuma atividade disponível no momento.</p>
-        </div>
+        <p v-else class="empty-state">Nenhuma atividade disponível no momento.</p>
 
       </div>
 
@@ -153,7 +144,6 @@ onMounted(carregarAtividades)
 </script>
 
 <style scoped>
-
 .loading {
   text-align: center;
   padding: 40px;
@@ -169,7 +159,6 @@ onMounted(carregarAtividades)
   font-weight: bold;
   font-size: 18px;
 }
-
 </style>
 
 <style scoped src="../styles/atividades.css"></style>
