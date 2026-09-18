@@ -1,7 +1,6 @@
 <template>
 <div class="page-animal-detalhes">
     <div class="detalhe-intro">
-      <span class="detalhe-eyebrow">🐾 PetHope</span>
       <h1>Detalhes do animal</h1>
       <p>Conheça melhor esse pet e veja as opções disponíveis.</p>
     </div>
