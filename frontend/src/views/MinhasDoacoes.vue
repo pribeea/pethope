@@ -1,6 +1,12 @@
 <template>
   <div class="main-wrapper">
-    <h1>Minhas doações</h1>
+    <div class="header-section">
+      <h2>Minhas doações</h2>
+
+      <p class="subtitle">
+        Acompanhe o histórico das doações que você realizou.
+      </p>
+    </div>
 
     <div v-if="carregando" class="loading">
       <p>🔄 Carregando suas doações...</p>
@@ -8,34 +14,54 @@
 
     <div v-else-if="erro" class="erro">
       <p>❌ {{ erro }}</p>
-      <button @click="carregar" class="btn-tentar">Tentar novamente</button>
+      <button @click="carregar" class="btn-tentar">
+        Tentar novamente
+      </button>
     </div>
 
     <div v-else-if="doacoes.length" class="card" v-for="doacao in doacoes" :key="doacao.id">
       <h2>R$ {{ doacao.valor.toFixed(2) }}</h2>
-      <p><strong>ONG:</strong> {{ doacao.ong_nome }}</p>
-      <p><strong>Data:</strong> {{ formatarData(doacao.data_criacao) }}</p>
 
-      <p v-if="doacao.status === 'Pendente'" class="status-pendente">🟡 Pagamento pendente</p>
-      <p v-else class="status-aprovada">✅ Doação confirmada. Muito obrigado!</p>
+      <p>
+        <strong>ONG:</strong>
+        {{ doacao.ong_nome }}
+      </p>
 
-      <router-link
-        v-if="doacao.status === 'Pendente'"
-        class="btn"
-        :to="{ name: 'pagamento_doacao', params: { id: doacao.id } }"
-      >
+      <p>
+        <strong>Data:</strong>
+        {{ formatarData(doacao.data_criacao) }}
+      </p>
+
+      <p v-if="doacao.status === 'Pendente'" class="status-pendente">
+        🟡 Pagamento pendente
+      </p>
+
+      <p v-else class="status-aprovada">
+        ✅ Doação confirmada. Muito obrigado!
+      </p>
+
+      <router-link v-if="doacao.status === 'Pendente'" class="btn" :to="{
+        name: 'pagamento_doacao',
+        params: { id: doacao.id }
+      }">
         Ver pagamento
       </router-link>
     </div>
 
-    <p v-else class="empty-state">Você ainda não fez nenhuma doação.</p>
+    <p v-else class="empty-state">
+      Você ainda não fez nenhuma doação.
+    </p>
 
     <div class="footer-actions">
-      <router-link to="/doacoes" class="btn-back">Fazer nova doação</router-link>
-      <router-link to="/dashboard_adotante" class="btn-back">Voltar pra dashboard</router-link>
+      <router-link to="/doacoes" class="btn-back">
+        Fazer nova doação
+      </router-link>
+
+      <router-link to="/dashboard_adotante" class="btn-back">
+        Voltar pra dashboard
+      </router-link>
     </div>
   </div>
-
 </template>
 
 <script setup>
@@ -59,7 +85,10 @@ async function carregar() {
     doacoes.value = data
   } catch (err) {
     console.error('Erro ao carregar doações:', err)
-    erro.value = err.response?.data?.detail || 'Erro ao carregar suas doações'
+
+    erro.value =
+      err.response?.data?.detail ||
+      'Erro ao carregar suas doações'
   } finally {
     carregando.value = false
   }
@@ -70,16 +99,20 @@ onMounted(carregar)
 
 <style scoped>
 .loading {
+  width: 100%;
+  max-width: 650px;
   text-align: center;
-  padding: 40px;
+  padding: 40px 0;
   color: #3C0D3C;
   font-weight: bold;
   font-size: 18px;
 }
 
 .erro {
+  width: 100%;
+  max-width: 650px;
   text-align: center;
-  padding: 40px;
+  padding: 40px 0;
   color: #d9534f;
   font-weight: bold;
   font-size: 18px;
