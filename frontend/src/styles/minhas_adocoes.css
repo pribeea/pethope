@@ -3,76 +3,152 @@
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #EEDEF9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     min-height: 100vh;
-    padding: 40px 15px;
-}
-
-h1 {
-    width: 100%;
-    max-width: 650px;
-    color: #333333; 
-    font-size: 28px;
-    margin-bottom: 30px;
-    text-align: left;
-}
-
-.card {
-    background-color: #ffffff;
-    border-radius: 20px; 
-    padding: 25px;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 650px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    border-left: 6px; 
     box-sizing: border-box;
 }
 
-h2 {
-    margin: 0 0 10px 0;
-    color: #333333; 
-    font-size: 22px;
-}
-
-p {
-    margin: 5px 0;
-    font-size: 15px;
-    color: #444; 
-    line-height: 1.5;
-}
-
-strong {
-    color: #222; 
-}
-
-.card p[style] {
-    margin-top: 15px;
-    padding: 12px;
-    background-color: #fcfcfc; 
-    border-radius: 12px;
-    font-weight: 600;
-}
-
-.footer-actions {
-    margin-top: 40px;
-    width: 100%;
+.page-solicitacoes {
+    margin: 0;
+    padding: 50px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #EEDEF9;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.solicitacoes-intro {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 28px;
+    text-align: left;
+}
+
+.solicitacoes-intro h1 {
+    margin: 0 0 7px;
+    color: #3C0D3C;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.solicitacoes-intro p {
+    margin: 0;
+    color: #755C75;
+    font-size: 15px;
+}
+
+.solicitacoes-resumo {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 0 20px;
+    color: #7A5A7C;
+    font-size: 14px;
+}
+
+.solicitacao-card {
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 8px 25px rgba(60, 13, 60, 0.12);
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.solicitacao-foto {
+    flex: 0 0 38%;
+    min-height: 100%;
+}
+
+.solicitacao-foto img {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.solicitacao-foto.sem-foto {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3e5fb;
+    font-size: 60px;
+}
+
+.solicitacao-info {
+    flex: 1;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
-.btn-back {
+.solicitacao-info h3 {
+    color: #222222;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 14px;
+}
+
+.solicitacao-info p {
+    margin: 5px 0;
+    font-size: 15px;
+    color: #333333;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.solicitacao-info strong {
+    color: #111111;
+}
+
+.status-msg {
+    margin-top: 20px !important;
+    font-weight: bold;
+    font-size: 15px !important;
+}
+
+.status-pendente {
+    color: #b8860b !important;
+}
+
+.status-aprovada {
+    color: #2e7d32 !important;
+}
+
+.status-recusada {
+    color: #c62828 !important;
+}
+
+.mensagem {
+    text-align: center;
+    color: #444444;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.btn-voltar {
+    display: inline-block;
+    margin-top: 30px;
     text-decoration: none;
     color: #3C0D3C;
     font-weight: bold;
-    padding: 12px 40px;
+    font-size: 14px;
+    padding: 12px 35px;
     border: 2px solid #3C0D3C;
     border-radius: 30px;
+    transition: 0.25s;
 }
 
-.btn-back:hover {
+.btn-voltar:hover {
     background-color: #3C0D3C;
     color: #ffffff;
 }
