@@ -184,9 +184,8 @@
 
 .empty-state {
     color: #2D0A2D;
-    font-weight: bold;
     padding: 20px 0;
-    text-align: left;
+    text-align: center;
 }
 
 .empty-state p {
@@ -195,6 +194,8 @@
 
 .footer-actions {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .btn-back {
