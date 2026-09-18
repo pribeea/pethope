@@ -179,10 +179,9 @@
 }
 
 .mensagem {
-    text-align: left;
-    padding: 20px 0;
-    color: #2D0A2D;
-    font-weight: bold;
+    color: #333333;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .mensagem.erro {
@@ -191,7 +190,10 @@
 
 .btn-voltar {
     margin-top: 40px;
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     color: #3C0D3C;
     background-color: transparent;
     font-weight: bold;
@@ -202,7 +204,6 @@
     cursor: pointer;
     transition: 0.3s;
 }
-
 .btn-voltar:hover {
     background-color: #3C0D3C;
     color: #ffffff;
