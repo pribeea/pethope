@@ -68,8 +68,9 @@
 }
 
 .page-doacoes .btn-voltar {
-    display: inline-block;
-    margin-top: 20px;
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
     text-decoration: none;
     color: #3C0D3C;
     font-weight: bold;
