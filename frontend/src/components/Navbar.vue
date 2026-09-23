@@ -13,6 +13,7 @@
         <router-link to="/solicitacoes">Adoções</router-link>
         <router-link to="/atividades-ong">Voluntários</router-link>
         <router-link to="/doacoes-recebidas">Doações</router-link>
+        <router-link to="/perfil">Perfil</router-link>
       </template>
 
       <template v-else>
@@ -21,8 +22,6 @@
         <router-link to="/doacoes">Doações</router-link>
         <router-link to="/perfil">Perfil</router-link>
       </template>
-
-      <a href="#" @click.prevent="sair">Sair</a>
     </nav>
   </header>
 </template>
