@@ -64,12 +64,12 @@ class LoginOng(BaseModel):
 # ================= SESSÃO / AUTENTICAÇÃO =================
 
 class MeResponse(BaseModel):
-    autenticado: bool
-    tipo_sessao: Optional[str] = None  # "usuario" | "ong"
+    autenticado: bool = False
+    tipo_sessao: Optional[str] = None
     id: Optional[int] = None
     nome: Optional[str] = None
     tipo_usuario: Optional[str] = None
-
+    foto: Optional[str] = None
 
 # ================= ANIMAIS =================
 
@@ -298,4 +298,3 @@ class DoacaoRead(BaseModel):
 class DoacaoConfirmarResponse(BaseModel):
     mensagem: str
     status: str
-
