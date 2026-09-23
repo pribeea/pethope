@@ -60,6 +60,8 @@ app = FastAPI(
 
 UPLOAD_DIR = Path("uploads/animais")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+PERFIL_UPLOAD_DIR = Path("uploads/perfis")
+PERFIL_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
@@ -174,28 +176,123 @@ def logout(request: Request):
 
 
 @app.get("/api/auth/me", response_model=MeResponse)
-def me(request: Request):
+def me(
+    request: Request,
+    db: Session = Depends(get_session),
+):
     usuario = usuario_logado(request)
+
     if usuario:
+        user = db.get(User, usuario["id"])
+
         return MeResponse(
             autenticado=True,
             tipo_sessao="usuario",
             id=usuario["id"],
             nome=usuario["nome"],
             tipo_usuario=usuario["tipo"],
+            foto=user.foto if user else None,
         )
 
     ong = ong_logada(request)
+
     if ong:
+        ong_db = db.get(Ong, ong["id"])
+
         return MeResponse(
             autenticado=True,
             tipo_sessao="ong",
             id=ong["id"],
             nome=ong["nome"],
+            foto=ong_db.foto if ong_db else None,
         )
 
-    return MeResponse(autenticado=False)
+    return MeResponse(
+        autenticado=False
+    )
 
+@app.post("/api/perfil/foto")
+async def enviar_foto_perfil(
+    request: Request,
+    arquivo: UploadFile = File(...),
+    db: Session = Depends(get_session),
+):
+    usuario = usuario_logado(request)
+    ong = ong_logada(request)
+
+    if not usuario and not ong:
+        raise HTTPException(
+            status_code=401,
+            detail="Usuário não autenticado"
+        )
+
+    if not arquivo.content_type or not arquivo.content_type.startswith("image/"):
+        raise HTTPException(
+            status_code=400,
+            detail="O arquivo precisa ser uma imagem."
+        )
+
+    extensao = Path(arquivo.filename or "").suffix.lower()
+
+    extensoes_permitidas = {
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp",
+    }
+
+    if extensao not in extensoes_permitidas:
+        raise HTTPException(
+            status_code=400,
+            detail="Formato de imagem não permitido."
+        )
+
+    nome_arquivo = f"{uuid4().hex}{extensao}"
+    caminho = PERFIL_UPLOAD_DIR / nome_arquivo
+
+    conteudo = await arquivo.read()
+
+    if len(conteudo) > 5 * 1024 * 1024:
+        raise HTTPException(
+            status_code=400,
+            detail="A imagem deve ter no máximo 5 MB."
+        )
+
+    with open(caminho, "wb") as f:
+        f.write(conteudo)
+
+    caminho_banco = f"/uploads/perfis/{nome_arquivo}"
+
+    if usuario:
+        user = db.get(User, usuario["id"])
+
+        if not user:
+            raise HTTPException(
+                status_code=404,
+                detail="Usuário não encontrado."
+            )
+
+        user.foto = caminho_banco
+        db.add(user)
+
+    else:
+        ong_db = db.get(Ong, ong["id"])
+
+        if not ong_db:
+            raise HTTPException(
+                status_code=404,
+                detail="ONG não encontrada."
+            )
+
+        ong_db.foto = caminho_banco
+        db.add(ong_db)
+
+    db.commit()
+
+    return {
+        "mensagem": "Foto atualizada com sucesso.",
+        "foto": caminho_banco,
+    }
 
 # ================= ONGS =================
 
