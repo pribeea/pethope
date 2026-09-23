@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import http from '../api/http'
 
 import Home from '../views/Home.vue'
 import Cadastro from '../views/Cadastro.vue'
@@ -13,6 +12,7 @@ import CadastroAnimal from '../views/CadastroAnimal.vue'
 import ListaAnimais from '../views/ListaAnimais.vue'
 import AnimalDetalhes from '../views/AnimalDetalhes.vue'
 import EditarAnimal from '../views/EditarAnimal.vue'
+import Adocao from '../views/Adocao.vue'
 import FormularioAdocao from '../views/FormularioAdocao.vue'
 import MinhasAdocoes from '../views/MinhasAdocoes.vue'
 import Solicitacoes from '../views/Solicitacoes.vue'
@@ -31,6 +31,7 @@ import FormularioDoacao from '../views/FormularioDoacao.vue'
 import PagamentoDoacao from '../views/PagamentoDoacao.vue'
 import MinhasDoacoes from '../views/MinhasDoacoes.vue'
 import DoacoesRecebidas from '../views/DoacoesRecebidas.vue'
+import Perfil from '../views/Perfil.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -39,75 +40,38 @@ const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/cadastro_ong', name: 'cadastro_ong', component: CadastroOng },
   { path: '/login_ong', name: 'login_ong', component: LoginOng },
-
-  { path: '/dashboard_adotante', name: 'dashboard_adotante', component: DashboardAdotante, meta: { roles: ['usuario'] } },
-  { path: '/dashboard_voluntario', name: 'dashboard_voluntario', component: DashboardVoluntario, meta: { roles: ['usuario'] } },
-  { path: '/dashboard_ong', name: 'dashboard_ong', component: DashboardOng, meta: { roles: ['ong'] } },
-
-  { path: '/ongs', name: 'ongs', component: ListaOngs, meta: { roles: ['usuario'] } },
-  { path: '/ongs/:ongId/animais', name: 'animais_por_ong', component: AnimaisPorOng, props: true, meta: { roles: ['usuario'] } },
-  { path: '/animais', name: 'animais', component: ListaAnimais, meta: { roles: ['ong'] } },
-  { path: '/cadastro_animal', name: 'cadastro_animal', component: CadastroAnimal, meta: { roles: ['ong'] } },
-  { path: '/animal/:id', name: 'animal_detalhes', component: AnimalDetalhes, props: true, meta: { roles: ['usuario', 'ong'] } },
-  { path: '/editar_animal/:id', name: 'editar_animal', component: EditarAnimal, props: true, meta: { roles: ['ong'] } },
-
-  // A listagem geral de animais deixou de ser uma etapa de adoção do usuário.
-  // O caminho antigo é mantido apenas para compatibilidade e leva às ONGs.
-  { path: '/adocao', name: 'adocao', redirect: '/ongs', meta: { roles: ['usuario'] } },
-  { path: '/adotar/:id', name: 'formulario_adocao', component: FormularioAdocao, props: true, meta: { roles: ['usuario'] } },
-  { path: '/minhas_adocoes', name: 'minhas_adocoes', component: MinhasAdocoes, meta: { roles: ['usuario'] } },
-  { path: '/solicitacoes', name: 'solicitacoes', component: Solicitacoes, meta: { roles: ['ong'] } },
-
-  { path: '/atividades', name: 'atividades', component: MuralAtividades, meta: { roles: ['usuario'] } },
-  { path: '/cadastrar-atividade', name: 'cadastrar_atividade', component: CadastroAtividade, meta: { roles: ['ong'] } },
-  { path: '/formulario-voluntario/:atividadeId', name: 'formulario_voluntario', component: FormularioVoluntario, props: true, meta: { roles: ['usuario'] } },
-  { path: '/atividades/:atividadeId/inscricoes', name: 'inscricoes_atividade', component: InscricoesAtividade, props: true, meta: { roles: ['ong'] } },
-  { path: '/atividades-ong', name: 'atividades_ong', component: MinhasAtividadesOng, meta: { roles: ['ong'] } },
-  { path: '/minhas-atividades-voluntario', name: 'minhas_atividades_voluntario', component: MinhasAtividadesVoluntario, meta: { roles: ['usuario'] } },
-  { path: '/atividades/:atividadeId', name: 'detalhes_atividade', component: AtividadeDetalhe, props: true, meta: { roles: ['usuario', 'ong'] } },
-
-  { path: '/doacoes', name: 'doacoes', component: Doacoes, meta: { roles: ['usuario'] } },
-  { path: '/doar/:ongId', name: 'formulario_doacao', component: FormularioDoacao, props: true, meta: { roles: ['usuario'] } },
-  { path: '/doacao/:id/pagamento', name: 'pagamento_doacao', component: PagamentoDoacao, props: true, meta: { roles: ['usuario'] } },
-  { path: '/minhas-doacoes', name: 'minhas_doacoes', component: MinhasDoacoes, meta: { roles: ['usuario'] } },
-  { path: '/doacoes-recebidas', name: 'doacoes_recebidas', component: DoacoesRecebidas, meta: { roles: ['ong'] } },
+  { path: '/ongs', name: 'ongs', component: ListaOngs },
+  { path: '/ongs/:ongId/animais', name: 'animais_por_ong', component: AnimaisPorOng, props: true },
+  { path: '/cadastro_animal', name: 'cadastro_animal', component: CadastroAnimal },
+  { path: '/animais', name: 'animais', component: ListaAnimais },
+  { path: '/animal/:id', name: 'animal_detalhes', component: AnimalDetalhes, props: true },
+  { path: '/editar_animal/:id', name: 'editar_animal', component: EditarAnimal, props: true },
+  { path: '/adocao', name: 'adocao', component: Adocao },
+  { path: '/adotar/:id', name: 'formulario_adocao', component: FormularioAdocao, props: true },
+  { path: '/minhas_adocoes', name: 'minhas_adocoes', component: MinhasAdocoes },
+  { path: '/solicitacoes', name: 'solicitacoes', component: Solicitacoes },
+  { path: '/dashboard_adotante', name: 'dashboard_adotante', component: DashboardAdotante },
+  { path: '/dashboard_voluntario', name: 'dashboard_voluntario', component: DashboardVoluntario },
+  { path: '/dashboard_ong', name: 'dashboard_ong', component: DashboardOng },
+  { path: '/atividades', name: 'atividades', component: MuralAtividades },
+  { path: '/cadastrar-atividade', name: 'cadastrar_atividade', component: CadastroAtividade },
+  { path: '/formulario-voluntario/:atividadeId', name: 'formulario_voluntario', component: FormularioVoluntario, props: true },
+  { path: '/atividades/:atividadeId/inscricoes', name: 'inscricoes_atividade', component: InscricoesAtividade, props: true },
+  { path: '/atividades-ong', name: 'atividades_ong', component: MinhasAtividadesOng },
+  { path: '/minhas-atividades-voluntario', name: 'minhas_atividades_voluntario', component: MinhasAtividadesVoluntario },
+  { path: '/atividades/:atividadeId', name: 'detalhes_atividade', component: AtividadeDetalhe, props: true },
+  { path: '/doacoes', name: 'doacoes', component: Doacoes },
+  { path: '/doar/:ongId', name: 'formulario_doacao', component: FormularioDoacao, props: true },
+  { path: '/doacao/:id/pagamento', name: 'pagamento_doacao', component: PagamentoDoacao, props: true },
+  { path: '/minhas-doacoes', name: 'minhas_doacoes', component: MinhasDoacoes },
+  { path: '/doacoes-recebidas', name: 'doacoes_recebidas', component: DoacoesRecebidas },
+  {path: '/perfil', name: 'perfil', component: Perfil},
 ]
+
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
-
-router.beforeEach(async (to) => {
-  if (!to.meta.roles) {
-    return true
-  }
-
-  try {
-    const { data } = await http.get('/api/auth/me')
-
-    if (!data.autenticado) {
-      return data.tipo_sessao === 'ong' ? '/login_ong' : '/login'
-    }
-
-    const sessao = data.tipo_sessao
-
-    if (to.meta.roles.includes(sessao)) {
-      return true
-    }
-
-    if (sessao === 'ong') {
-      return '/dashboard_ong'
-    }
-
-    if (data.tipo_usuario === 'voluntario') {
-      return '/dashboard_voluntario'
-    }
-
-    return '/dashboard_adotante'
-  } catch {
-    return '/login'
-  }
 })
 
 export default router
