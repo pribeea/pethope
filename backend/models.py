@@ -9,7 +9,8 @@ class User(SQLModel, table=True):
     nome: str
     email: str
     senha: str
-    tipo: str  # "voluntario" ou "adotante"
+    tipo: str
+    foto: Optional[str] = None
 
 
 class Ong(SQLModel, table=True):
@@ -19,7 +20,7 @@ class Ong(SQLModel, table=True):
     endereco: Optional[str] = None
     contato: Optional[str] = None
     senha: str
-
+    foto: Optional[str] = None
 
 class Animal(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
