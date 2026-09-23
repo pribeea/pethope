@@ -1,0 +1,291 @@
+.page-perfil {
+    min-height: 100vh;
+    background-color: #EEDEF9;
+    color: #333333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.conteudo-perfil {
+    width: min(1000px, 90%);
+    margin: 0 auto;
+    padding: 45px 0;
+}
+
+.cabecalho-perfil {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 28px;
+}
+
+.foto-perfil-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.foto-perfil {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background-color: #3C0D3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    box-shadow: 0 5px 15px rgba(60, 13, 60, 0.15);
+}
+
+.foto-perfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.foto-perfil .foto-padrao {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.btn-foto {
+    cursor: pointer;
+    color: #3C0D3C;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border: 1px solid #3C0D3C;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.btn-foto:hover {
+    background-color: #3C0D3C;
+    color: #ffffff;
+}
+
+.btn-foto input {
+    display: none;
+}
+
+.cabecalho-info {
+    flex: 1;
+}
+
+.tipo-perfil {
+    margin: 0 0 5px;
+    color: #7B4B7B;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cabecalho-perfil h1 {
+    margin: 0;
+    color: #3C0D3C;
+    font-size: 32px;
+}
+
+.descricao-perfil {
+    margin: 8px 0 0;
+    color: #666666;
+    font-size: 15px;
+}
+
+.card-perfil,
+.card-sair {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 14px rgba(60, 13, 60, 0.07);
+}
+
+.card-perfil h2,
+.card-sair h2 {
+    margin: 0 0 20px;
+    color: #3C0D3C;
+    font-size: 20px;
+}
+
+.informacoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.informacao {
+    background-color: #F8F2FC;
+    border-radius: 14px;
+    padding: 15px 18px;
+}
+
+.rotulo {
+    display: block;
+    margin-bottom: 5px;
+    color: #777777;
+    font-size: 13px;
+}
+
+.informacao strong {
+    color: #333333;
+    font-size: 15px;
+}
+
+.texto-card {
+    margin: 0;
+    color: #666666;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.atividade-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.atividade {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 17px;
+    background-color: #F8F2FC;
+    border-radius: 15px;
+    text-decoration: none;
+    color: #333333;
+    transition: 0.2s;
+}
+
+.atividade:hover {
+    transform: translateY(-2px);
+    background-color: #F1E5F7;
+}
+
+.atividade-icone {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #3C0D3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.atividade strong {
+    display: block;
+    color: #3C0D3C;
+    margin-bottom: 4px;
+}
+
+.atividade p {
+    margin: 0;
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.card-sair {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card-sair h2 {
+    margin-bottom: 5px;
+}
+
+.card-sair p {
+    margin: 0;
+    color: #777777;
+    font-size: 14px;
+}
+
+.btn-sair {
+    border: 2px solid #3C0D3C;
+    background-color: #ffffff;
+    color: #3C0D3C;
+    padding: 10px 28px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-sair:hover {
+    background-color: #3C0D3C;
+    color: #ffffff;
+}
+
+.patinhas {
+    position: fixed;
+    right: 30px;
+    bottom: 100px;
+    opacity: 0.12;
+    pointer-events: none;
+}
+
+.pata-grande {
+    font-size: 60px;
+}
+
+.pata-pequena {
+    font-size: 30px;
+    position: relative;
+    top: 25px;
+    left: -15px;
+}
+
+.page-perfil footer {
+    padding: 25px;
+    text-align: center;
+    color: #777777;
+    font-size: 13px;
+}
+
+.page-perfil footer strong {
+    color: #3C0D3C;
+}
+
+.footer-pata {
+    margin-right: 5px;
+}
+
+@media (max-width: 700px) {
+    .conteudo-perfil {
+        width: 92%;
+        padding: 30px 0;
+    }
+
+    .cabecalho-perfil {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .informacoes,
+    .atividade-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-sair {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .cabecalho-perfil h1 {
+        font-size: 27px;
+    }
+
+    .btn-sair {
+        width: 100%;
+    }
+
+    .patinhas {
+        display: none;
+    }
+}
