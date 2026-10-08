@@ -58,7 +58,7 @@
               <h3>{{ animal.nome }}</h3>
 
               <router-link
-                :to="`/animal/${animal.id}`"
+                :to="{ name: 'animal_detalhes', params: { id: animal.id } }"
                 class="btn-detalhes"
               >
                 Ver detalhes
