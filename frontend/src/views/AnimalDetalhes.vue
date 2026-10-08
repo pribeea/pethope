@@ -31,7 +31,7 @@
         </p>
 
         <div v-if="papel === 'ong'" class="detalhe-acoes acoes-ong">
-          <router-link :to="`/editar_animal/${animal.id}`" class="btn-outline">Editar</router-link>
+          <router-link :to="{ name: 'editar_animal', params: { id: animal.id } }" class="btn-outline">Editar</router-link>
           <button type="button" class="btn-outline btn-excluir" @click="excluir">Excluir</button>
         </div>
 
