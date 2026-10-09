@@ -54,7 +54,7 @@ const routes = [
   { path: '/dashboard_voluntario', name: 'dashboard_voluntario', component: DashboardVoluntario },
   { path: '/dashboard_ong', name: 'dashboard_ong', component: DashboardOng },
   { path: '/atividades', name: 'atividades', component: MuralAtividades },
-  { path: '/cadastrar-atividade', name: 'cadastrar_atividade', component: CadastroAtividade },
+  { path: '/atividades/cadastrar', name: 'cadastrar_atividade', component: CadastroAtividade },
   { path: '/formulario-voluntario/:atividadeId', name: 'formulario_voluntario', component: FormularioVoluntario, props: true },
   { path: '/atividades/:atividadeId/inscricoes', name: 'inscricoes_atividade', component: InscricoesAtividade, props: true },
   { path: '/atividades-ong', name: 'atividades_ong', component: MinhasAtividadesOng },
