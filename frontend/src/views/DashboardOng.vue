@@ -88,7 +88,7 @@
 
       <!-- VOLUNTARIADO -->
       <router-link
-        to="/cadastrar-atividade"
+        :to="{ name: 'cadastrar_atividade' }"
         class="card-opcao"
       >
 
