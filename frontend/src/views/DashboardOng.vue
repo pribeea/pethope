@@ -12,7 +12,8 @@
 
       <!-- CADASTRAR ANIMAL -->
       <router-link
-        to="/cadastro_animal"
+        v-if="ongId"
+        :to="{ name: 'cadastro_animal', params: { ongId: ongId } }"
         class="card-opcao"
       >
 
@@ -88,7 +89,8 @@
 
       <!-- VOLUNTARIADO -->
       <router-link
-        :to="{ name: 'cadastrar_atividade' }"
+        v-if="ongId"
+        :to="{ name: 'cadastrar_atividade', params: { ongId: ongId } }"
         class="card-opcao"
       >
 
@@ -158,9 +160,7 @@
   </div>
 </template>
 
-
 <script setup>
-
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import http from '../api/http'
@@ -168,20 +168,23 @@ import http from '../api/http'
 const router = useRouter()
 
 const nome = ref('')
-
+const ongId = ref(null)
 
 async function carregar() {
   try {
     const { data } = await http.get('/api/auth/me')
 
-    console.log('DADOS DA SESSÃO:', data)
+    console.log('Dados da sessão:', data)
 
     if (!data.autenticado || data.tipo_sessao !== 'ong') {
       router.push('/login_ong')
       return
     }
 
+    ongId.value = data.id
     nome.value = data.nome
+
+    console.log('ID da ONG:', ongId.value)
 
   } catch (erro) {
     console.error('Erro ao carregar sessão:', erro)
@@ -190,22 +193,16 @@ async function carregar() {
 }
 
 async function sair() {
-
   try {
-
     await http.post('/api/auth/logout')
-
   } catch (erro) {
-
     console.error('Erro ao sair:', erro)
-
   }
 
   router.push('/')
 }
+
 onMounted(carregar)
-
 </script>
-
 
 <style scoped src="../styles/dashboard_ong.css"></style>
