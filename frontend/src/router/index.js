@@ -42,7 +42,7 @@ const routes = [
   { path: '/login_ong', name: 'login_ong', component: LoginOng },
   { path: '/ongs', name: 'ongs', component: ListaOngs },
   { path: '/ongs/:ongId/animais', name: 'animais_por_ong', component: AnimaisPorOng, props: true },
-  { path: '/cadastro_animal', name: 'cadastro_animal', component: CadastroAnimal },
+  { path: '/ongs/:ongId/animais/cadastrar', name: 'cadastro_animal', component: CadastroAnimal },
   { path: '/animais', name: 'animais', component: ListaAnimais },
   { path: '/animais/:id', name: 'animal_detalhes', component: AnimalDetalhes, props: true },
   { path: '/animais/:id/editar', name: 'editar_animal', component: EditarAnimal, props: true },
@@ -54,7 +54,7 @@ const routes = [
   { path: '/dashboard_voluntario', name: 'dashboard_voluntario', component: DashboardVoluntario },
   { path: '/dashboard_ong', name: 'dashboard_ong', component: DashboardOng },
   { path: '/atividades', name: 'atividades', component: MuralAtividades },
-  { path: '/atividades/cadastrar', name: 'cadastrar_atividade', component: CadastroAtividade },
+  { path: '/ongs/:ongId/atividades/cadastrar', name: 'cadastrar_atividade', component: CadastroAtividade },
   { path: '/formulario-voluntario/:atividadeId', name: 'formulario_voluntario', component: FormularioVoluntario, props: true },
   { path: '/atividades/:atividadeId/inscricoes', name: 'inscricoes_atividade', component: InscricoesAtividade, props: true },
   { path: '/atividades-ong', name: 'atividades_ong', component: MinhasAtividadesOng },
@@ -65,7 +65,7 @@ const routes = [
   { path: '/doacao/:id/pagamento', name: 'pagamento_doacao', component: PagamentoDoacao, props: true },
   { path: '/minhas-doacoes', name: 'minhas_doacoes', component: MinhasDoacoes },
   { path: '/doacoes-recebidas', name: 'doacoes_recebidas', component: DoacoesRecebidas },
-  {path: '/perfil', name: 'perfil', component: Perfil},
+  { path: '/perfil', name: 'perfil', component: Perfil},
 ]
 
 
