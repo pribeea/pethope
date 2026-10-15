@@ -197,7 +197,7 @@
 
               <!-- DETALHES -->
               <router-link
-                :to="{ path: `/animal/${animal.id}`, query: { ongId: props.ongId } }"
+                :to="{ name: 'animal_detalhes', params: { ongId: animal.ong_id, id: animal.id } }"
                 class="btn-detalhes"
               >
                 Ver detalhes
