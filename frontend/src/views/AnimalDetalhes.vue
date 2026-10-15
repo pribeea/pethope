@@ -31,19 +31,18 @@
         </p>
 
         <div v-if="papel === 'ong'" class="detalhe-acoes acoes-ong">
-          <router-link :to="{ name: 'editar_animal', params: { id: animal.id } }" class="btn-outline">Editar</router-link>
+          <router-link :to="{ name: 'editar_animal', params: { ongId: animal.ong_id, id: animal.id } }" class="btn-outline">Editar</router-link>
           <button type="button" class="btn-outline btn-excluir" @click="excluir">Excluir</button>
         </div>
 
-        <div v-else class="detalhe-acoes">
+        <div v-else class="detalhe-acoes">  
           <button
-            type="button"
-            class="btn-adotar"
-            :disabled="animal.status !== 'Disponível'"
-            @click="router.push(`/adotar/${animal.id}`)"
+            type="button" class="btn-adotar" :disabled="animal.status !== 'Disponível'"
+            @click="router.push({name: 'formulario_adocao', params: {ongId: animal.ong_id, id: animal.id} })"
           >
             Quero adotar
           </button>
+
         </div>
       </div>
     </div>
